@@ -5,9 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzeriaMarsala"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Pizzeria Marsala" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Coucou&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="137" Click="Button_Click" Height="29"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+        
+        <!-- Top of the window -->
+        <Label Grid.Row="0" Content="PIZZERIA MARSALA" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="30"/>
+        
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1">
+            <Grid HorizontalAlignment="Stretch" Height="800">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
+                <Rectangle Grid.Row="0" Grid.Column="0" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="0" Grid.Column="1" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="0" Grid.Column="2" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="0" Grid.Column="3" Fill="#EDEDED" Margin="10" />
+
+                <Rectangle Grid.Row="1" Grid.Column="0" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="1" Grid.Column="1" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="1" Grid.Column="2" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="1" Grid.Column="3" Fill="#EDEDED" Margin="10" />
+
+                <Rectangle Grid.Row="2" Grid.Column="0" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="2" Grid.Column="1" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="2" Grid.Column="2" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="2" Grid.Column="3" Fill="#EDEDED" Margin="10" />
+
+                <Rectangle Grid.Row="3" Grid.Column="0" Fill="#EDEDED" Margin="10" />
+                <Rectangle Grid.Row="3" Grid.Column="1" Fill="#EDEDED" Margin="10" />
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>
