@@ -67,6 +67,7 @@
     <Compile Include="Commande.cs" />
     <Compile Include="DetailCommande.cs" />
     <Compile Include="Commis.cs" />
+    <Compile Include="Effectifs.cs" />
     <Compile Include="IPrix.cs" />
     <Compile Include="Livreur.cs" />
     <Compile Include="MainWindow.xaml.cs">

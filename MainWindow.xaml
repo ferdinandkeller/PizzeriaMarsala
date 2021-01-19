@@ -5,9 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzeriaMarsala"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Pizzeria Marsala" Height="600" Width="900" MinWidth="400" MinHeight="300"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Coucou&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="137" Click="Button_Click" Height="29"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <!-- Top of the window -->
+        <Grid Grid.Row="0" HorizontalAlignment="Left" Margin="20 0 0 0" VerticalAlignment="Center" Height="90">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="RETOUR EN ARRIERE" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="15" Foreground="#D32E34"/>
+            <Label Grid.Row="1" Content="PIZZERIA MARSALA" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="45"/>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1">
+            <WrapPanel Loaded="WrappanelLoaded" Margin="20 0 20 20">
+                <WrapPanel.Resources>
+                    <Style TargetType="Rectangle">
+                        <Setter Property="Width" Value="{Binding RectangleWidth}" />
+                        <Setter Property="Height" Value="250" />
+                        <Setter Property="Fill" Value="#DDDDDD" />
+                        <Setter Property="Margin" Value="5" />
+                    </Style>
+                </WrapPanel.Resources>
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+                <Rectangle />
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
