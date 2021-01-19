@@ -23,8 +23,21 @@ namespace PizzeriaMarsala
             this.typeVehicule = typeVehicule;
         }
 
-        //Propriétés
-        //ToString?
+        public string Etat
+        {
+            get { return this.etat; }
+            set { this.etat = value; }
+        }
+
+        public string TypeVehicule
+        {
+            get { return this.typeVehicule; }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString()+" " +this.etat+" "+this.typeVehicule;
+        }
 
     }
 }

@@ -63,12 +63,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Client.cs" />
+    <Compile Include="Commande.cs" />
+    <Compile Include="DetailCommande.cs" />
+    <Compile Include="Commis.cs" />
+    <Compile Include="IPrix.cs" />
+    <Compile Include="Livreur.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Personne.cs" />
+    <Compile Include="Pizza.cs" />
+    <Compile Include="Boisson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

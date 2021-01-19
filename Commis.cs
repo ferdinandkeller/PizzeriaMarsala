@@ -22,7 +22,21 @@ namespace PizzeriaMarsala
             this.presence = presence;
             this.embauche = embauche;
         }
-        //Propriétés
-        //ToString?
+
+        public string Presence
+        {
+            get { return this.presence; }
+        }
+
+        public DateTime Embauche
+        {
+            get { return this.embauche; }
+        }
+
+        public override string ToString()
+        {
+            return base.ToString()+ " "+ this.presence+" "+this.embauche.ToShortDateString();
+        }
+
     }
 }

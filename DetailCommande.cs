@@ -8,25 +8,64 @@ namespace PizzeriaMarsala
 {
     class DetailCommande
     {
-        private long numeroCommande;
+        private long numeroCommande=0; 
         private List<Pizza> pizzasCommande;
-        private List<Boisson> produitsAnnexesCommande;
+        private List<Boisson> boissonsCommande;
 
         public DetailCommande()
-        {
-            this.numeroCommande = 0;
+        { 
             this.pizzasCommande = null;
-            this.produitsAnnexesCommande = null;
+            this.boissonsCommande = null;
         }
 
-        public DetailCommande(long numeroCommande, List<Pizza> pizzasCommande, List<Boisson> produitsAnnexesCommande)
+        public DetailCommande(List<Pizza> pizzasCommande, List<Boisson> boissonsCommande)
         {
-            this.numeroCommande = numeroCommande;
+            this.numeroCommande += 1;
             this.pizzasCommande = pizzasCommande;
-            this.produitsAnnexesCommande = produitsAnnexesCommande;
+            this.boissonsCommande = boissonsCommande;
         }
 
-        //Propriétés
-        //ToString?
+        public long NumeroCommande
+        {
+            get { return this.numeroCommande; }
+        }
+
+        public List<Pizza> PizzasCommande
+        {
+            get { return this.pizzasCommande; }
+        }
+
+        public List<Boisson> BoissonsCommande
+        {
+            get { return this.boissonsCommande; }
+        }
+
+        public override string ToString()
+        {
+            string s = this.numeroCommande.ToString();
+            if(this.pizzasCommande!=null && this.pizzasCommande.Count != 0)
+            {
+                this.pizzasCommande.ForEach(x => s += "\n" + x.ToString());
+            }
+            if (this.boissonsCommande != null && this.boissonsCommande.Count != 0)
+            {
+                this.boissonsCommande.ForEach(x => s += "\n" + x.ToString());
+            }
+            return s;
+        }
+
+        public double PrixTotal()
+        {
+            double p = 0;
+            if (this.pizzasCommande != null && this.pizzasCommande.Count != 0)
+            {
+                this.pizzasCommande.ForEach(x => p += x.Prix());
+            }
+            if (this.boissonsCommande != null && this.boissonsCommande.Count != 0)
+            {
+                this.boissonsCommande.ForEach(x => p += x.Prix());
+            }
+            return p;
+        }
     }
 }

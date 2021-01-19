@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Pizza
+    class Pizza : IPrix
     {
         private string type;
         private string taille; //petite, moyenne, grande
@@ -33,8 +33,26 @@ namespace PizzeriaMarsala
             get { return this.taille; }
         }
 
-        //Propriétés
-        //ToString?
-        //Methode de calcul de prix (taille & prix)
+        public override string ToString()
+        {
+            return this.type+" "+this.taille;
+        }
+
+        public static string ToMin(string s)
+        {
+            return s.ToLower();
+        }
+
+        public double Prix()
+        {
+            double p = 0;
+            List<string> types = new List<string> { "sauce taumate/fromage", "vegetarienne", "chorizo", "haiwaienne", "4fromages", "margherita", "regina", "napolitaine", "toutes garnies", "completes" };
+            List<string> tailles = new List<string> {" petite"," moyenne", "grande" };
+            if(this.type!=null && this.taille != null)
+            {
+                p = 15.0 + types.IndexOf(ToMin(this.type)) * 0.2 + tailles.IndexOf(ToMin(this.taille)) * 1.7;
+            }
+            return p;
+        }
     }
 }

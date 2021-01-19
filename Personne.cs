@@ -29,7 +29,29 @@ namespace PizzeriaMarsala
             this.numeroTel = numeroTel;
         }
 
-        //Propriétés
-        //ToString?
+        public string Nom
+        {
+            get { return this.nom; }
+        }
+
+        public string Prenom
+        {
+            get { return this.prenom; }
+        }
+
+        public string Adresse
+        {
+            get { return this.adresse; }
+        }
+
+        public long NumeroTel
+        {
+            get { return this.numeroTel; }
+        }
+
+        public override string ToString()
+        {
+            return this.nom+" "+this.prenom+" "+this.adresse+" "+this.numeroTel.ToString();
+        }
     }
 }
