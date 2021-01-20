@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    interface IPrix
+    enum EtatCommande
     {
-        double Prix();
+        EnPreparation, 
+        EnLivraison,
+        Fermee
     }
 }

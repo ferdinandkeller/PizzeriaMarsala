@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Pizza : IPrix
+    class Pizza : IPrixProduit
     {
         private string type;
         private string taille; //petite, moyenne, grande
