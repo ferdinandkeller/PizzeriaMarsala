@@ -8,56 +8,48 @@ namespace PizzeriaMarsala
 {
     class Effectifs
     {
-        private List<Commis> listeCommis;
-        private List<Livreur> listeLivreurs;
+        private FichierCommis fichierCommis;
+        private FichierLivreurs fichierLivreurs;
 
         public Effectifs()
         {
-            this.listeCommis = null;
-            this.listeLivreurs = null;
+            this.fichierCommis = null;
+            this.fichierLivreurs = null;
         }
 
-        public Effectifs(List<Commis> listeCommis, List<Livreur> listeLivreurs)
+        public Effectifs(FichierCommis fichierCommis, FichierLivreurs fichierLivreurs)
         {
-            this.listeLivreurs = listeLivreurs;
-            this.listeCommis = listeCommis;
+            this.fichierLivreurs = fichierLivreurs;
+            this.fichierCommis = fichierCommis;
         }
 
-        public List<Commis> ListeCommis
+        public FichierCommis FichierCommis
         {
-            get { return this.listeCommis; }
+            get { return this.fichierCommis; }
         }
 
-        public List<Livreur> ListeLivreurs
+        public FichierLivreurs FichierLivreurs
         {
-            get { return this.listeLivreurs; }
+            get { return this.fichierLivreurs; }
         }
 
         public override string ToString()
         {
-            string s="Commis : "+"\n";
-            if (this.listeCommis != null && this.listeCommis.Count != 0)
-            {
-                this.listeCommis.ForEach(x => s += x.ToString() + "\n");
-            }
-            s += "Livreurs : " + "\n";
-            if (this.listeLivreurs != null && this.listeLivreurs.Count != 0)
-            {
-                this.listeLivreurs.ForEach(x => s += x.ToString() + "\n");
-            }
+            string s="Commis : "+"\n"+this.fichierCommis.ToString() + "\n"; 
+            s += "Livreurs : " + "\n"+this.fichierLivreurs.ToString();
             return s;
         }
 
         public SortedList<string,string> EtatEffectifs()
         {
             SortedList<string, string> etats = new SortedList<string, string>();
-            if (this.listeCommis != null && this.listeCommis.Count != 0)
+            if (this.fichierCommis != null && this.fichierCommis.ListeCommis.Count != 0)
             {
-                this.listeCommis.ForEach(x => etats.Add(x.Nom, x.Presence));
+                this.fichierCommis.ListeCommis.ForEach(x => etats.Add(x.Nom, x.Presence));
             }
-            if (this.listeLivreurs != null && this.listeLivreurs.Count != 0)
+            if (this.fichierLivreurs != null && this.fichierLivreurs.ListeLivreurs.Count != 0)
             {
-                this.listeLivreurs.ForEach(x => etats.Add(x.Nom, x.Etat));
+                this.fichierLivreurs.ListeLivreurs.ForEach(x => etats.Add(x.Nom, x.Etat));
             }
             return etats;
         }

@@ -53,5 +53,15 @@ namespace PizzeriaMarsala
         {
             return this.nom+" "+this.prenom+" "+this.adresse+" "+this.numeroTel.ToString();
         }
+
+        public bool Egalite(Personne p)
+        {
+            bool test = false;
+            if(this.nom==p.Nom && this.prenom==p.Prenom && this.adresse == p.Adresse)
+            {
+                test = true;
+            }
+            return test;
+        }
     }
 }
