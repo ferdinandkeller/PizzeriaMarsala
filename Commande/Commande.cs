@@ -21,16 +21,15 @@ namespace PizzeriaMarsala
         // elle doit contenir une liste de pizza et une liste de condiments !
         // de plus je ne suis pas sûr que la classe commande soit censée heberger la logique de la livraison
 
-        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
-            : this(date, client, commis, livreur) //, detail)
-        {
-            IDCommande = id_commande;
-        }
-
-        public Commande(DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
+        private static long CreerIdentifiantAleatoire()
         {
             Random rng = new Random();
-            IDCommande = ((long)rng.Next() << 32) | (long)rng.Next();
+            return ((long)rng.Next() << 32) | (long)rng.Next();
+        }
+
+        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
+        {
+            IDCommande = id_commande;
             Date = date;
             Client = client;
             Commis = commis;
@@ -40,25 +39,31 @@ namespace PizzeriaMarsala
             Solde = EtatSolde.EnAttente;
         }
 
-        public void PaiementRecu()
+        public Commande(DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
+            : this(CreerIdentifiantAleatoire(), date, client, commis, livreur) //, detail)
         {
-            Solde = EtatSolde.PaiementRecu;
-            Etat = EtatCommande.Fermee;
-            // Livreur.Etat = EtatLivreur.Surplace;
-            // Client.CumulCommandes += 4;
-        }
-
-        public void PerteCommande()
-        {
-            Solde = EtatSolde.ErreurDePaiement;
-            Etat = EtatCommande.Fermee;
-            // Livreur.Etat = EtatLivreur.Surplace;
+            // rien à faire
         }
 
         public void DepartLivraison()
         {
             Etat = EtatCommande.EnLivraison;
             // Livreur.Etat = EtatLivreur.EnLivraison;
+        }
+
+        public void PaiementRecu()
+        {
+            Etat = EtatCommande.Fermee;
+            Solde = EtatSolde.PaiementRecu;
+            // Livreur.Etat = EtatLivreur.Surplace;
+            // Client.CumulCommandes += 4;
+        }
+
+        public void PerteCommande()
+        {
+            Etat = EtatCommande.Fermee;
+            Solde = EtatSolde.ErreurDePaiement;
+            // Livreur.Etat = EtatLivreur.Surplace;
         }
 
         // saisie facture ?
