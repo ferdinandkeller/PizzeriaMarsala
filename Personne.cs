@@ -14,10 +14,10 @@ namespace PizzeriaMarsala
     abstract class Personne: IEquatable<Personne>, IComparable<Personne>
     {
 
-        protected string Nom { get; private set; }
-        protected string Prenom { get; private set; }
-        protected string Adresse { get; private set; }
-        protected long NumeroTel { get; private set; }
+        public string Nom { get; protected set; }
+        public string Prenom { get; protected set; }
+        public string Adresse { get; protected set; }
+        public long NumeroTel { get; protected set; }
 
         public Personne(string nom, string prenom, string adresse, long numero_tel)
         {
