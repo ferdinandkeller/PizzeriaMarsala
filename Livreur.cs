@@ -6,37 +6,21 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Livreur: Personne
+    class Livreur : Personne
     {
-        private string etat; //"surplace", "enconges" ou "enlivraison"
-        private string typeVehicule;
+        public EtatLivreur Etat { get; private set; }
+        public string TypeVehicule { get; private set; }
 
-        public Livreur() : base()
+        public Livreur(string nom, string prenom, string adresse, long numero, EtatLivreur etat, string type_vehicule)
+            : base(nom, prenom, adresse, numero)
         {
-            this.etat=null;
-            this.typeVehicule = null;
-        }
-
-        public Livreur(string nom, string prenom, string adresse, long numero,string etat, string typeVehicule) : base(nom, prenom, adresse, numero)
-        {
-            this.etat = etat;
-            this.typeVehicule = typeVehicule;
-        }
-
-        public string Etat
-        {
-            get { return this.etat; }
-            set { this.etat = value; }
-        }
-
-        public string TypeVehicule
-        {
-            get { return this.typeVehicule; }
+            Etat = etat;
+            TypeVehicule = type_vehicule;
         }
 
         public override string ToString()
         {
-            return base.ToString()+" " +this.etat+" "+this.typeVehicule;
+            return base.ToString() + $"\nEtat du livreur : {Etat} | Type de véhicule : {TypeVehicule}";
         }
 
     }

@@ -6,37 +6,21 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Client:Personne
+    class Client : Personne
     {
-        private DateTime premiereCommande;
-        private long cumulCommandes;
+        public DateTime PremiereCommande { get; private set; }
+        public long CumulCommandes { get; private set; }
 
-        public Client() : base()
+        public Client(string nom, string prenom, string adresse, long numero, DateTime premiere_commande, long cumul_commandes)
+            : base(nom, prenom, adresse, numero)
         {
-            this.premiereCommande = default;
-            this.cumulCommandes = 0;
-        }
-
-        public Client(string nom, string prenom, string adresse, long numero, DateTime premiereCommande):base(nom, prenom, adresse, numero)
-        {
-            this.premiereCommande = premiereCommande;
-            this.cumulCommandes = 1;
-        }
-
-        public DateTime PremiereCommande
-        {
-            get { return this.premiereCommande; }
-        }
-
-        public long CumulCommandes
-        {
-            get { return this.cumulCommandes; }
-            set { this.cumulCommandes = value; }
+            PremiereCommande = premiere_commande;
+            CumulCommandes = cumul_commandes;
         }
 
         public override string ToString()
         {
-            return base.ToString()+" "+this.premiereCommande.ToShortDateString()+" "+this.cumulCommandes.ToString();
+            return base.ToString() + $"\nPremière commande : {PremiereCommande} | Cumul des commandes : {CumulCommandes}";
         }
 
     }
