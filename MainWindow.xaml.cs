@@ -104,7 +104,9 @@ namespace PizzeriaMarsala
         {
             if (CommandWrapPanel != null)
             {
-                int n = (int)CommandWrapPanel.ActualWidth / (350 + 2*5);
+                double prefered_element_size = 250;
+                double element_margin = 5;
+                int n = (int)(CommandWrapPanel.ActualWidth / (prefered_element_size + 2 * element_margin));
                 if (n == 0) { n = 1; }
                 double desired_width = CommandWrapPanel.ActualWidth/n;
                 foreach (UIElement element in CommandWrapPanel.Children)
@@ -115,9 +117,11 @@ namespace PizzeriaMarsala
         }
 
         // Cette fonction temporaire rajoute un élément à la liste des commandes
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AjouterCommande(object sender, RoutedEventArgs e)
         {
-            ListeCommandes.Add(new StringWrapper("Salut !"));
+            String[] msg_aleatoire = { "Nouvelle commande", "Commande suivante", "Ma super commande", "J'ai commandé une pizza !", "Commande du voisin", "Commande sympathique", "Commande du turfu", "cmd"};
+            Random rng = new Random();
+            ListeCommandes.Add(new StringWrapper(msg_aleatoire[rng.Next(msg_aleatoire.Length)]));
         }
     }
 }

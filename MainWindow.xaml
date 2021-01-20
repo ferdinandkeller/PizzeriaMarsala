@@ -29,20 +29,24 @@
 
         <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+            <!-- Items control permet de charger dynamiquement notre liste de commandes -->
             <ItemsControl Name="CommandItemsControl" ItemsSource="{Binding ListeCommandes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
+                        <!-- Les éléments seronts affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->
                         <WrapPanel Loaded="WrapPanelLoaded" Margin="5 0 5 5" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Label Content="{Binding Value}" Background="#EEEEEE" Height="200" Margin="5" />
+                        <!-- Chaque element est un simple label (pour le moment) -->
+                        <Label Content="{Binding Value}" Background="#EEEEEE" Height="170" Margin="5" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
         
-        <Button Content="Button" HorizontalAlignment="Left" Margin="584,70,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <!-- Ce bouton permet d'ajouter facilement des éléments à une commande (temporaire) -->
+        <Button Content="AjouterCommande" HorizontalAlignment="Left" Margin="584,70,0,0" VerticalAlignment="Top" Width="75" Click="AjouterCommande"/>
     </Grid>
 </Window>

@@ -15,19 +15,19 @@ namespace PizzeriaMarsala
         public Livreur Livreur { get; private set; }
         public EtatCommande Etat { get; private set; }
         public EtatSolde Solde { get; private set; }
-        public DetailCommande Detail { get; private set; }
+        // public DetailCommande Detail { get; private set; }
 
         // la structure de la commande n'est pas bonne
         // elle doit contenir une liste de pizza et une liste de condiments !
         // de plus je ne suis pas sûr que la classe commande soit censée heberger la logique de la livraison
 
-        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur, DetailCommande detail)
-            : this(date, client, commis, livreur, detail)
+        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
+            : this(date, client, commis, livreur) //, detail)
         {
             IDCommande = id_commande;
         }
 
-        public Commande(DateTime date, Client client, Commis commis, Livreur livreur, DetailCommande detail)
+        public Commande(DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
         {
             Random rng = new Random();
             IDCommande = ((long)rng.Next() << 32) | (long)rng.Next();
@@ -36,7 +36,7 @@ namespace PizzeriaMarsala
             Commis = commis;
             Livreur = livreur;
             Etat = EtatCommande.EnPreparation;
-            Detail = detail;
+            // Detail = detail;
             Solde = EtatSolde.EnAttente;
         }
 
