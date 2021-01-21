@@ -22,6 +22,7 @@ namespace PizzeriaMarsala
 
         public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur)
         {
+
             IDCommande = id_commande;
             Date = date;
             Client = client;

@@ -22,6 +22,69 @@ namespace PizzeriaMarsala
          *                  - modfier classe commande pour prendre en compte les details de la commande
          */
 
+        delegate int Compare(object obj1, object obj2);
+
+        //Utilité du delegate?
+        #region delegate Trouve
+        delegate object Trouve(object critere);
+
+        public Client TrouveClient(string s)
+        {
+            if(ListeClients!=null && ListeClients.Count != 0)
+            {
+                for (int i=0;i<ListeClients.Count; i++)
+                {
+                    if (ListeClients[i].NumeroTel.ToString() == s)
+                    {
+                        return ListeClients[i];
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public Livreur TrouveLivreur(string s)
+        {
+            if (ListeLivreurs != null && ListeLivreurs.Count != 0)
+            {
+                for (int i = 0; i < ListeLivreurs.Count; i++)
+                {
+                    if (ListeLivreurs[i].Nom.ToString() == s)
+                    {
+                        return ListeLivreurs[i];
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public Commis TrouveCommis(string s)
+        {
+            if (ListeCommis != null && ListeCommis.Count != 0)
+            {
+                for (int i = 0; i < ListeCommis.Count; i++)
+                {
+                    if (ListeCommis[i].Nom.ToString() == s)
+                    {
+                        return ListeCommis[i];
+                    }
+                }
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region Ouverture de fichiers et ajout aux listes
 
         //Clients
@@ -70,7 +133,7 @@ namespace PizzeriaMarsala
         #endregion
 
 
-        delegate int Compare(object obj1, object obj2);
+        
 
         #region Création d'une liste depuis un fichier
         public static List<string> CreationListeDepuisFichier(string nomFichier)
