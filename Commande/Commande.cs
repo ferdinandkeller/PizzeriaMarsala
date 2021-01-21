@@ -36,6 +36,20 @@ namespace PizzeriaMarsala
             Solde = "-"+PrixCommande(PizzasCommande,BoissonsCommande).ToString();
         }
 
+        public Commande(long id_commande, DateTime date, long numClient, string nomCommis, string nomLivreur,string etat, string solde)
+        {
+
+            IDCommande = id_commande;
+            PizzasCommande = null;
+            BoissonsCommande = null;
+            Date = date;
+            NumClient = numClient;
+            NomCommis = nomCommis;
+            NomLivreur = nomLivreur;
+            Etat = (EtatCommande)Enum.Parse(typeof(EtatCommande), etat);
+            Solde = solde;
+        }
+
         public Commande(DateTime date, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons, Client client, Commis commis, Livreur livreur)
             : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), pizzas,boissons,date, client.NumeroTel, commis.Nom, livreur.Nom)
         {
@@ -94,13 +108,11 @@ namespace PizzeriaMarsala
 
         //A FAIRE
 
-        public static 
         public static Commande CSVToCommande(string commande)
         {
             {
                 String[] infos = commande.Split(';');
                 DateTime DatePremiereCommande = infos.Length == 5 ? DateTime.Now : Convert.ToDateTime(infos[5]);
-                long cumul_commandes = infos.LongLength == 6 ? 0 : long.Parse(infos[6]);
                 return new Commande(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DatePremiereCommande, cumul_commandes);
             }
         }
