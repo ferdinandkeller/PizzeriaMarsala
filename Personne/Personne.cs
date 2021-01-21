@@ -37,5 +37,32 @@ namespace PizzeriaMarsala
         {
             return $"{Nom};{Prenom};{Adresse};{NumeroTel}";
         }
+
+        //Comparaison (ordre alphabétique) par le nom puis le prénom si les noms sont égaux
+        public static int CompareNomPrenom(Personne p, Personne q)
+        {
+            int compa = p.Nom.CompareTo(q.Nom);
+            if (compa == 0)
+            {
+                compa = p.Prenom.CompareTo(q.Prenom);
+            }
+            return compa;
+        }
+
+        /*Comparaison par ordre alphabétique des adresses
+         *Il faut pour cela extraire la ville de l'adresse
+         *Si la ville est la même, on compare le numéro de domicile
+         */
+        public static int CompareVille(Personne p, Personne q)
+        {
+            string[] a1 = p.Adresse.Split(' ');
+            string[] a2 = p.Adresse.Split(' ');
+            int compa = a1[a1.Length - 1].CompareTo(a2[a2.Length - 1]);
+            if (compa == 0)
+            {
+                compa = (Convert.ToInt32(a1[0])).CompareTo(Convert.ToInt32(a2[0]));
+            }
+            return compa;
+        }
     }
 }

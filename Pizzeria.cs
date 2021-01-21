@@ -23,6 +23,7 @@ namespace PizzeriaMarsala
          *                  - modfier classe commande pour prendre en compte les details de la commande
          */
 
+        delegate int Compare(object obj1, object obj2);
         public static List<string> CreationListeDepuisFichier(string nomFicher)
         {
             StreamReader sr = new StreamReader(nomFicher);
