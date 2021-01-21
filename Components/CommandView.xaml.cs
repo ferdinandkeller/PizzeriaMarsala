@@ -36,7 +36,7 @@ namespace PizzeriaMarsala
             this.DataContext = this;
 
             // on crééer des commandes
-            ObservableCollection<String> ListeCommandes = new List<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
+            ListeCommandes = new ObservableCollection<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
 
             // on enregistre notre delegate WindowResized
             this.SizeChanged += (sender, e) => { WindowResized(); };
@@ -86,7 +86,7 @@ namespace PizzeriaMarsala
         {
             String[] msg_aleatoire = { "Nouvelle commande", "Commande suivante", "Ma super commande", "J'ai commandé une pizza !", "Commande du voisin", "Commande sympathique", "Commande du turfu", "cmd" };
             Random rng = new Random();
-            ListeCommandes.Add(new StringWrapper(msg_aleatoire[rng.Next(msg_aleatoire.Length)]));
+            ListeCommandes.Add(msg_aleatoire[rng.Next(msg_aleatoire.Length)]);
         }
     }
 }

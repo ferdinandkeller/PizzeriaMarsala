@@ -31,7 +31,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <!-- Chaque element est un simple label (pour le moment) -->
-                        <Label Content="{Binding Value}" Background="#EEEEEE" Height = "170" Margin = "5" />
+                        <Label Content="{Binding}" Background="#EEEEEE" Height = "170" Margin = "5" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
