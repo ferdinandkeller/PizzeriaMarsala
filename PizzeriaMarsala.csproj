@@ -68,12 +68,7 @@
     <Compile Include="DetailCommande.cs" />
     <Compile Include="Commis.cs" />
     <Compile Include="Effectifs.cs" />
-    <Compile Include="FichierClients.cs" />
-    <Compile Include="FichierCommis.cs" />
-    <Compile Include="FichierLivreurs.cs" />
     <Compile Include="IPrix.cs" />
-    <Compile Include="IRechercheIndex.cs" />
-    <Compile Include="ISupprime.cs" />
     <Compile Include="Livreur.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
