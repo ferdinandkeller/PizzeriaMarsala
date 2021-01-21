@@ -18,6 +18,7 @@ namespace PizzeriaMarsala
          * j'ai besoin :    - tri tout le monde par toutes les manières
          *                  - Ouvrir fichier / Exporter
          *                  - modfier classe commande pour prendre en compte les details de la commande
+         *                  - j'aime les frites
          */
 
         public static List<string> CreationListeDepuisFichier(string nomFicher)
