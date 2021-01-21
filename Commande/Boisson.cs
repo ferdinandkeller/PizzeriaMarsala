@@ -25,5 +25,14 @@ namespace PizzeriaMarsala
             return $"{Type} ({Volume}cl) [{Prix}$]";
         }
 
+        public static int CompareTypeVolume(Boisson p, Boisson q)
+        {
+            int compa = nameof(p.Type).CompareTo(nameof(q.Type));
+            if (compa == 0)
+            {
+                compa = p.Volume.CompareTo(q.Volume);
+            }
+            return compa;
+        }
     }
 }

@@ -23,5 +23,17 @@ namespace PizzeriaMarsala
         {
             return $"{Type} ({Taille}) [{Prix}$]";
         }
+
+        public static int CompareTypeTaille(Pizza p, Pizza q)
+        {
+            int compa= nameof(p.Type).CompareTo(nameof(q.Type));
+            if (compa == 0)
+            {
+                compa = p.Taille.CompareTo(q.Taille);
+            }
+            return compa;
+        }
+
+
     }
 }

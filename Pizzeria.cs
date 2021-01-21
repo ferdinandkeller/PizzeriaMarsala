@@ -125,15 +125,15 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Enregistrement des listes dans un fichier
-
+        /*
         public void EnregistrerFichierClient(string nomFichier)
         {
-            List<Client>
+            List<Client>;
         }
+        
+        */
         #endregion
 
-
-        
 
         #region Création d'une liste depuis un fichier
         public static List<string> CreationListeDepuisFichier(string nomFichier)
