@@ -16,9 +16,9 @@
             </Grid.RowDefinitions>
 
             <!-- bouton revenir en arrière -->
-            <Label Grid.Row="0" Content="🠜  revenir" Margin="0 0 0 -16" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="15" Foreground="#D32E34"/>
+            <Label Grid.Row="0" Content="🠜  revenir" Margin="0 0 0 -16" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="15" Foreground="Black"/>
             <!-- nom de la pizzeria -->
-            <Label Grid.Row="1" Content="PIZZERIA MARSALA" Margin="0 -16 0 0" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="45"/>
+            <Label Grid.Row="1" Content="PIZZERIA MARSALA" Margin="0 -16 0 0" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="45" Foreground="#C37F5A" />
         </Grid>
     </Grid>
 </Page>
