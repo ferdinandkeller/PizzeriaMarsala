@@ -55,6 +55,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Components\AppTitleComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\ClientView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\CommandView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\DelivererView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\SwitchViewComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\WorkerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,22 +87,48 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Client.cs" />
-    <Compile Include="Commande.cs" />
-    <Compile Include="DetailCommande.cs" />
-    <Compile Include="Commis.cs" />
-    <Compile Include="Effectifs.cs" />
-    <Compile Include="IPrix.cs" />
-    <Compile Include="Livreur.cs" />
+    <Compile Include="Commande\Boisson.cs" />
+    <Compile Include="Commande\Commande.cs" />
+    <Compile Include="Commande\EtatCommande.cs" />
+    <Compile Include="Commande\EtatSolde.cs" />
+    <Compile Include="Commande\Pizza.cs" />
+    <Compile Include="Commande\Produit.cs" />
+    <Compile Include="Commande\TaillePizza.cs" />
+    <Compile Include="Commande\TypeBoisson.cs" />
+    <Compile Include="Commande\TypePizza.cs" />
+    <Compile Include="Components\AppTitleComponent.xaml.cs">
+      <DependentUpon>AppTitleComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\ClientView.xaml.cs">
+      <DependentUpon>ClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\CommandView.xaml.cs">
+      <DependentUpon>CommandView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\DelivererView.xaml.cs">
+      <DependentUpon>DelivererView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SwitchViewComponent.xaml.cs">
+      <DependentUpon>SwitchViewComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\WorkerView.xaml.cs">
+      <DependentUpon>WorkerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateurIdentifiant.cs" />
+    <Compile Include="Personne\IToCSV.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Personne.cs" />
-    <Compile Include="Pizza.cs" />
-    <Compile Include="Boisson.cs" />
+    <Compile Include="Personne\Client.cs" />
+    <Compile Include="Personne\Commis.cs" />
+    <Compile Include="Personne\EtatCommis.cs" />
+    <Compile Include="Personne\EtatLivreur.cs" />
+    <Compile Include="Personne\Livreur.cs" />
+    <Compile Include="Personne\Personne.cs" />
+    <Compile Include="Pizzeria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

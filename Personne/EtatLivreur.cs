@@ -8,8 +8,8 @@ namespace PizzeriaMarsala
 {
     enum EtatLivreur
     {
-        Surplace,
-        EnConge,
-        EnLivraison
+        surplace,
+        enconges,
+        enlivraison
     }
 }

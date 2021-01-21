@@ -16,18 +16,6 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    /*
-     * Cette classe permet d'englober un string
-     * Sans cela, la modification de la variable ne se fait pas
-     */
-    public class StringWrapper
-    {
-        public String Value { get; set; }
-        public StringWrapper(string value)
-        {
-            Value = value;
-        }
-    }
 
     public partial class CommandView : Page
     {
@@ -38,7 +26,7 @@ namespace PizzeriaMarsala
 
         // Une ObservableCollection<> est un type de Liste sur lequel on peut écouter un évênement de modification
         // Celle-ci contient une liste de commande (en l'occurence de noms pour le moments)
-        public ObservableCollection<StringWrapper> ListeCommandes { get; set; } = new ObservableCollection<StringWrapper>();
+        public ObservableCollection<String> ListeCommandes { get; set; } = new ObservableCollection<String>();
 
         public CommandView(MainWindow main_window)
         {
@@ -48,8 +36,7 @@ namespace PizzeriaMarsala
             this.DataContext = this;
 
             // on crééer des commandes
-            List<String> Noms = new List<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
-            Noms.ForEach(nom => { ListeCommandes.Add(new StringWrapper(nom)); });
+            ObservableCollection<String> ListeCommandes = new List<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
 
             // on enregistre notre delegate WindowResized
             this.SizeChanged += (sender, e) => { WindowResized(); };

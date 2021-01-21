@@ -15,19 +15,12 @@ namespace PizzeriaMarsala
         public Livreur Livreur { get; private set; }
         public EtatCommande Etat { get; private set; }
         public EtatSolde Solde { get; private set; }
-        // public DetailCommande Detail { get; private set; }
 
         // la structure de la commande n'est pas bonne
         // elle doit contenir une liste de pizza et une liste de condiments !
         // de plus je ne suis pas sûr que la classe commande soit censée heberger la logique de la livraison
 
-        private static long CreerIdentifiantAleatoire()
-        {
-            Random rng = new Random();
-            return ((long)rng.Next() << 32) | (long)rng.Next();
-        }
-
-        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
+        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur)
         {
             IDCommande = id_commande;
             Date = date;
@@ -39,8 +32,8 @@ namespace PizzeriaMarsala
             Solde = EtatSolde.EnAttente;
         }
 
-        public Commande(DateTime date, Client client, Commis commis, Livreur livreur) //, DetailCommande detail)
-            : this(CreerIdentifiantAleatoire(), date, client, commis, livreur) //, detail)
+        public Commande(DateTime date, Client client, Commis commis, Livreur livreur)
+            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), date, client, commis, livreur)
         {
             // rien à faire
         }

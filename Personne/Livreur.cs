@@ -23,5 +23,16 @@ namespace PizzeriaMarsala
             return base.ToString() + $"\nEtat du livreur : {Etat} | Type de véhicule : {TypeVehicule}";
         }
 
+        public override String ToCSV()
+        {
+            return base.ToCSV() + $";{Etat};{TypeVehicule}";
+        }
+
+        public static Livreur StringToLivreur(String livreur)
+        {
+            String[] infos = livreur.Split(';');
+            return new Livreur(infos[0], infos[1], infos[2], long.Parse(infos[3]), (EtatLivreur)Enum.Parse(typeof(EtatLivreur), infos[4]), infos[5]);
+        }
+
     }
 }

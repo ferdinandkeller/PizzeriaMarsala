@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    enum EtatCommis
+    interface IToCSV
     {
-        surplace,
-        enconges
+        string ToCSV();
     }
 }
