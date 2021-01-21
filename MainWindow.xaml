@@ -5,48 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzeriaMarsala"
         mc:Ignorable="d"
-        Title="Pizzeria Marsala" Height="600" Width="900" MinHeight="300" MinWidth="400"
-        WindowStartupLocation="CenterScreen">
+        Title="Pizzeria Marsala" Height="600" Width="900" MinHeight="400" MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        >
     <Grid>
-        <!-- on créer deux sections : et une pour le menu et une pour les commandes -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="180" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <!-- section menu -->
-        <Grid Grid.Row="0" HorizontalAlignment="Left" Margin="20 0 0 0" VerticalAlignment="Center" Height="90">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="5*" />
-            </Grid.RowDefinitions>
-
-            <!-- bouton revenir en arrière -->
-            <Label Grid.Row="0" Content="🠜  revenir" Margin="0 0 0 -16" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="15" Foreground="#D32E34"/>
-            <!-- nom de la pizzeria -->
-            <Label Grid.Row="1" Content="PIZZERIA MARSALA" Margin="0 -16 0 0" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="45"/>
-        </Grid>
-
-        <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-            <!-- Items control permet de charger dynamiquement notre liste de commandes -->
-            <ItemsControl Name="CommandItemsControl" ItemsSource="{Binding ListeCommandes}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <!-- Les éléments seronts affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->
-                        <WrapPanel Loaded="WrapPanelLoaded" Margin="5 0 5 5" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <!-- Chaque element est un simple label (pour le moment) -->
-                        <Label Content="{Binding Value}" Background="#EEEEEE" Height="170" Margin="5" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-        
-        <!-- Ce bouton permet d'ajouter facilement des éléments à une commande (temporaire) -->
-        <Button Content="AjouterCommande" HorizontalAlignment="Left" Margin="584,70,0,0" VerticalAlignment="Top" Width="75" Click="AjouterCommande"/>
+        <!-- Le view frame va contenir des Pages qui seront chargées de manière dynamique -->
+        <Frame Name="ViewFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>
