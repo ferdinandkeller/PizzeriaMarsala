@@ -11,22 +11,71 @@ namespace PizzeriaMarsala
     class Pizzeria
     {
 
-        public ObservableCollection<Commande> ListeCommandes { get; set; } = new ObservableCollection<Commande>();
+        public ObservableCollection<Commande> ListeCommandes { get; set ; } = new ObservableCollection<Commande>();
         public ObservableCollection<Client> ListeClients { get; set; } = new ObservableCollection<Client>();
         public ObservableCollection<Commis> ListeCommis { get; set; } = new ObservableCollection<Commis>();
         public ObservableCollection<Livreur> ListeLivreurs { get; set; } = new ObservableCollection<Livreur>();
         // tri par : ordre alphabétique, ville, montant cummulé, urgence
 
         /*
-         * j'ai besoin :    - tri tout le monde par toutes les manières
-         *                  - Ouvrir fichier / Exporter
+         * j'ai besoin :    - Ouvrir fichier / Exporter
          *                  - modfier classe commande pour prendre en compte les details de la commande
          */
 
-        delegate int Compare(object obj1, object obj2);
-        public static List<string> CreationListeDepuisFichier(string nomFicher)
+        #region Ouverture de fichiers et ajout aux listes
+
+        //Clients
+        public void OuvrirFichierClient(string nomFichier)
         {
-            StreamReader sr = new StreamReader(nomFicher);
+            List<Client> liste = CreationListeClientsDepuisFichier(nomFichier);
+            List<Client> l2 = liste.FindAll(x => ListeClients.Contains(x));
+            l2.ForEach(x => liste.Remove(x));
+            liste.ForEach(x=>ListeClients.Add(x));
+        }
+
+        //Commis
+        public void OuvrirFichierCommis(string nomFichier)
+        {
+            List<Commis> liste = CreationListeCommisDepuisFichier(nomFichier);
+            List<Commis> l2 = liste.FindAll(x => ListeCommis.Contains(x));
+            l2.ForEach(x => liste.Remove(x));
+            liste.ForEach(x => ListeCommis.Add(x));
+        }
+
+        //Livreurs
+        public void OuvrirFichierLivreurs(string nomFichier)
+        {
+            List<Livreur> liste = CreationListeLivreursDepuisFichier(nomFichier);
+            List<Livreur> l2 = liste.FindAll(x => ListeLivreurs.Contains(x));
+            l2.ForEach(x => liste.Remove(x));
+            liste.ForEach(x => ListeLivreurs.Add(x));
+        }
+
+        //Commandes
+        public void OuvrirFichierCommandes(string nomFichier)
+        {
+            List<Commande> liste = CreationListeCommandesDepuisFichier(nomFichier);
+            List<Commande> l2 = liste.FindAll(x => ListeCommandes.Contains(x));
+            l2.ForEach(x => liste.Remove(x));
+            liste.ForEach(x => ListeCommandes.Add(x));
+        }
+        #endregion
+
+        #region Enregistrement des listes dans un fichier
+
+        public void EnregistrerFichierClient(string nomFichier)
+        {
+            List<Client>
+        }
+        #endregion
+
+
+        delegate int Compare(object obj1, object obj2);
+
+        #region Création d'une liste depuis un fichier
+        public static List<string> CreationListeDepuisFichier(string nomFichier)
+        {
+            StreamReader sr = new StreamReader(nomFichier);
             List<string> liste = new List<string>();
             string ligne = "";
             while (sr.Peek() > 0)
@@ -36,47 +85,59 @@ namespace PizzeriaMarsala
             }
             return liste;
         }
-        public static List<Client> CreationListeClientsDepuisFichier(string nomFicher)
+        public static List<Client> CreationListeClientsDepuisFichier(string nomFichier)
         {
-            StreamReader sr = new StreamReader(nomFicher);
+            StreamReader sr = new StreamReader(nomFichier);
             List<Client> liste = new List<Client>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                string[] mots = ligne.Split(';');
-                liste.Add(Client.CreationClientDepuisString(mots));
+                liste.Add(Client.CSVToClient(ligne));
             }
             return liste;
         }
 
-        public static List<Commis> CreationListeCommisDepuisFichier(string nomFicher)
+        public static List<Commis> CreationListeCommisDepuisFichier(string nomFichier)
         {
-            StreamReader sr = new StreamReader(nomFicher);
+            StreamReader sr = new StreamReader(nomFichier);
             List<Commis> liste = new List<Commis>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                string[] mots = ligne.Split(';');
-                liste.Add(Commis.CreationCommisDepuisString(mots));
+                liste.Add(Commis.CSVToCommis(ligne));
             }
             return liste;
         }
 
-        public static List<Livreur> CreationListeLivreursDepuisFichier(string nomFicher)
+        public static List<Livreur> CreationListeLivreursDepuisFichier(string nomFichier)
         {
-            StreamReader sr = new StreamReader(nomFicher);
+            StreamReader sr = new StreamReader(nomFichier);
             List<Livreur> liste = new List<Livreur>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                string[] mots = ligne.Split(';');
-                liste.Add(Livreur.CreationLivreurDepuisString(mots));
+                liste.Add(Livreur.CSVToLivreur(ligne));
             }
             return liste;
         }
+
+        public static List<Commande> CreationListeCommandesDepuisFichier(string nomFichier)
+        {
+            StreamReader sr = new StreamReader(nomFichier);
+            List<Commande> liste = new List<Commande>();
+            string ligne = "";
+            while (sr.Peek() > 0)
+            {
+                ligne = sr.ReadLine();
+                liste.Add(Commande.CSVToCommande(ligne));
+            }
+            return liste;
+        }
+        #endregion 
+        //Modifier classe Commande
 
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
          * Permet nottamment de trier un fichier existant:

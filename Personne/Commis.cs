@@ -28,7 +28,7 @@ namespace PizzeriaMarsala
             return base.ToCSV() + $";{Presence};{Embauche.ToShortDateString()}";
         }
 
-        public static Commis StringToCommis(String commis)
+        public static Commis CSVToCommis(String commis)
         {
             String[] infos = commis.Split(';');
             return new Commis(infos[0], infos[1], infos[2], long.Parse(infos[3]), (EtatCommis)Enum.Parse(typeof(EtatCommis), infos[4]), DateTime.Parse(infos[5]));

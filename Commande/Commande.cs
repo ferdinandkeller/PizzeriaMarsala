@@ -59,6 +59,12 @@ namespace PizzeriaMarsala
             // Livreur.Etat = EtatLivreur.Surplace;
         }
 
+        //Comparaison des dates de commandes (par date croissante)
+        public static int CompareDelais(Commande a, Commande b)
+        {
+            return a.Date.CompareTo(b.Date);
+        }
+
         // saisie facture ?
     }
 }
