@@ -12,14 +12,15 @@ namespace PizzeriaMarsala
     {
 
         public ObservableCollection<Commande> ListeCommandes { get; set; } = new ObservableCollection<Commande>();
+        public ObservableCollection<Client> ListeClients { get; set; } = new ObservableCollection<Client>();
+        public ObservableCollection<Commis> ListeCommis { get; set; } = new ObservableCollection<Commis>();
+        public ObservableCollection<Livreur> ListeLivreurs { get; set; } = new ObservableCollection<Livreur>();
         // tri par : ordre alphabétique, ville, montant cummulé, urgence
 
         /*
          * j'ai besoin :    - tri tout le monde par toutes les manières
          *                  - Ouvrir fichier / Exporter
          *                  - modfier classe commande pour prendre en compte les details de la commande
-         *                  - j'aime les frites
-         *                  - rien
          */
 
         public static List<string> CreationListeDepuisFichier(string nomFicher)
