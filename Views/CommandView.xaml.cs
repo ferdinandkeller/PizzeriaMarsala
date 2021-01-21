@@ -15,12 +15,14 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class ClientView : Page
+    
+    public partial class CommandView : Page
     {
-        public ClientView(MainWindow main_window)
+        public CommandView(MainWindow main_window)
         {
             InitializeComponent();
-            MenuBar.Content = new SwitchViewComponent(main_window);
+            ListContentPresenter.Content = new ListContentPresenterComponent(main_window);
         }
     }
+
 }

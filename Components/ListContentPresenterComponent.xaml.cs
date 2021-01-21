@@ -16,8 +16,7 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-
-    public partial class CommandView : Page
+    public partial class ListContentPresenterComponent : Page
     {
 
         // Ce delegate est utilisé pour effectuer des actions lorsque la fenêtre change de taille
@@ -28,7 +27,7 @@ namespace PizzeriaMarsala
         // Celle-ci contient une liste de commande (en l'occurence de noms pour le moments)
         public ObservableCollection<String> ListeCommandes { get; set; } = new ObservableCollection<String>();
 
-        public CommandView(MainWindow main_window)
+        public ListContentPresenterComponent(MainWindow main_window)
         {
             InitializeComponent();
 
@@ -88,5 +87,6 @@ namespace PizzeriaMarsala
             Random rng = new Random();
             ListeCommandes.Add(msg_aleatoire[rng.Next(msg_aleatoire.Length)]);
         }
+
     }
 }
