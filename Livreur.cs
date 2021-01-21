@@ -36,8 +36,13 @@ namespace PizzeriaMarsala
 
         public override string ToString()
         {
-            return base.ToString()+" " +this.etat+" "+this.typeVehicule;
+            return base.ToString()+" ; " +this.etat+" ; "+this.typeVehicule;
         }
 
+        public static Livreur CreationLivreurDepuisString(string[] s)
+        {
+            Livreur l = new Livreur(s[0], s[1], s[2], long.Parse(s[3]), s[4],s[5]);
+            return l;
+        }
     }
 }

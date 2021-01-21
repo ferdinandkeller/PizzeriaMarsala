@@ -35,8 +35,23 @@ namespace PizzeriaMarsala
 
         public override string ToString()
         {
-            return base.ToString()+ " "+ this.presence+" "+this.embauche.ToShortDateString();
+            return base.ToString()+ " ; "+ this.presence+" ; "+this.embauche.ToShortDateString();
         }
 
+        public static Commis CreationCommisDepuisString(string[] s)
+        {
+            DateTime dt = new DateTime();
+
+            if (s.Length == 4)
+            {
+                dt = default;
+            }
+            else
+            {
+                dt = Convert.ToDateTime(s[5]);
+            }
+            Commis c = new Commis(s[0], s[1], s[2], long.Parse(s[3]), s[4],dt);
+            return c;
+        }
     }
 }

@@ -36,7 +36,24 @@ namespace PizzeriaMarsala
 
         public override string ToString()
         {
-            return base.ToString()+" "+this.premiereCommande.ToShortDateString()+" "+this.cumulCommandes.ToString();
+            return this.cumulCommandes.ToString()+ " ; "+base.ToString()+" ; "+this.premiereCommande.ToShortDateString();
+        }
+
+        public static Client CreationClientDepuisString(string[] s)
+        {
+            DateTime dt = new DateTime();
+
+            if (s.Length == 4)
+            {
+                dt = default;
+            }
+            else
+            {
+                dt = Convert.ToDateTime(s[5]);
+            }
+            Client c = new Client(s[1], s[2], s[3], long.Parse(s[4]),dt);
+            c.CumulCommandes = long.Parse(s[0]);
+            return c;
         }
 
     }
