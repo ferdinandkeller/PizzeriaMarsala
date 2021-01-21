@@ -19,6 +19,7 @@ namespace PizzeriaMarsala
          *                  - Ouvrir fichier / Exporter
          *                  - modfier classe commande pour prendre en compte les details de la commande
          *                  - j'aime les frites
+         *                  - rien
          */
 
         public static List<string> CreationListeDepuisFichier(string nomFicher)
