@@ -16,8 +16,7 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-
-    public partial class CommandView : Page
+    public partial class ListContentPresenterComponent : Page
     {
 
         // Ce delegate est utilisé pour effectuer des actions lorsque la fenêtre change de taille
@@ -28,7 +27,7 @@ namespace PizzeriaMarsala
         // Celle-ci contient une liste de commande (en l'occurence de noms pour le moments)
         public ObservableCollection<String> ListeCommandes { get; set; } = new ObservableCollection<String>();
 
-        public CommandView(MainWindow main_window)
+        public ListContentPresenterComponent(MainWindow main_window)
         {
             InitializeComponent();
 
@@ -36,7 +35,7 @@ namespace PizzeriaMarsala
             this.DataContext = this;
 
             // on crééer des commandes
-            ObservableCollection<String> ListeCommandes = new List<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
+            ListeCommandes = new ObservableCollection<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
 
             // on enregistre notre delegate WindowResized
             this.SizeChanged += (sender, e) => { WindowResized(); };
@@ -86,7 +85,8 @@ namespace PizzeriaMarsala
         {
             String[] msg_aleatoire = { "Nouvelle commande", "Commande suivante", "Ma super commande", "J'ai commandé une pizza !", "Commande du voisin", "Commande sympathique", "Commande du turfu", "cmd" };
             Random rng = new Random();
-            ListeCommandes.Add(new StringWrapper(msg_aleatoire[rng.Next(msg_aleatoire.Length)]));
+            ListeCommandes.Add(msg_aleatoire[rng.Next(msg_aleatoire.Length)]);
         }
+
     }
 }
