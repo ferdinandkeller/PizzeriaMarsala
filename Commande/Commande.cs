@@ -183,5 +183,17 @@ namespace PizzeriaMarsala
 
         #endregion
 
+        public static int CompareIDCommande(Commande a, Commande b)
+        {
+            return a.IDCommande.CompareTo(b.IDCommande);
+        }
+
+        public static int CompareUrgence(Commande a, Commande b)
+        {
+            return a.Date.CompareTo(b.Date);
+        }
+
+
+
     }
 }

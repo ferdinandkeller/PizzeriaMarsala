@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace PizzeriaMarsala
 {
-    public class SortableObservableCollection<T> : ObservableCollection<T>
+    public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T>
     {
         public delegate int Compare(T el1, T el2);
 
@@ -24,6 +24,11 @@ namespace PizzeriaMarsala
                 }
                 this[j + 1] = val;
             }
+        }
+
+        public List<T> ToList()
+        {
+            return (List<T>)this.Items;
         }
     }
 }

@@ -11,10 +11,10 @@ namespace PizzeriaMarsala
     class Pizzeria
     {
 
-        public ObservableCollection<Commande> ListeCommandes { get; set ; } = new ObservableCollection<Commande>();
-        public ObservableCollection<Client> ListeClients { get; set; } = new ObservableCollection<Client>();
-        public ObservableCollection<Commis> ListeCommis { get; set; } = new ObservableCollection<Commis>();
-        public ObservableCollection<Livreur> ListeLivreurs { get; set; } = new ObservableCollection<Livreur>();
+        public SortableObservableCollection<Commande> ListeCommandes { get; set ; } = new SortableObservableCollection<Commande>();
+        public SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
+        public SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
+        public SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
         // tri par : ordre alphabétique, ville, montant cummulé, urgence
 
         /*
@@ -305,10 +305,59 @@ namespace PizzeriaMarsala
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
 
+
         #region Création de la facture d'une commande en entrant son identifiant
 
 
         public void EnregistrementFactureDansFichier(long id, string nomFichier)
+        {
+
+        }
+        #endregion
+
+        #region TriListe...
+
+        //Commandes
+        public void TriCommandesParId()
+        {
+            ListeCommandes.Sort(Commande.CompareIDCommande);
+        }
+
+        public void TriCommandesParUrgence() 
+        {
+            ListeCommandes.Sort(Commande.CompareUrgence);
+        }
+
+        //Clients
+        public void TriClientParNom()
+        {
+            ListeClients.Sort(Personne.CompareNomPrenom);
+        }
+
+        public void TriClientParVille()
+        {
+            ListeClients.Sort(Personne.CompareVille);
+        }
+
+        public void TriClientParCumul()
+        {
+            ListeClients.Sort(Client.ComparePrixCumule);
+        }
+
+
+        #endregion
+
+        #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures
+
+        public void EnregistrerHistoriqueCommandes(string nomFichier)
+        {
+            if(ListeCommandes!=null && ListeCommandes.Count != 0)
+            {
+
+            }
+        }
+
+        public void EnregistrerHistoriqueFactures(string nomFichier)
         {
 
         }
