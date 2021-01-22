@@ -8,8 +8,8 @@ namespace PizzeriaMarsala
 {
     enum EtatSolde
     {
-        EnAttente,
-        PaiementRecu,
-        ErreurDePaiement
+        enettente,
+        ok,
+        perdue
     }
 }

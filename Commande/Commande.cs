@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,8 +113,8 @@ namespace PizzeriaMarsala
         {
             {
                 String[] infos = commande.Split(';');
-                DateTime DatePremiereCommande = infos.Length == 5 ? DateTime.Now : Convert.ToDateTime(infos[5]);
-                return new Commande(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DatePremiereCommande, cumul_commandes);
+                DateTime DateCommande = Convert.ToDateTime(infos[1] + infos[2]);
+                return new Commande(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]),infos[4], infos[5], infos[6], infos[7]);
             }
         }
 
@@ -122,6 +123,55 @@ namespace PizzeriaMarsala
             return $"{IDCommande.ToString()};{ Date.Hour.ToString()};{NumClient.ToString()};{NomCommis};{NomLivreur};{Etat.ToString()};{Solde}";
         }
 
-        // saisie facture ?
+        #region DetailCommandeToString() & DetailCommandeToCSV()
+        public string DetailCommandeToString()
+        {
+            string s = "N° Commande : "+ IDCommande.ToString();
+            if(PizzasCommande!=null && PizzasCommande.Count != 0)
+            {
+                foreach (KeyValuePair < Pizza,int> kv in PizzasCommande)
+                {
+                    s += "Pizza : " + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                }
+            }
+            if (BoissonsCommande != null && BoissonsCommande.Count != 0)
+            {
+                foreach (KeyValuePair<Boisson, int> kv in BoissonsCommande)
+                {
+                    s += kv.Key.Type.ToString()+" : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Prix}$]"+ " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                }
+            }
+            return s;
+        }
+
+        public string DetailCommandeToCSV()
+        {
+            string s = "";
+            if (PizzasCommande != null && PizzasCommande.Count != 0)
+            {
+                foreach (KeyValuePair<Pizza, int> kv in PizzasCommande)
+                {
+                    s += this.IDCommande.ToString()+";Pizza"+kv.Key.Prix.ToString()+";" + kv.Key.Type.ToString()+";"+kv.Key.Taille.ToString()+";;"+kv.Value.ToString() + "\n";
+                }
+            }
+            if (BoissonsCommande != null && BoissonsCommande.Count != 0)
+            {
+                foreach (KeyValuePair<Boisson, int> kv in BoissonsCommande)
+                {
+                    s += this.IDCommande.ToString() + ";"+kv.Key.Type.ToString()+";" + kv.Key.Prix.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
+                }
+            }
+            return s;
+        }
+        #endregion
+
+        //Enregistrer le détail d'une commande = facture dans un fichier script
+        public void EnregistreFactureTXT(string nomFichier)
+        {
+            StreamWriter sw = new StreamWriter(nomFichier);
+            sw.WriteLine(DetailCommandeToString());
+            sw.Close();
+        }
+
     }
 }

@@ -200,7 +200,7 @@ namespace PizzeriaMarsala
             return liste;
         }
         #endregion 
-        //Modifier classe Commande
+
 
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
          * Permet nottamment de trier un fichier existant:
@@ -304,5 +304,14 @@ namespace PizzeriaMarsala
             liste[i] = p;
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
+
+        #region Création de la facture d'une commande en entrant son identifiant
+
+
+        public void EnregistrementFactureDansFichier(long id, string nomFichier)
+        {
+
+        }
+        #endregion
     }
 }

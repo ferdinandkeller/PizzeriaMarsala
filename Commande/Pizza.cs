@@ -9,7 +9,7 @@ namespace PizzeriaMarsala
     class Pizza : Produit
     {
         public TypePizza Type { get; private set; }
-        private TaillePizza Taille;
+        public TaillePizza Taille { get; }
 
         public Pizza(TypePizza type, TaillePizza taille)
         {
