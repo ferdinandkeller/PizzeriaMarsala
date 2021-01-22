@@ -13,7 +13,7 @@
     <Page.Resources>
         <!-- Data template des commandes -->
         <DataTemplate x:Key="CommandDataTemplate">
-            <Border Height="170" Margin="5" CornerRadius="5">
+            <Border Height="170" Margin="5">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
                     <Style>
@@ -32,7 +32,7 @@
         </DataTemplate>
         <!-- Data template des commandes -->
         <DataTemplate x:Key="CoolDataTemplate">
-            <Border Height="170" Margin="5" CornerRadius="5">
+            <Border Height="170" Margin="5">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
                     <Style>

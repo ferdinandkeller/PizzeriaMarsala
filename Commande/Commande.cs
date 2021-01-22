@@ -29,7 +29,7 @@ namespace PizzeriaMarsala
             NumClient = numClient;
             NomCommis = nomCommis;
             NomLivreur = nomLivreur;
-            Etat = EtatCommande.EnPreparation;
+            Etat = EtatCommande.enpreparation;
             Solde = "-"+PrixCommande(PizzasCommande,BoissonsCommande).ToString();
         }
 

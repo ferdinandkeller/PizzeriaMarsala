@@ -8,8 +8,8 @@ namespace PizzeriaMarsala
 {
     enum EtatCommande
     {
-        EnPreparation, 
-        EnLivraison,
-        Fermee
+        enpreparation, 
+        enlivraison,
+        fermee
     }
 }

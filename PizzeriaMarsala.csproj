@@ -59,23 +59,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\ClientView.xaml">
+    <Page Include="Components\ListContentPresenterComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\CommandView.xaml">
+    <Page Include="Views\CommandView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\DelivererView.xaml">
+    <Page Include="Views\DelivererView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\SwitchViewComponent.xaml">
+    <Page Include="Components\ViewSwitcherComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\WorkerView.xaml">
+    <Page Include="Views\WorkerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,36 +103,40 @@
     <Compile Include="Components\AppTitleComponent.xaml.cs">
       <DependentUpon>AppTitleComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ClientView.xaml.cs">
-      <DependentUpon>ClientView.xaml</DependentUpon>
+    <Compile Include="Components\ListContentPresenterComponent.xaml.cs">
+      <DependentUpon>ListContentPresenterComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\CommandView.xaml.cs">
+    <Compile Include="Personne\Client.cs" />
+    <Compile Include="Personne\Commis.cs" />
+    <Compile Include="Personne\EtatCommis.cs" />
+    <Compile Include="Personne\EtatLivreur.cs" />
+    <Compile Include="Personne\IToCSV.cs" />
+    <Compile Include="Personne\Livreur.cs" />
+    <Compile Include="Personne\Personne.cs" />
+    <Compile Include="Pizzeria.cs" />
+    <Compile Include="SortableObservableCollection.cs" />
+    <Compile Include="Views\CustomerView.xaml.cs">
+      <DependentUpon>CustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommandView.xaml.cs">
       <DependentUpon>CommandView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\DelivererView.xaml.cs">
+    <Compile Include="Views\DelivererView.xaml.cs">
       <DependentUpon>DelivererView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\SwitchViewComponent.xaml.cs">
-      <DependentUpon>SwitchViewComponent.xaml</DependentUpon>
+    <Compile Include="Components\ViewSwitcherComponent.xaml.cs">
+      <DependentUpon>ViewSwitcherComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\WorkerView.xaml.cs">
+    <Compile Include="Views\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="GenerateurIdentifiant.cs" />
-    <Compile Include="Personne\IToCSV.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Personne\Client.cs" />
-    <Compile Include="Personne\Commis.cs" />
-    <Compile Include="Personne\EtatCommis.cs" />
-    <Compile Include="Personne\EtatLivreur.cs" />
-    <Compile Include="Personne\Livreur.cs" />
-    <Compile Include="Personne\Personne.cs" />
-    <Compile Include="Pizzeria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -154,5 +162,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
