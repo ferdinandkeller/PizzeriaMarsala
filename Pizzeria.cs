@@ -184,15 +184,7 @@ namespace PizzeriaMarsala
 
         #endregion
 
-        #region Enregistrement des listes dans un fichier
-        /*
-        public void EnregistrerFichierClient(string nomFichier)
-        {
-            List<Client>;
-        }
-        
-        */
-        #endregion
+
 
 
 
@@ -398,6 +390,60 @@ namespace PizzeriaMarsala
                 liste.ForEach(x => sw.WriteLine(x.DetailCommandeToCSV()));
             }
             sw.Close();
+        }
+        #endregion
+
+        #region EnregistrerFichierClient, EnregistrerFichierCommis, EnregistrerFichierLivreur CSV
+
+        public void EnregistrerFichierClient(string nomFichier)
+        {
+            List<Client> liste = ListeClients.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
+            }
+            sw.Close();
+        }
+
+        public void EnregistrerFichierCommis(string nomFichier)
+        {
+            List<Commis> liste = ListeCommis.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
+            }
+            sw.Close();
+        }
+
+        public void EnregistrerFichierLivreur(string nomFichier)
+        {
+            List<Livreur> liste = ListeLivreurs.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
+            }
+            sw.Close();
+        }
+        #endregion
+
+        #region EtatEffectifs
+        public string EtatEffectifs()
+        {
+            string s = "";
+            List<Commis> lc = ListeCommis.ToList();
+            List<Livreur> ll = ListeLivreurs.ToList();
+            if (lc!=null && lc.Count!=0)
+            {
+                lc.ForEach(x => s += x.Nom + ";" + x.Presence.ToString() + "\n");
+            }
+            if (ll != null && ll.Count != 0)
+            {
+                ll.ForEach(x => s += x.Nom + ";" + x.Etat.ToString() + "\n");
+            }
+            return s;
         }
         #endregion
     }

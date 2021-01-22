@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,14 +32,21 @@ namespace PizzeriaMarsala
             return (List<T>)this.Items;
         }
 
-        public void EnregistrerDansFichierCSV(string nomFichier)
+        public static bool NonVide(SortableObservableCollection<T> s)
         {
-
+            return (s != null && s.Count != 0);
         }
 
-        public void EnregistrerDansFichierTXT(string nomFichier)
+        public void EnregistrerDansFichier(string nomFichier)
         {
-
+            List<T> liste = this.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.ToString()));
+            }
+            sw.Close();
         }
+        
     }
 }
