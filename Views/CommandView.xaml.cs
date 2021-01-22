@@ -17,26 +17,20 @@ namespace PizzeriaMarsala
 {
     public partial class CommandView : Page
     {
-        public Pizzeria InstancePizzeria;
-
-        public CommandView(MainWindow main_window, Pizzeria instance_pizzeria)
+        public CommandView(MainWindow main_window)
         {
             InitializeComponent();
-
-            InstancePizzeria = instance_pizzeria;
 
             MenuBar.Content = new ViewSwitcherComponent(main_window);
 
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
-                Sort, Sort2, Sort,
+                Pizzeria.SortCommandsByID, Pizzeria.SortCommandsByPrices, Pizzeria.SortCommandsByUrgency,
                 New, OpenFile,
                 "CommandDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR COMM"
+                "PAR ID", "PAR PRIX", "PAR TEMPS"
             );
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = InstancePizzeria.ListeCommandes;
-
-            InstancePizzeria.ListeCommandes.Add(new Commande(DateTime.Now, null, null, new Client("Ferdinand", "Keller", "adresse", 631232, DateTime.Now), new Commis("Commisnom", "Commisprenom", "azd", 234234, EtatCommis.surplace, DateTime.Now), new Livreur("azdazd", "azdazd", "azdazd", 12323, EtatLivreur.surplace, "azda")));
+            presenter.ItemsControlList.DataContext = Pizzeria.ListeCommandes;
         }
 
         public void Sort()
@@ -49,6 +43,13 @@ namespace PizzeriaMarsala
 
         public void New()
         {
+            Pizzeria.ListeCommandes.Add(new Commande(
+                DateTime.Now,
+                new Client("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
+                new Commis("azd", "azd", "azd", 01238, EtatCommis.surplace, DateTime.Now),
+                new Livreur("azd", "azd", "azd", 081238, EtatLivreur.surplace, "azd"),
+                EtatSolde.enettente
+            ));
         }
 
         public void OpenFile(String file_url)

@@ -44,13 +44,10 @@ namespace PizzeriaMarsala
             return new Client(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DatePremiereCommande, cumul_commandes);
         }
 
-        //Méthode de comparaison par prix cumulé croissant
-
         public static int ComparePrixCumule(Client p, Client q)
         {
             return p.CumulCommandes.CompareTo(q.CumulCommandes);
         }
-
         
     }
 }

@@ -18,8 +18,10 @@ namespace PizzeriaMarsala
         // de la liste est celui que l'on cherche
         public delegate bool ValidationFunction(T el);
 
-        // fonction de tri par insertion qui prend en entrée
-        // notre fonction de comparaison
+        /*
+         * fonction de tri par insertion qui prend en entrée
+         * notre fonction de comparaison
+         */
         public void Sort(ComparisonFunction comparison_function)
         {
             for (int i = 1; i < this.Count; i++)

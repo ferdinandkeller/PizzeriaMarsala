@@ -38,7 +38,12 @@ namespace PizzeriaMarsala
             Solde = solde;
         }
         public Commande(long id_commande, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
-            : this(id_commande, date, Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name), (SoldeCommande)Enum.Parse(typeof(SoldeCommande), solde))
+            : this(id_commande, date, Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name), (EtatSolde)Enum.Parse(typeof(EtatSolde), solde))
+        {
+            // rien
+        }
+        public Commande(DateTime date, Client client, Commis commis, Livreur livreur, EtatSolde solde)
+            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), date, client, commis, livreur, solde)
         {
             // rien
         }
@@ -97,6 +102,23 @@ namespace PizzeriaMarsala
         public string ToCSV()
         {
             return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.NumeroTel};{CommandWorker.Nom};{CommandDeliverer.Nom};{Etat};{Solde}";
+        }
+
+
+        /*
+         *  Fonctions de tri des commandes
+         */
+        public static int CompareID(Commande command_1, Commande command_2)
+        {
+            return command_1.CommandID.CompareTo(command_2.CommandID);
+        }
+        public static int CompareUrgency(Commande command_1, Commande command_2)
+        {
+            return command_1.Date.CompareTo(command_2.Date);
+        }
+        public static int ComparePrices(Commande command_1, Commande command_2)
+        {
+            return command_1.Price().CompareTo(command_2.Price());
         }
 
         /*
@@ -159,16 +181,6 @@ namespace PizzeriaMarsala
         }
 
         #endregion
-
-        public static int CompareIDCommande(Commande a, Commande b)
-        {
-            return a.IDCommande.CompareTo(b.IDCommande);
-        }
-
-        public static int CompareUrgence(Commande a, Commande b)
-        {
-            return a.Date.CompareTo(b.Date);
-        }
 
         public static Commande RechercheCommandeParID(List<Commande> liste, long id)
         {

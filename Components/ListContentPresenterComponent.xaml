@@ -28,7 +28,7 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding IDCommande}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Label Content="{Binding CommandID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Border>
         </DataTemplate>
     </Page.Resources>

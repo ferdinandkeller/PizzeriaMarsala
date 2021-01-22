@@ -29,8 +29,16 @@ namespace PizzeriaMarsala
         public static SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
         public static SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
 
-        delegate int Compare(object obj1, object obj2);
+        // delegate int Compare(object obj1, object obj2);
 
+        /*
+         * Fonctions de tri
+         */
+        public static void SortCommandsByID() { ListeCommandes.Sort(Commande.CompareID); }
+        public static void SortCommandsByPrices() { ListeCommandes.Sort(Commande.ComparePrices); }
+        public static void SortCommandsByUrgency() { ListeCommandes.Sort(Commande.CompareUrgency); }
+
+        /*
         #region delegate Trouve
         delegate object Trouve(object critere);
 
@@ -90,9 +98,10 @@ namespace PizzeriaMarsala
             }
         }
         #endregion
+        */
 
+        /*
         #region Ouverture de fichiers et ajout aux listes automatique
-
         //Clients
         public void OuvrirFichierClient(string nomFichier)
         {
@@ -194,16 +203,15 @@ namespace PizzeriaMarsala
             return liste;
         }
         #endregion 
+        */
 
-        #endregion
-
-
+        /*
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
          * Permet nottamment de trier un fichier existant:
             * On créé la liste à partir du fichier
             * On trie cette liste avec le critère choisi
             * On remet la liste dans le fichier
-         */
+        
         public static void ModificationFichierDepuisListe(string nomFichier, object l)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -274,8 +282,7 @@ namespace PizzeriaMarsala
             }
             return s;
         }
-
-
+        */
 
         /* Très interessant mais inutile x) (car ça ne peux pas marcher)
          * 
@@ -325,6 +332,7 @@ namespace PizzeriaMarsala
             return ListeLivreurs.Find(deliverer => deliverer.Nom == lastname);
         }
 
+        /*
         #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier), StringCommandeRechercheId
 
         public void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
@@ -350,7 +358,9 @@ namespace PizzeriaMarsala
         }
 
         #endregion
+        */
 
+        /*
         #region TriListe...
 
         //Commandes
@@ -403,7 +413,9 @@ namespace PizzeriaMarsala
         }
 
         #endregion
+        */
 
+        /*
         #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
 
         public void EnregistrerHistoriqueCommandes(string nomFichier)
@@ -475,7 +487,9 @@ namespace PizzeriaMarsala
             sw.Close();
         }
         #endregion
+        */
 
+        /*
         #region EtatEffectifs
         public string EtatEffectifs()
         {
@@ -493,5 +507,6 @@ namespace PizzeriaMarsala
             return s;
         }
         #endregion
+        */
     }
 }
