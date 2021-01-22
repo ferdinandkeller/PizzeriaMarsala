@@ -165,13 +165,23 @@ namespace PizzeriaMarsala
         }
         #endregion
 
-        //Enregistrer le détail d'une commande = facture dans un fichier script
+
+        #region Enregistrement Facture dans fichiers
         public void EnregistreFactureTXT(string nomFichier)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
             sw.WriteLine(DetailCommandeToString());
             sw.Close();
         }
+
+        public void EnregistreFactureCSV(string nomFichier)
+        {
+            StreamWriter sw = new StreamWriter(nomFichier);
+            sw.WriteLine(DetailCommandeToCSV());
+            sw.Close();
+        }
+
+        #endregion
 
     }
 }
