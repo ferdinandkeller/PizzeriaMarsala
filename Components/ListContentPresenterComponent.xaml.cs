@@ -16,26 +16,19 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public class TempalateSelector : DataTemplateSelector
+    public class TemplateSelector : DataTemplateSelector
     {
+        String Template;
+
+        public TemplateSelector(String template)
+        {
+            Template = template;
+        }
+
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             FrameworkElement element = container as FrameworkElement;
-
-            /* if (element != null && item != null && item is Task)
-            {
-                Task taskitem = item as Task;
-
-                if (taskitem.Priority == 1)
-                    return
-                        element.FindResource("BasicDataTemplate") as DataTemplate;
-                else
-                    return
-                        element.FindResource("ComplexDataTempalte") as DataTemplate;
-            }
-            */
-
-            return element.FindResource("CommandDataTemplate") as DataTemplate; ;
+            return element.FindResource(Template) as DataTemplate;
         }
     }
 
@@ -66,7 +59,7 @@ namespace PizzeriaMarsala
 
             AppTitle.Content = new AppTitleComponent();
 
-            ItemsControlList.ItemTemplateSelector = new TempalateSelector();
+            ItemsControlList.ItemTemplateSelector = new TemplateSelector("CommandDataTemplate");
         }
 
         /*

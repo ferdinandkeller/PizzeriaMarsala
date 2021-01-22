@@ -26,25 +26,52 @@
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <!-- on affiche un label au center --> 
+                <!-- on affiche un label au center -->
                 <Label Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Border>
         </DataTemplate>
     </Page.Resources>
-    
+
     <!-- DEFINITION DU PRESENTEUR DE LISTE -->
     <Grid>
         <!-- on créer deux sections : une pour le menu et une pour les commandes -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="180" />
+            <RowDefinition Height="150" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="10" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <!-- section menu -->
         <Frame Name="AppTitle" Grid.Row="0" />
 
+        <!-- section edition -->
+        <Grid Grid.Row="1">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Width" Value="100" />
+                    <Setter Property="Margin" Value="5 0 5 0" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="#252526" />
+                    <Setter Property="FontFamily" Value="Open Sans ExtraBold" />
+                    <Setter Property="FontSize" Value="10" />
+                    <Setter Property="Foreground" Value="white" />
+                </Style>
+            </Grid.Resources>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
+                <Label Content="PAR NOM" />
+                <Label Content="PAR VILLE"/>
+                <Label Content="PAR ACHAT"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
+                <Label Content="AJOUTER" Width="140" />
+                <Label Content="IMPORTER FICHIER" Width="140"/>
+            </StackPanel>
+        </Grid>
+
         <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
             <!-- Items control permet de charger dynamiquement notre liste de commandes -->
             <ItemsControl Name="ItemsControlList" ItemsSource="{Binding ListeCommandes}">
                 <ItemsControl.ItemsPanel>
