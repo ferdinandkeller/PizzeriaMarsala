@@ -305,10 +305,45 @@ namespace PizzeriaMarsala
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
 
+
         #region Création de la facture d'une commande en entrant son identifiant
 
 
         public void EnregistrementFactureDansFichier(long id, string nomFichier)
+        {
+
+        }
+        #endregion
+
+        #region TriListe...
+
+        //Commandes
+        public void TriCommandesParId()
+        {
+            List<Commande> liste = (List<Commande>)ListeCommandes.Items;
+            if(ListeCommandes!=null && ListeCommandes.Count != 0)
+            {
+
+            }
+            ListeCommandes.Sort(Commande.CompareUrgence);
+        }
+
+        public void TriCommandesParUrgence() { }
+
+
+        #endregion
+
+        #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures
+
+        public void EnregistrerHistoriqueCommandes(string nomFichier)
+        {
+            if(ListeCommandes!=null && ListeCommandes.Count != 0)
+            {
+
+            }
+        }
+
+        public void EnregistrerHistoriqueFactures(string nomFichier)
         {
 
         }
