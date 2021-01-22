@@ -9,110 +9,97 @@ namespace PizzeriaMarsala
 {
     public class Commande : IToCSV
     {
-        public long IDCommande { get; private set; }
-        public SortedList<Pizza,int> PizzasCommande { get; private set; } //int correspond à la quantité
-        public SortedList<Boisson,int> BoissonsCommande { get; private set; }
+        // attributs de la classe
+        public long CommandID { get; private set; }
+
         public DateTime Date { get; private set; }
-        public long NumClient { get; private set; }
-        public string NomCommis { get; private set; }
-        public string NomLivreur { get; private set; }
+
+        public SortedList<Pizza, int> PizzaList { get; private set; } = new SortedList<Pizza, int>();
+        public SortedList<Boisson, int> DrinkList { get; private set; } = new SortedList<Boisson, int>();
+       
+        public Client CommandCustomer { get; private set; }
+        public Commis CommandWorker { get; private set; }
+        public Livreur CommandDeliverer { get; private set; }
+        
         public EtatCommande Etat { get; private set; }
-        public string Solde { get; private set; }
+        public EtatSolde Solde { get; private set; }
 
-        public Commande(long id_commande, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons,DateTime date, long numClient, string nomCommis, string  nomLivreur)
+        /*
+         * Constructeurs de la classe
+         */
+        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur, EtatSolde solde)
         {
-            IDCommande = id_commande;
-            PizzasCommande = pizzas;
-            BoissonsCommande = boissons;
+            CommandID = id_commande;
             Date = date;
-            NumClient = numClient;
-            NomCommis = nomCommis;
-            NomLivreur = nomLivreur;
+            CommandCustomer = client;
+            CommandWorker = commis;
+            CommandDeliverer = livreur;
             Etat = EtatCommande.enpreparation;
-            Solde = "-"+PrixCommande(PizzasCommande,BoissonsCommande).ToString();
-        }
-
-        public Commande(long id_commande, DateTime date, long numClient, string nomCommis, string nomLivreur,string etat, string solde)
-        {
-            IDCommande = id_commande;
-            PizzasCommande = null;
-            BoissonsCommande = null;
-            Date = date;
-            NumClient = numClient;
-            NomCommis = nomCommis;
-            NomLivreur = nomLivreur;
-            Etat = (EtatCommande)Enum.Parse(typeof(EtatCommande), etat);
             Solde = solde;
         }
-
-        public Commande(DateTime date, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons, Client client, Commis commis, Livreur livreur)
-            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), pizzas, boissons, date, client.NumeroTel, commis.Nom, livreur.Nom)
+        public Commande(long id_commande, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
+            : this(id_commande, date, Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name), (SoldeCommande)Enum.Parse(typeof(SoldeCommande), solde))
         {
-            // rien à faire
+            // rien
         }
 
-
-        public static double PrixCommande(SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons)
-        {
-            double prix=0;
-            if(pizzas!=null && pizzas.Count != 0)
-            {
-                foreach(KeyValuePair<Pizza,int> x in pizzas)
-                {
-                    prix += (x.Key).Prix * (x.Value);
-                }
-            }
-            if (boissons != null && boissons.Count != 0)
-            {
-                foreach (KeyValuePair<Boisson, int> x in boissons)
-                {
-                    prix += (x.Key).Prix * (x.Value);
-                }
-            }
-            return prix;
-        }
         /*
+         * Fonction qui renvoie le prix de la commande
+         */
+        public double Price()
+        {
+            double price = 0;
+
+            // on compte le prix des pizzas
+            foreach(KeyValuePair<Pizza, int> pair in PizzaList)
+            {
+                price += pair.Key.Prix * pair.Value;
+            }
+
+            // on compte le prix des boissons
+            foreach(KeyValuePair<Boisson, int> pair in DrinkList)
+            {
+                price += pair.Key.Prix * pair.Value;
+            }
+
+            // on renvoie le prix
+            return price;
+        }
+
+        /*
+         * Fonctions qui changent l'état de la commande
+         */
         public void DepartLivraison()
         {
-            Etat = EtatCommande.EnLivraison;
-            // Livreur.Etat = EtatLivreur.EnLivraison;
+            Etat = EtatCommande.enlivraison;
         }
-
         public void PaiementRecu()
         {
-            Etat = EtatCommande.Fermee;
-            Solde = EtatSolde.PaiementRecu;
-            // Livreur.Etat = EtatLivreur.Surplace;
-            // Client.CumulCommandes += 4;
+            Etat = EtatCommande.fermee;
+            Solde = EtatSolde.ok;
         }
-
         public void PerteCommande()
         {
-            Etat = EtatCommande.Fermee;
-            Solde = EtatSolde.ErreurDePaiement;
-            // Livreur.Etat = EtatLivreur.Surplace;
+            Etat = EtatCommande.fermee;
+            Solde = EtatSolde.perdue;
         }
 
-        
-        */
-
-        //A Mettre dans pizzéria FAIRE
-
-        public static Commande CSVToCommande(string commande)
+        /*
+         * Conversion de la commande dans d'autres formats
+         */
+        public static Commande FromCSV(string commande)
         {
-            {
-                String[] infos = commande.Split(';');
-                DateTime DateCommande = Convert.ToDateTime(infos[1] + infos[2]);
-                return new Commande(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]),infos[4], infos[5], infos[6], infos[7]);
-            }
+            String[] infos = commande.Split(';');
+            DateTime DateCommande = Convert.ToDateTime(infos[2]);
+            DateCommande += new TimeSpan(int.Parse(infos[1].Substring(0, infos[1].Length - 1)), 0, 0);
+            return new Commande(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
         }
-
         public string ToCSV()
         {
-            return $"{IDCommande.ToString()};{ Date.Hour.ToString()};{NumClient.ToString()};{NomCommis};{NomLivreur};{Etat.ToString()};{Solde}";
+            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.NumeroTel};{CommandWorker.Nom};{CommandDeliverer.Nom};{Etat};{Solde}";
         }
 
-        #region DetailCommandeToString() & DetailCommandeToCSV()
+        /*
         public string DetailCommandeToString()
         {
             string s = "N° Commande : "+ IDCommande.ToString();
@@ -153,8 +140,9 @@ namespace PizzeriaMarsala
             return s;
         }
         #endregion
+        */
 
-
+        /*
         #region Enregistrement Facture dans fichiers
         public void EnregistreFactureTXT(string nomFichier)
         {
@@ -186,7 +174,7 @@ namespace PizzeriaMarsala
         {
             return liste.Find(x => x.IDCommande == id);
         }
-
+        */
 
     }
 }

@@ -8,11 +8,15 @@ using System.Collections.ObjectModel;
 
 namespace PizzeriaMarsala
 {
-    public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T>
+    public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T> where T : class
     {
 
         // définition d'une comparaison entre deux éléments
         public delegate int ComparisonFunction(T el1, T el2);
+
+        // définition d'une fonction qui vérifie si un élément
+        // de la liste est celui que l'on cherche
+        public delegate bool ValidationFunction(T el);
 
         // fonction de tri par insertion qui prend en entrée
         // notre fonction de comparaison
@@ -29,6 +33,22 @@ namespace PizzeriaMarsala
                 }
                 this[j + 1] = val;
             }
+        }
+
+        /*
+         * Cette fonction cherche un élément dans la liste
+         * Si elle le trouve, elle le renvoie
+         */
+        public T Find(ValidationFunction validation_function)
+        {
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (validation_function(this[i]))
+                {
+                    return this[i];
+                }
+            }
+            return null;
         }
 
         public List<T> ToList()

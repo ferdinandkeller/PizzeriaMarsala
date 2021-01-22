@@ -24,10 +24,10 @@ namespace PizzeriaMarsala
         // mette à jour l'interface
         // nous avons de plus créer la class SortableObservableCollection afin de
         // rajouter la méthode Sort
-        public SortableObservableCollection<Commande> ListeCommandes { get; set; } = new SortableObservableCollection<Commande>();
-        public SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
-        public SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
-        public SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
+        public static SortableObservableCollection<Commande> ListeCommandes { get; set; } = new SortableObservableCollection<Commande>();
+        public static SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
+        public static SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
+        public static SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
 
         delegate int Compare(object obj1, object obj2);
 
@@ -274,40 +274,63 @@ namespace PizzeriaMarsala
             }
             return s;
         }
+
+
+
+        /* Très interessant mais inutile x) (car ça ne peux pas marcher)
+         * 
+         * En effet, ça ne marche pas car : https://stackoverflow.com/questions/1777800/in-c-is-it-possible-to-cast-a-listchild-to-listparent (je te laisse jeter un coup d'oeil
+         * 
+         * La bonne méthode se trouve juste en dessous
+         * 
         public static int RechercheIndexNomPrenom(List<Personne> liste, string nom, string prenom)
         {
             int i = liste.FindIndex(x => x.Nom == nom && x.Prenom == prenom);
             return i;
         }
-
         public static void SupprimePersonne(List<Personne> liste, Personne p)
         {
             int i = liste.FindIndex(x => x.Equals((Personne)p));
             liste.RemoveAt(i);
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
-
         public static void SupprimePersonne(List<Personne> liste, string nom, string prenom)
         {
             int i = RechercheIndexNomPrenom(liste, nom, prenom);
             liste.RemoveAt(i);
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
-
         public static void ModificationListePersonnes(List<Personne> liste, string nom, string prenom, Personne p)
         {
             int i = RechercheIndexNomPrenom(liste, nom, prenom);
             liste[i] = p;
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
-
+        */
+        
+        public static Client FindCustomer(String lastname, String firstname)
+        {
+            return ListeClients.Find(customer => customer.Nom == lastname && customer.Prenom == firstname);
+        }
+        public static Client FindCustomer(long phone_numer)
+        {
+            return ListeClients.Find(customer => customer.NumeroTel == phone_numer);
+        }
+        public static Commis FindWorker(String lastname)
+        {
+            return ListeCommis.Find(worker => worker.Nom == lastname);
+        }
+        public static Livreur FindDeliverer(String lastname)
+        {
+            return ListeLivreurs.Find(deliverer => deliverer.Nom == lastname);
+        }
 
         #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier), StringCommandeRechercheId
 
         public void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
         {
             List<Commande> liste = ListeCommandes.ToList();
-            Commande c = liste.Find(x => x.IDCommande == id);
+            Commande c = liste.Find(x => x.CommandID == id);
             c.EnregistreFactureTXT(nomFichier);
         }
 
@@ -322,7 +345,7 @@ namespace PizzeriaMarsala
         {
             List<Commande> liste = ListeCommandes.ToList();
             Commande c = Commande.RechercheCommandeParID(liste, id);
-            double prix = Commande.PrixCommande(c.PizzasCommande, c.BoissonsCommande);
+            double prix = Commande.PrixCommande(c.PizzaList, c.DrinkList);
             return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
 
