@@ -22,6 +22,7 @@ namespace PizzeriaMarsala
         {
             InitializeComponent();
             ListContentPresenter.Content = new ListContentPresenterComponent(main_window);
+            MenuBar.Content = new ViewSwitcherComponent(main_window);
         }
     }
 

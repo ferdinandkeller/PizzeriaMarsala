@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class SwitchViewComponent : Page
+    public partial class ViewSwitcherComponent : Page
     {
         MainWindow main_window;
 
-        public SwitchViewComponent(MainWindow main_window)
+        public ViewSwitcherComponent(MainWindow main_window)
         {
             InitializeComponent();
 

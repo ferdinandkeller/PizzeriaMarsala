@@ -16,6 +16,29 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
+    public class TempalateSelector : DataTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            FrameworkElement element = container as FrameworkElement;
+
+            /* if (element != null && item != null && item is Task)
+            {
+                Task taskitem = item as Task;
+
+                if (taskitem.Priority == 1)
+                    return
+                        element.FindResource("BasicDataTemplate") as DataTemplate;
+                else
+                    return
+                        element.FindResource("ComplexDataTempalte") as DataTemplate;
+            }
+            */
+
+            return element.FindResource("CommandDataTemplate") as DataTemplate; ;
+        }
+    }
+
     public partial class ListContentPresenterComponent : Page
     {
 
@@ -41,8 +64,9 @@ namespace PizzeriaMarsala
             this.SizeChanged += (sender, e) => { WindowResized(); };
             WindowResized += ResizeWrapPanelElements;
 
-            MenuBar.Content = new SwitchViewComponent(main_window);
             AppTitle.Content = new AppTitleComponent();
+
+            ItemsControlList.ItemTemplateSelector = new TempalateSelector();
         }
 
         /*
@@ -79,14 +103,5 @@ namespace PizzeriaMarsala
                 }
             }
         }
-
-        // Cette fonction temporaire rajoute un élément à la liste des commandes
-        private void AjouterCommande(object sender, RoutedEventArgs e)
-        {
-            String[] msg_aleatoire = { "Nouvelle commande", "Commande suivante", "Ma super commande", "J'ai commandé une pizza !", "Commande du voisin", "Commande sympathique", "Commande du turfu", "cmd" };
-            Random rng = new Random();
-            ListeCommandes.Add(msg_aleatoire[rng.Next(msg_aleatoire.Length)]);
-        }
-
     }
 }

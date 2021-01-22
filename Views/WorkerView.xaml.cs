@@ -23,7 +23,7 @@ namespace PizzeriaMarsala
         public WorkerView(MainWindow main_window)
         {
             InitializeComponent();
-            MenuBar.Content = new SwitchViewComponent(main_window);
+            MenuBar.Content = new ViewSwitcherComponent(main_window);
         }
     }
 }

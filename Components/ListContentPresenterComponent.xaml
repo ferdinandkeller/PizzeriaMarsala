@@ -7,9 +7,34 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ListContentPresenterComponent">
-
+    <!-- DEFINITION DES DATA TEMPLATES -->
+    <!-- Un data template différente doit être utilisé pour chaque type de contenu qu'on affiche
+            (il faut un data template pour les commandes, un pour les clients, etc...               -->
+    <Page.Resources>
+        <!-- Data template des commandes -->
+        <DataTemplate x:Key="CommandDataTemplate">
+            <Border Height="170" Margin="5" CornerRadius="5">
+                <!-- on crééer une boite simple avec un fond gris et une bordure -->
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="#F5F5F5"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="#EAEAEA" />
+                                <Setter Property="Border.Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <!-- on affiche un label au center --> 
+                <Label Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <!-- DEFINITION DU PRESENTEUR DE LISTE -->
     <Grid>
-        <!--on créer deux sections : et une pour le menu et une pour les commandes -->
+        <!-- on créer deux sections : une pour le menu et une pour les commandes -->
         <Grid.RowDefinitions>
             <RowDefinition Height="180" />
             <RowDefinition Height="*" />
@@ -21,39 +46,14 @@
         <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
             <!-- Items control permet de charger dynamiquement notre liste de commandes -->
-            <ItemsControl Name="CommandItemsControl" ItemsSource="{Binding ListeCommandes}">
+            <ItemsControl Name="ItemsControlList" ItemsSource="{Binding ListeCommandes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <!-- Les éléments seronts affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->
                         <WrapPanel Loaded="WrapPanelLoaded" Margin="5 0 5 5" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Height="170" Margin="5" CornerRadius="5">
-                            <Border.Style>
-                                <Style>
-                                    <Setter Property="Border.Background" Value="#F5F5F5"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="Border.IsMouseOver" Value="True">
-                                            <Setter Property="Border.Background" Value="#EAEAEA" />
-                                            <Setter Property="Border.Cursor" Value="Hand" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <!-- Chaque element est un simple label (pour le moment) -->
-                            <Label Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-
-        <!--Ce bouton permet d'ajouter facilement des éléments à une commande (temporaire) -->
-        <Button Content="AjouterCommande" HorizontalAlignment="Left" Margin="584,70,0,0" VerticalAlignment="Top" Width="75" Click="AjouterCommande"/>
-
-        <!-- Show the menu bar -->
-        <Frame Name="MenuBar" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" />
     </Grid>
 </Page>

@@ -8,6 +8,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CommandView">
     <Grid>
+        
+        <!-- on affiche une liste de contenu -->
         <Frame Name="ListContentPresenter" />
+
+        <!-- on affiche la bare de menu -->
+        <Frame Name="MenuBar" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" />
     </Grid>
 </Page>
