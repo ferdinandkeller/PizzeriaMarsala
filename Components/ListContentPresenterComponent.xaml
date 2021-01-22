@@ -30,6 +30,25 @@
                 <Label Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Border>
         </DataTemplate>
+        <!-- Data template des commandes -->
+        <DataTemplate x:Key="CoolDataTemplate">
+            <Border Height="170" Margin="5" CornerRadius="5">
+                <!-- on crééer une boite simple avec un fond gris et une bordure -->
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="#F5F5F5"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="#EAEAEA" />
+                                <Setter Property="Border.Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <!-- on affiche un label au center -->
+                <Label Content="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+        </DataTemplate>
     </Page.Resources>
 
     <!-- DEFINITION DU PRESENTEUR DE LISTE -->
@@ -57,23 +76,30 @@
                     <Setter Property="FontFamily" Value="Open Sans ExtraBold" />
                     <Setter Property="FontSize" Value="10" />
                     <Setter Property="Foreground" Value="white" />
+
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#C37F5A" />
+                            <Setter Property="Cursor" Value="Hand" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </Grid.Resources>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
-                <Label Content="PAR NOM" />
-                <Label Content="PAR VILLE"/>
-                <Label Content="PAR ACHAT"/>
+                <Label Content="PAR NOM" MouseLeftButtonUp="Tri1Click" />
+                <Label Content="PAR VILLE" MouseLeftButtonUp="Tri2Click" />
+                <Label Content="PAR ACHAT" MouseLeftButtonUp="Tri3Click" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
-                <Label Content="AJOUTER" Width="140" />
-                <Label Content="IMPORTER FICHIER" Width="140"/>
+                <Label Content="AJOUTER" Width="140" MouseLeftButtonUp="AjouterClick" />
+                <Label Content="IMPORTER FICHIER" Width="140" MouseLeftButtonUp="ImporterClick" />
             </StackPanel>
         </Grid>
 
         <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
             <!-- Items control permet de charger dynamiquement notre liste de commandes -->
-            <ItemsControl Name="ItemsControlList" ItemsSource="{Binding ListeCommandes}">
+            <ItemsControl Name="ItemsControlList" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <!-- Les éléments seronts affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->

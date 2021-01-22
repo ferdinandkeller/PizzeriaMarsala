@@ -13,9 +13,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.Specialized;
+using Microsoft.Win32;
 
 namespace PizzeriaMarsala
 {
+
+    /*
+     * Le DataTemplateSelector permet de choisir le bon template en fonction de ce que l'on essaye d'afficher
+     */
     public class TemplateSelector : DataTemplateSelector
     {
         String Template;
@@ -28,38 +34,53 @@ namespace PizzeriaMarsala
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             FrameworkElement element = container as FrameworkElement;
-            return element.FindResource(Template) as DataTemplate;
+            return (element.FindResource(Template) as DataTemplate);
         }
     }
 
+    /*
+     * Classe représentation la page
+     */ 
     public partial class ListContentPresenterComponent : Page
     {
 
-        // Ce delegate est utilisé pour effectuer des actions lorsque la fenêtre change de taille
-        public delegate void OnWindowResized();
-        OnWindowResized WindowResized;
+        public delegate void Action();
+        public delegate void OpenFileAction(String file_url);
 
-        // Une ObservableCollection<> est un type de Liste sur lequel on peut écouter un évênement de modification
-        // Celle-ci contient une liste de commande (en l'occurence de noms pour le moments)
-        public ObservableCollection<String> ListeCommandes { get; set; } = new ObservableCollection<String>();
+        public Action SortMethod1;
+        public Action SortMethod2;
+        public Action SortMethod3;
+        public Action NewElement;
+        public OpenFileAction OpenFile;
 
-        public ListContentPresenterComponent(MainWindow main_window)
+        public ListContentPresenterComponent(
+            Action sort_method_1, Action sort_method_2, Action sort_method_3,
+            Action new_element, OpenFileAction open_file,
+            String data_template
+        )
         {
             InitializeComponent();
 
-            // on définit le data context (pour pouvoir accéder aux variables de la classe depuis le fichier XAML)
-            this.DataContext = this;
+            // on sauvegarde les paramêtres de la fênetre
+            SortMethod1 = sort_method_1;
+            SortMethod2 = sort_method_2;
+            SortMethod3 = sort_method_3;
+            NewElement = new_element;
+            OpenFile = open_file;
 
-            // on crééer des commandes
-            ListeCommandes = new ObservableCollection<String>() { "Ferdinand", "Roxane", "Stephanie", "Antoine", "Amelie", "Mark", "Marcel" };
+            ((INotifyCollectionChanged)ItemsControlList.Items).CollectionChanged += (s, e) =>
+            {
+                ResizeWrapPanelElements();
+            };
 
             // on enregistre notre delegate WindowResized
-            this.SizeChanged += (sender, e) => { WindowResized(); };
-            WindowResized += ResizeWrapPanelElements;
+            this.SizeChanged += (sender, e) => { ResizeWrapPanelElements(); };
 
+            // on affiche le titre
             AppTitle.Content = new AppTitleComponent();
 
-            ItemsControlList.ItemTemplateSelector = new TemplateSelector("CommandDataTemplate");
+            // on charge le bon data template
+            ItemsControlList.ItemTemplateSelector = new TemplateSelector(data_template);
         }
 
         /*
@@ -77,11 +98,10 @@ namespace PizzeriaMarsala
                 CommandWrapPanel = (WrapPanel)sender;
             }
             ResizeWrapPanelElements();
-            ListeCommandes.CollectionChanged += (s, e) => { ResizeWrapPanelElements(); };
         }
 
         // fonction qui est exécutée à chaque fois qu'on veut changer la taille des éléments du wrap panel
-        private void ResizeWrapPanelElements()
+        public void ResizeWrapPanelElements()
         {
             if (CommandWrapPanel != null)
             {
@@ -94,6 +114,23 @@ namespace PizzeriaMarsala
                 {
                     ((ContentPresenter)element).Width = desired_width;
                 }
+            }
+        }
+
+        /*
+         * Les fonctions suivantes vont être executés lorsque l'utilisateur va clicker sur les boutons de l'interface
+         */
+        private void Tri1Click(object sender, MouseButtonEventArgs e) { SortMethod1(); }
+        private void Tri2Click(object sender, MouseButtonEventArgs e) { SortMethod2(); }
+        private void Tri3Click(object sender, MouseButtonEventArgs e) {  SortMethod3(); }
+
+        private void AjouterClick(object sender, MouseButtonEventArgs e) { NewElement(); }
+        private void ImporterClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenFileDialog file_dialog = new OpenFileDialog();
+            if (file_dialog.ShowDialog() == true)
+            {
+                OpenFile(file_dialog.FileName);
             }
         }
     }
