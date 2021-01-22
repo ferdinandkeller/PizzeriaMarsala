@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace PizzeriaMarsala
 {
-    class SortableObservableCollection<T> : ObservableCollection<T>
+    public class SortableObservableCollection<T> : ObservableCollection<T>
     {
         public delegate int Compare(T el1, T el2);
 
