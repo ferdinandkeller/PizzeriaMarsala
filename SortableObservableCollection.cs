@@ -10,15 +10,19 @@ namespace PizzeriaMarsala
 {
     public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T>
     {
+
+        // définition d'une comparaison entre deux éléments
         public delegate int Compare(T el1, T el2);
 
-        public void Sort(Compare func_comparaison)
+        // fonction de tri par insertion qui prend en entrée
+        // notre fonction de comparaison
+        public void Sort(Compare comparison_function)
         {
             for (int i = 1; i < this.Count; i++)
             {
                 T val = this[i];
                 int j = i - 1;
-                while (j >= 0 && func_comparaison(val, this[j]) < 0)
+                while (j >= 0 && comparison_function(val, this[j]) < 0)
                 {
                     this[j + 1] = this[j];
                     j--;

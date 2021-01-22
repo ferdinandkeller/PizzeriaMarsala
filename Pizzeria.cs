@@ -8,9 +8,22 @@ using System.IO;
 
 namespace PizzeriaMarsala
 {
+
+    /*
+     * Cette classe représente la pizzeria de notre programme
+     * 
+     * Elle n'est instanciée qu'une seule fois, et toutes les actions effectuées à l'aide de l'interface
+     * graphique passent par elle (autrement dit c'est le centre de contrôle de l'application)
+     */
     public class Pizzeria
     {
 
+        // on stocke ici les références à nos commandes, clients, commis, livreurs
+        // ces listes sont directement affichées par l'interface, donc elle doivent
+        // être de type ObservableCollection pour qu'une modification de la liste
+        // mette à jour l'interface
+        // nous avons de plus créer la class SortableObservableCollection afin de
+        // rajouter la méthode Sort
         public SortableObservableCollection<Commande> ListeCommandes { get; set; } = new SortableObservableCollection<Commande>();
         public SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
         public SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
