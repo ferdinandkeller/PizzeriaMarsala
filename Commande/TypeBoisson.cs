@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PizzeriaMarsala
 {
     // les prix sont exprimés en centimes/L
-    enum TypeBoisson
+    public enum TypeBoisson
     {
         Coca = 120,
         JusOrange = 250,

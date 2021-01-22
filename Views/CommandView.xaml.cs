@@ -15,52 +15,40 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public class Cool
-    {
-        public String Value { get; set; }
-        public Cool(String value)
-        {
-            Value = value;
-        }
-    }
-
     public partial class CommandView : Page
     {
-        SortableObservableCollection<Cool> list = new SortableObservableCollection<Cool>();
+        public Pizzeria InstancePizzeria;
 
-        public CommandView(MainWindow main_window)
+        public CommandView(MainWindow main_window, Pizzeria instance_pizzeria)
         {
             InitializeComponent();
 
-            list.Add(new Cool("salut"));
-            list.Add(new Cool("tout"));
-            list.Add(new Cool("le"));
-            list.Add(new Cool("monde"));
+            InstancePizzeria = instance_pizzeria;
+
+            MenuBar.Content = new ViewSwitcherComponent(main_window);
 
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Sort, Sort2, Sort,
                 New, OpenFile,
-                "CoolDataTemplate"
+                "CommandDataTemplate",
+                "PAR NOM", "PAR VILLE", "PAR COMM"
             );
             ListContentPresenter.Content = presenter;
-            MenuBar.Content = new ViewSwitcherComponent(main_window);
+            presenter.ItemsControlList.DataContext = InstancePizzeria.ListeCommandes;
 
-            presenter.DataContext = list;
+            InstancePizzeria.ListeCommandes.Add(new Commande(DateTime.Now, null, null, new Client("Ferdinand", "Keller", "adresse", 631232, DateTime.Now), new Commis("Commisnom", "Commisprenom", "azd", 234234, EtatCommis.surplace, DateTime.Now), new Livreur("azdazd", "azdazd", "azdazd", 12323, EtatLivreur.surplace, "azda")));
         }
 
         public void Sort()
         {
-            list.Sort((Cool c1, Cool c2) => c1.Value.CompareTo(c2.Value));
         }
 
         public void Sort2()
         {
-            list.Sort((Cool c1, Cool c2) => c1.Value.Substring(1).CompareTo(c2.Value.Substring(1)));
         }
 
         public void New()
         {
-            list.Add(new Cool("Trop bien !"));
         }
 
         public void OpenFile(String file_url)

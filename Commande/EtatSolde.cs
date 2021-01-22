@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    enum EtatSolde
+    public enum EtatSolde
     {
         enettente,
         ok,

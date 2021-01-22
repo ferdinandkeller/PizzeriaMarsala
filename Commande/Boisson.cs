@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Boisson : Produit
+    public class Boisson : Produit
     {
         public TypeBoisson Type { get; private set; }
         public double Volume { get; private set; } // volume en cl

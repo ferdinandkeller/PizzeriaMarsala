@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Commande:IToCSV
+    public class Commande : IToCSV
     {
         public long IDCommande { get; private set; }
         public SortedList<Pizza,int> PizzasCommande { get; private set; } //int correspond à la quantité
@@ -21,7 +21,6 @@ namespace PizzeriaMarsala
 
         public Commande(long id_commande, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons,DateTime date, long numClient, string nomCommis, string  nomLivreur)
         {
-
             IDCommande = id_commande;
             PizzasCommande = pizzas;
             BoissonsCommande = boissons;
@@ -35,7 +34,6 @@ namespace PizzeriaMarsala
 
         public Commande(long id_commande, DateTime date, long numClient, string nomCommis, string nomLivreur,string etat, string solde)
         {
-
             IDCommande = id_commande;
             PizzasCommande = null;
             BoissonsCommande = null;
@@ -48,7 +46,7 @@ namespace PizzeriaMarsala
         }
 
         public Commande(DateTime date, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons, Client client, Commis commis, Livreur livreur)
-            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), pizzas,boissons,date, client.NumeroTel, commis.Nom, livreur.Nom)
+            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), pizzas, boissons, date, client.NumeroTel, commis.Nom, livreur.Nom)
         {
             // rien à faire
         }

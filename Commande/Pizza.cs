@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Pizza : Produit
+    public class Pizza : Produit
     {
         public TypePizza Type { get; private set; }
         public TaillePizza Taille { get; }

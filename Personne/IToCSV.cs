@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    interface IToCSV
+    public interface IToCSV
     {
         string ToCSV();
     }

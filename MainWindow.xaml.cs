@@ -38,6 +38,9 @@ namespace PizzeriaMarsala
             }
         } */
 
+        // on conserve l'instance de la pizzeria
+        public Pizzeria InstancePizzeria;
+
         // on conserve les instances des view afin de pouvoir switcher de l'une à l'autre
         public CommandView command_view;
         public CustomerView client_view;
@@ -52,8 +55,11 @@ namespace PizzeriaMarsala
             // on initialise les composants WPF
             InitializeComponent();
 
+            // on créer la pizzeria
+            InstancePizzeria = new Pizzeria();
+
             // on créer chacune des views
-            command_view = new CommandView(this);
+            command_view = new CommandView(this, InstancePizzeria);
             client_view = new CustomerView(this);
             worker_view = new WorkerView(this);
             deliverer_view = new DelivererView(this);

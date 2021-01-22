@@ -8,10 +8,10 @@ using System.IO;
 
 namespace PizzeriaMarsala
 {
-    class Pizzeria
+    public class Pizzeria
     {
 
-        public SortableObservableCollection<Commande> ListeCommandes { get; set ; } = new SortableObservableCollection<Commande>();
+        public SortableObservableCollection<Commande> ListeCommandes { get; set; } = new SortableObservableCollection<Commande>();
         public SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
         public SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
         public SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
@@ -183,10 +183,6 @@ namespace PizzeriaMarsala
         #endregion 
 
         #endregion
-
-
-
-
 
 
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste

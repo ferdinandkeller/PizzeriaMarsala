@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Livreur : Personne
+    public class Livreur : Personne
     {
         public EtatLivreur Etat { get; private set; }
         public string TypeVehicule { get; private set; }

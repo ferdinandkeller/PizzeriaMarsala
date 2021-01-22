@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Client : Personne
+    public class Client : Personne
     {
         public long IDClient { get; private set; }
         public DateTime PremiereCommande { get; private set; }

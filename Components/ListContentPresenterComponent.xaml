@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ListContentPresenterComponent">
+
     <!-- DEFINITION DES DATA TEMPLATES -->
     <!-- Un data template différente doit être utilisé pour chaque type de contenu qu'on affiche
             (il faut un data template pour les commandes, un pour les clients, etc...               -->
@@ -27,26 +28,7 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            </Border>
-        </DataTemplate>
-        <!-- Data template des commandes -->
-        <DataTemplate x:Key="CoolDataTemplate">
-            <Border Height="170" Margin="5">
-                <!-- on crééer une boite simple avec un fond gris et une bordure -->
-                <Border.Style>
-                    <Style>
-                        <Setter Property="Border.Background" Value="#F5F5F5"/>
-                        <Style.Triggers>
-                            <Trigger Property="Border.IsMouseOver" Value="True">
-                                <Setter Property="Border.Background" Value="#EAEAEA" />
-                                <Setter Property="Border.Cursor" Value="Hand" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-                <!-- on affiche un label au center -->
-                <Label Content="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Label Content="{Binding IDCommande}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Border>
         </DataTemplate>
     </Page.Resources>
@@ -86,9 +68,9 @@
                 </Style>
             </Grid.Resources>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
-                <Label Content="PAR NOM" MouseLeftButtonUp="Tri1Click" />
-                <Label Content="PAR VILLE" MouseLeftButtonUp="Tri2Click" />
-                <Label Content="PAR ACHAT" MouseLeftButtonUp="Tri3Click" />
+                <Label Content="{Binding NameSortMenu1}" MouseLeftButtonUp="Tri1Click" />
+                <Label Content="{Binding NameSortMenu2}" MouseLeftButtonUp="Tri2Click" />
+                <Label Content="{Binding NameSortMenu3}" MouseLeftButtonUp="Tri3Click" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 5 0">
                 <Label Content="AJOUTER" Width="140" MouseLeftButtonUp="AjouterClick" />

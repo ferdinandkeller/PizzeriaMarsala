@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    enum TaillePizza // multiplicateur du prix, en pourcentage
+    public enum TaillePizza // multiplicateur du prix, en pourcentage
     {
         Petite = 80,
         Moyenne = 100,

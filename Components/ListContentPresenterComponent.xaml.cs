@@ -53,13 +53,21 @@ namespace PizzeriaMarsala
         public Action NewElement;
         public OpenFileAction OpenFile;
 
+        public string NameSortMenu1 { get; set; }
+        public string NameSortMenu2 { get; set; }
+        public string NameSortMenu3 { get; set; }
+
         public ListContentPresenterComponent(
             Action sort_method_1, Action sort_method_2, Action sort_method_3,
             Action new_element, OpenFileAction open_file,
-            String data_template
+            string data_template,
+            string name_sort_menu_1, string name_sort_menu_2, string name_sort_menu_3
         )
         {
             InitializeComponent();
+
+            // set context
+            this.DataContext = this;
 
             // on sauvegarde les paramêtres de la fênetre
             SortMethod1 = sort_method_1;
@@ -72,6 +80,11 @@ namespace PizzeriaMarsala
             {
                 ResizeWrapPanelElements();
             };
+
+            // save menu's names
+            NameSortMenu1 = name_sort_menu_1;
+            NameSortMenu2 = name_sort_menu_2;
+            NameSortMenu3 = name_sort_menu_3;
 
             // on enregistre notre delegate WindowResized
             this.SizeChanged += (sender, e) => { ResizeWrapPanelElements(); };
@@ -108,6 +121,7 @@ namespace PizzeriaMarsala
                 double prefered_element_size = 250;
                 double element_margin = 5;
                 int n = (int)(CommandWrapPanel.ActualWidth / (prefered_element_size + 2 * element_margin));
+                if (CommandWrapPanel.Children.Count < n) { n = CommandWrapPanel.Children.Count; }
                 if (n == 0) { n = 1; }
                 double desired_width = CommandWrapPanel.ActualWidth / n;
                 foreach (UIElement element in CommandWrapPanel.Children)

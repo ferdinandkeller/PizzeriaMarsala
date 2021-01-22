@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    abstract class Produit
+    public abstract class Produit
     {
         public double Prix;
     }

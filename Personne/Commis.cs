@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    class Commis : Personne
+    public class Commis : Personne
     {
         public EtatCommis Presence { get; set; }
         private DateTime Embauche;

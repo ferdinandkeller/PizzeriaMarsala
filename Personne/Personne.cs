@@ -12,7 +12,7 @@ namespace PizzeriaMarsala
      * On implémente l'interface IEquatable afin de vérifier si deux personnes sont les même
      * On implémente l'interface IComparable afin de pouvoir trier un tableau de personne par ordre alphabétique
      */
-    abstract class Personne: IToCSV
+    public abstract class Personne: IToCSV
     {
 
         public string Nom { get; protected set; }
