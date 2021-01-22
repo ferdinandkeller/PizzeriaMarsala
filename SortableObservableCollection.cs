@@ -30,5 +30,15 @@ namespace PizzeriaMarsala
         {
             return (List<T>)this.Items;
         }
+
+        public void EnregistrerDansFichierCSV(string nomFichier)
+        {
+
+        }
+
+        public void EnregistrerDansFichierTXT(string nomFichier)
+        {
+
+        }
     }
 }

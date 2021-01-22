@@ -15,16 +15,9 @@ namespace PizzeriaMarsala
         public SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
         public SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
         public SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
-        // tri par : ordre alphabétique, ville, montant cummulé, urgence
-
-        /*
-         * j'ai besoin :    - Ouvrir fichier / Exporter
-         *                  - modfier classe commande pour prendre en compte les details de la commande
-         */
 
         delegate int Compare(object obj1, object obj2);
 
-        //Utilité du delegate?
         #region delegate Trouve
         delegate object Trouve(object critere);
 
@@ -85,7 +78,7 @@ namespace PizzeriaMarsala
         }
         #endregion
 
-        #region Ouverture de fichiers et ajout aux listes
+        #region Ouverture de fichiers et ajout aux listes automatique
 
         //Clients
         public void OuvrirFichierClient(string nomFichier)
@@ -122,20 +115,8 @@ namespace PizzeriaMarsala
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => ListeCommandes.Add(x));
         }
-        #endregion
 
-        #region Enregistrement des listes dans un fichier
-        /*
-        public void EnregistrerFichierClient(string nomFichier)
-        {
-            List<Client>;
-        }
-        
-        */
-        #endregion
-
-
-        #region Création d'une liste depuis un fichier
+            #region Création d'une liste depuis un fichier
         public static List<string> CreationListeDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
@@ -200,6 +181,20 @@ namespace PizzeriaMarsala
             return liste;
         }
         #endregion 
+
+        #endregion
+
+        #region Enregistrement des listes dans un fichier
+        /*
+        public void EnregistrerFichierClient(string nomFichier)
+        {
+            List<Client>;
+        }
+        
+        */
+        #endregion
+
+
 
 
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
@@ -306,13 +301,15 @@ namespace PizzeriaMarsala
         }
 
 
-        #region Création de la facture d'une commande en entrant son identifiant
+        #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier)
 
-
-        public void EnregistrementFactureDansFichier(long id, string nomFichier)
+        public void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
         {
-
+            List<Commande> liste = ListeCommandes.ToList();
+            Commande c = liste.Find(x => x.IDCommande == id);
+            c.EnregistreFactureTXT(nomFichier);
         }
+
         #endregion
 
         #region TriListe...
@@ -344,22 +341,63 @@ namespace PizzeriaMarsala
             ListeClients.Sort(Client.ComparePrixCumule);
         }
 
+        //Livreurs
+        public void TriLivreursParNom()
+        {
+            ListeLivreurs.Sort(Livreur.CompareNomPrenom);
+        }
+
+        public void TriLivreursParVille()
+        {
+            ListeLivreurs.Sort(Livreur.CompareVille);
+        }
+
+        //Commis
+        public void TriCommisParNom()
+        {
+            ListeCommis.Sort(Commis.CompareNomPrenom);
+        }
+
+        public void TriCommisParVille()
+        {
+            ListeCommis.Sort(Commis.CompareVille);
+        }
 
         #endregion
 
-        #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures
+        #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
 
         public void EnregistrerHistoriqueCommandes(string nomFichier)
         {
-            if(ListeCommandes!=null && ListeCommandes.Count != 0)
+            List<Commande> liste = ListeCommandes.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if(liste!=null && liste.Count != 0)
             {
-
+                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
             }
+            sw.Close();
         }
 
-        public void EnregistrerHistoriqueFactures(string nomFichier)
+        public void EnregistrerHistoriqueFacturesTXT(string nomFichier)
         {
+            List<Commande> liste = ListeCommandes.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.DetailCommandeToString()));
+            }
+            sw.Close();
+        }
 
+        public void EnregistrerHistoriqueFacturesCSV(string nomFichier)
+        {
+            List<Commande> liste = ListeCommandes.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.DetailCommandeToCSV()));
+            }
+            sw.Close();
         }
         #endregion
     }
