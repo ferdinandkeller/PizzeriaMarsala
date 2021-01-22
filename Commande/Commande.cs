@@ -19,10 +19,6 @@ namespace PizzeriaMarsala
         public EtatCommande Etat { get; private set; }
         public string Solde { get; private set; }
 
-        // la structure de la commande n'est pas bonne
-        // elle doit contenir une liste de pizza et une liste de condiments !
-        // de plus je ne suis pas sûr que la classe commande soit censée heberger la logique de la livraison
-
         public Commande(long id_commande, SortedList<Pizza,int> pizzas, SortedList<Boisson,int> boissons,DateTime date, long numClient, string nomCommis, string  nomLivreur)
         {
 
@@ -77,7 +73,6 @@ namespace PizzeriaMarsala
             }
             return prix;
         }
-
         /*
         public void DepartLivraison()
         {
@@ -100,14 +95,10 @@ namespace PizzeriaMarsala
             // Livreur.Etat = EtatLivreur.Surplace;
         }
 
-        //Comparaison des dates de commandes (par date croissante)
-        public static int CompareDelais(Commande a, Commande b)
-        {
-            return a.Date.CompareTo(b.Date);
-        }
+        
         */
 
-        //A FAIRE
+        //A Mettre dans pizzéria FAIRE
 
         public static Commande CSVToCommande(string commande)
         {
@@ -193,6 +184,10 @@ namespace PizzeriaMarsala
             return a.Date.CompareTo(b.Date);
         }
 
+        public static Commande RechercheCommandeParID(List<Commande> liste, long id)
+        {
+            return liste.Find(x => x.IDCommande == id);
+        }
 
 
     }

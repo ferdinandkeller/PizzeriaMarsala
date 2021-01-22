@@ -293,13 +293,28 @@ namespace PizzeriaMarsala
         }
 
 
-        #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier)
+        #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier), StringCommandeRechercheId
 
         public void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
         {
             List<Commande> liste = ListeCommandes.ToList();
             Commande c = liste.Find(x => x.IDCommande == id);
             c.EnregistreFactureTXT(nomFichier);
+        }
+
+        public string StringCommandeRechercheId(long id)
+        {
+            List<Commande> liste = ListeCommandes.ToList();
+            Commande c = Commande.RechercheCommandeParID(liste, id);
+            return c.ToString();
+        }
+
+        public string StringPrixCommandeRechercheId(long id)
+        {
+            List<Commande> liste = ListeCommandes.ToList();
+            Commande c = Commande.RechercheCommandeParID(liste, id);
+            double prix = Commande.PrixCommande(c.PizzasCommande, c.BoissonsCommande);
+            return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
 
         #endregion
