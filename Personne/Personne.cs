@@ -56,7 +56,7 @@ namespace PizzeriaMarsala
         public static int CompareVille(Personne p, Personne q)
         {
             string[] a1 = p.Adresse.Split(' ');
-            string[] a2 = p.Adresse.Split(' ');
+            string[] a2 = q.Adresse.Split(' ');
             int compa = a1[a1.Length - 1].CompareTo(a2[a2.Length - 1]);
             if (compa == 0)
             {

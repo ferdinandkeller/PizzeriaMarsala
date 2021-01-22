@@ -12,11 +12,11 @@ namespace PizzeriaMarsala
     {
 
         // définition d'une comparaison entre deux éléments
-        public delegate int Compare(T el1, T el2);
+        public delegate int ComparisonFunction(T el1, T el2);
 
         // fonction de tri par insertion qui prend en entrée
         // notre fonction de comparaison
-        public void Sort(Compare comparison_function)
+        public void Sort(ComparisonFunction comparison_function)
         {
             for (int i = 1; i < this.Count; i++)
             {
