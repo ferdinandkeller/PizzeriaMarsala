@@ -17,10 +17,16 @@ namespace PizzeriaMarsala
 {
     public partial class CustomerView : Page
     {
+
+        MainWindow main_window;
+
         public CustomerView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
+
+            // on sauvegarde l'objet fenêtre
+            this.main_window = main_window;
 
             // on charge la barre des menus
             MenuBar.Content = new ViewSwitcherComponent(main_window);
@@ -48,13 +54,7 @@ namespace PizzeriaMarsala
 
         public void New()
         {
-            Pizzeria.ListeCommandes.Add(new Commande(
-                DateTime.Now,
-                new Client("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
-                new Commis("azd", "azd", "azd", 01238, EtatCommis.surplace, DateTime.Now),
-                new Livreur("azd", "azd", "azd", 081238, EtatLivreur.surplace, "azd"),
-                EtatSolde.enettente
-            ));
+            main_window.SwitchToCreateCustomerView();
         }
 
         public void OpenFile(String file_url)

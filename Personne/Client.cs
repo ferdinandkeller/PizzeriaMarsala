@@ -17,7 +17,6 @@ namespace PizzeriaMarsala
         {
             // rien
         }
-
         public Client(long id_client, string nom, string prenom, string adresse, long numero, DateTime premiere_commande, long cumul_commandes)
             : base(nom, prenom, adresse, numero)
         {

@@ -39,10 +39,12 @@ namespace PizzeriaMarsala
         } */
 
         // on conserve les instances des view afin de pouvoir switcher de l'une à l'autre
-        public CommandView command_view;
-        public CustomerView client_view;
-        public WorkerView worker_view;
-        public DelivererView deliverer_view;
+        private CommandView command_view;
+        private CustomerView customer_view;
+        private WorkerView worker_view;
+        private DelivererView deliverer_view;
+
+        private CreateCustomerView create_customer_view;
 
         /*
         * Fonction principale du WPF
@@ -54,12 +56,22 @@ namespace PizzeriaMarsala
 
             // on créer chacune des views
             command_view = new CommandView(this);
-            client_view = new CustomerView(this);
+            customer_view = new CustomerView(this);
             worker_view = new WorkerView(this);
             deliverer_view = new DelivererView(this);
 
             // on charge la view qui contient la liste des commandes
             ViewFrame.Content = command_view;
         }
+
+        public void SwitchToCommandView() { ViewFrame.Content = command_view; }
+        public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
+        public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
+        public void SwitchToDelivererView() { ViewFrame.Content = deliverer_view; }
+
+        public void SwitchToCreateCustomerView() {
+            ViewFrame.Content = new CreateCustomerView(this);
+        }
+
     }
 }

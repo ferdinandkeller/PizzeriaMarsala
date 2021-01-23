@@ -28,22 +28,22 @@ namespace PizzeriaMarsala
 
         private void SwitchToCommandPanel(object sender, MouseButtonEventArgs e)
         {
-            main_window.ViewFrame.Content = main_window.command_view;
+            main_window.SwitchToCommandView();
         }
         
         private void SwitchToClientPanel(object sender, MouseButtonEventArgs e)
         {
-            main_window.ViewFrame.Content = main_window.client_view;
+            main_window.SwitchToCustomerView();
         }
 
         private void SwitchToWorkerPanel(object sender, MouseButtonEventArgs e)
         {
-            main_window.ViewFrame.Content = main_window.worker_view;
+            main_window.SwitchToWorkerView();
         }
 
         private void SwitchToDelivererPanel(object sender, MouseButtonEventArgs e)
         {
-            main_window.ViewFrame.Content = main_window.deliverer_view;
+            main_window.SwitchToDelivererView();
         }
     }
 }
