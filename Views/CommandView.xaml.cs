@@ -19,16 +19,21 @@ namespace PizzeriaMarsala
     {
         public CommandView(MainWindow main_window)
         {
+            // on initialise les composants
             InitializeComponent();
 
+            // on charge la barre des menus
             MenuBar.Content = new ViewSwitcherComponent(main_window);
 
+            // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortCommandsByID, Pizzeria.SortCommandsByPrices, Pizzeria.SortCommandsByUrgency,
                 New, OpenFile,
                 "CommandDataTemplate",
                 "PAR ID", "PAR PRIX", "PAR TEMPS"
             );
+
+            // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.ListeCommandes;
         }
@@ -56,7 +61,6 @@ namespace PizzeriaMarsala
         {
             Console.WriteLine(file_url);
         }
-
     }
 
 }

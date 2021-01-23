@@ -39,7 +39,7 @@ namespace PizzeriaMarsala
         }
 
         //Comparaison (ordre alphabétique) par le nom puis le prénom si les noms sont égaux
-        public static int CompareNomPrenom(Personne p, Personne q)
+        public static int CompareName(Personne p, Personne q)
         {
             int compa = p.Nom.CompareTo(q.Nom);
             if (compa == 0)
@@ -53,7 +53,7 @@ namespace PizzeriaMarsala
          *Il faut pour cela extraire la ville de l'adresse
          *Si la ville est la même, on compare le numéro de domicile
          */
-        public static int CompareVille(Personne p, Personne q)
+        public static int CompareTown(Personne p, Personne q)
         {
             string[] a1 = p.Adresse.Split(' ');
             string[] a2 = q.Adresse.Split(' ');

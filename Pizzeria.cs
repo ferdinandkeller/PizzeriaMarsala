@@ -15,7 +15,7 @@ namespace PizzeriaMarsala
      * Elle n'est instanciée qu'une seule fois, et toutes les actions effectuées à l'aide de l'interface
      * graphique passent par elle (autrement dit c'est le centre de contrôle de l'application)
      */
-    public class Pizzeria
+    public static class Pizzeria
     {
 
         // on stocke ici les références à nos commandes, clients, commis, livreurs
@@ -37,6 +37,10 @@ namespace PizzeriaMarsala
         public static void SortCommandsByID() { ListeCommandes.Sort(Commande.CompareID); }
         public static void SortCommandsByPrices() { ListeCommandes.Sort(Commande.ComparePrices); }
         public static void SortCommandsByUrgency() { ListeCommandes.Sort(Commande.CompareUrgency); }
+
+        public static void SortCustomersByName() { ListeClients.Sort(Personne.CompareName); }
+        public static void SortCustomersByTown() { ListeClients.Sort(Personne.CompareTown); }
+        public static void SortCustomersByTotalOrders() { ListeClients.Sort(Client.CompareTotalOrders); }
 
         /*
         #region delegate Trouve
@@ -314,7 +318,7 @@ namespace PizzeriaMarsala
             ModificationFichierDepuisListe(AssociationFichier(liste), liste);
         }
         */
-        
+
         public static Client FindCustomer(String lastname, String firstname)
         {
             return ListeClients.Find(customer => customer.Nom == lastname && customer.Prenom == firstname);
