@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace PizzeriaMarsala
 {
-    public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T> where T : class
+    public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T> where T : class, IToCSV
     {
 
         // définition d'une comparaison entre deux éléments
@@ -63,7 +63,7 @@ namespace PizzeriaMarsala
             return (s != null && s.Count != 0);
         }
 
-        public void EnregistrerDansFichier(string nomFichier)
+        public void EnregistrerDansFichierTXT(string nomFichier)
         {
             List<T> liste = this.ToList();
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -73,6 +73,17 @@ namespace PizzeriaMarsala
             }
             sw.Close();
         }
-        
+
+        public void EnregistrerDansFichierCSV(string nomFichier)
+        {
+            List<T> liste = this.ToList();
+            StreamWriter sw = new StreamWriter(nomFichier);
+            if (liste != null && liste.Count != 0)
+            {
+                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
+            }
+            sw.Close();
+        }
+
     }
 }
