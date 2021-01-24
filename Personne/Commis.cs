@@ -11,11 +11,14 @@ namespace PizzeriaMarsala
         private EtatCommis Presence { get; set; }
         private DateTime Embauche { get; set; }
 
+        public int CommandesGerees { get; set; }
+
         public Commis(string nom, string prenom, string adresse, long numero, EtatCommis presence, DateTime embauche)
             : base(nom, prenom, adresse, numero)
         {
             Presence = presence;
             Embauche = embauche;
+            CommandesGerees = 0;
         }
 
         public override string ToString()

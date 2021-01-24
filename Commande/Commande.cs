@@ -10,7 +10,8 @@ namespace PizzeriaMarsala
     public class Commande : IToCSV
     {
         // attributs de la classe
-        public long CommandID { get; private set; }
+        static long CommandIDMax { get; set; } //L'identifiant actuel qu'on incrément à chaque commande
+        public long CommandID { get; set; }//L'identifiant de la commande
 
         public DateTime Date { get; private set; }
 
@@ -27,26 +28,34 @@ namespace PizzeriaMarsala
         /*
          * Constructeurs de la classe
          */
-        public Commande(long id_commande, DateTime date, Client client, Commis commis, Livreur livreur, EtatSolde solde)
+
+        //Lors d'une saisie par le commis
+        public Commande(Client client, Commis commis, Livreur livreur)
         {
-            CommandID = id_commande;
-            Date = date;
+            CommandIDMax ++;
+            CommandID = CommandIDMax;
+            Date = DateTime.Now;
             CommandCustomer = client;
             CommandWorker = commis;
             CommandDeliverer = livreur;
             Etat = EtatCommande.enpreparation;
-            Solde = solde;
+            Solde = EtatSolde.enattente;
+            CommandWorker.CommandesGerees += 1;
         }
+
+        //Lors de la saisie depuis un fichier
         public Commande(long id_commande, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
-            : this(id_commande, date, Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name), (EtatSolde)Enum.Parse(typeof(EtatSolde), solde))
+            : this(Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name))
         {
-            // rien
+            Date = date;
+            CommandID = id_commande;
+            if (CommandIDMax < CommandID)
+            {
+                CommandIDMax = CommandID;
+            }
+            Solde = (EtatSolde)Enum.Parse(typeof(EtatSolde), solde);
         }
-        public Commande(DateTime date, Client client, Commis commis, Livreur livreur, EtatSolde solde)
-            : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), date, client, commis, livreur, solde)
-        {
-            // rien
-        }
+
 
         /*
          * Fonction qui renvoie le prix de la commande
@@ -72,21 +81,35 @@ namespace PizzeriaMarsala
         }
 
         /*
-         * Fonctions qui changent l'état de la commande
+         * Fonctions qui changent l'état de la commande et des personnes associées
          */
         public void DepartLivraison()
         {
             Etat = EtatCommande.enlivraison;
+            //Le livreur assigné part en livraison
+            CommandDeliverer.Etat = EtatLivreur.enlivraison;
         }
         public void PaiementRecu()
         {
             Etat = EtatCommande.fermee;
             Solde = EtatSolde.ok;
+            //Le livreur assigné est sur place, il a effectué une livraison en plus
+            CommandDeliverer.Etat = EtatLivreur.surplace;
+            CommandDeliverer.CumulLivraisons++;
+            //Cammande payée, le client augmente le cumul de ses commandes
+            CommandCustomer.CumulCommandes += this.Price();
+            //Commande fermée, le commis n'a plus à s'en occuper
+            CommandWorker.CommandesGerees--; 
         }
         public void PerteCommande()
         {
             Etat = EtatCommande.fermee;
             Solde = EtatSolde.perdue;
+            //Le livreur assigné est sur place, il a effectué une livraison en plus
+            CommandDeliverer.Etat = EtatLivreur.surplace;
+            CommandDeliverer.CumulLivraisons++;
+            //Commande fermée, le commis n'a plus à s'en occuper
+            CommandWorker.CommandesGerees--;
         }
 
         /*

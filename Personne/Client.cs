@@ -10,14 +10,14 @@ namespace PizzeriaMarsala
     {
         public long IDClient { get; private set; }
         public DateTime PremiereCommande { get; private set; }
-        public long CumulCommandes { get; private set; }
+        public double CumulCommandes { get; set; }
 
         public Client(string nom, string prenom, string adresse, long numero, DateTime premiere_commande)
             : this(GenerateurIdentifiant.CreerIdentifiantAleatoire(), nom, prenom, adresse, numero, premiere_commande, 0)
         {
             // rien
         }
-        public Client(long id_client, string nom, string prenom, string adresse, long numero, DateTime premiere_commande, long cumul_commandes)
+        public Client(long id_client, string nom, string prenom, string adresse, long numero, DateTime premiere_commande, double cumul_commandes)
             : base(nom, prenom, adresse, numero)
         {
             IDClient = id_client;
@@ -39,7 +39,7 @@ namespace PizzeriaMarsala
         {
             String[] infos = client.Split(';');
             DateTime DatePremiereCommande = infos.Length == 5 ? DateTime.Now : Convert.ToDateTime(infos[5]);
-            long cumul_commandes = infos.LongLength == 6 ? 0 : long.Parse(infos[6]);
+            double cumul_commandes = infos.LongLength == 6 ? 0 : double.Parse(infos[6]);
             return new Client(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DatePremiereCommande, cumul_commandes);
         }
 

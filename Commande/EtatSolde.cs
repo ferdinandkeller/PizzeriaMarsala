@@ -8,7 +8,7 @@ namespace PizzeriaMarsala
 {
     public enum EtatSolde
     {
-        enettente,
+        enattente,
         ok,
         perdue
     }
