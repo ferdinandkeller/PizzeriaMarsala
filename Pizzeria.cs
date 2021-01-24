@@ -42,11 +42,11 @@ namespace PizzeriaMarsala
         public static void SortCustomersByTown() { ListeClients.Sort(Personne.CompareTown); }
         public static void SortCustomersByTotalOrders() { ListeClients.Sort(Client.CompareTotalOrders); }
 
-        /*
+        
         #region delegate Trouve
         delegate object Trouve(object critere);
 
-        public Client TrouveClient(string s)
+        public static Client TrouveClient(string s)
         {
             if(ListeClients!=null && ListeClients.Count != 0)
             {
@@ -65,7 +65,7 @@ namespace PizzeriaMarsala
             }
         }
 
-        public Livreur TrouveLivreur(string s)
+        public static Livreur TrouveLivreur(string s)
         {
             if (ListeLivreurs != null && ListeLivreurs.Count != 0)
             {
@@ -83,7 +83,7 @@ namespace PizzeriaMarsala
                 return null;
             }
         }
-        public Commis TrouveCommis(string s)
+        public static Commis TrouveCommis(string s)
         {
             if (ListeCommis != null && ListeCommis.Count != 0)
             {
@@ -102,7 +102,7 @@ namespace PizzeriaMarsala
             }
         }
         #endregion
-        */
+        
 
         /*
          * Méthode retournant la liste des commandes passées dans une période de temps donnée
@@ -160,10 +160,10 @@ namespace PizzeriaMarsala
         }
 
 
-        /*
+        
         #region Ouverture de fichiers et ajout aux listes automatique
         //Clients
-        public void OuvrirFichierClient(string nomFichier)
+        public static void OuvrirFichierClient(string nomFichier)
         {
             List<Client> liste = CreationListeClientsDepuisFichier(nomFichier);
             List<Client> l2 = liste.FindAll(x => ListeClients.Contains(x));
@@ -172,7 +172,7 @@ namespace PizzeriaMarsala
         }
 
         //Commis
-        public void OuvrirFichierCommis(string nomFichier)
+        public static void OuvrirFichierCommis(string nomFichier)
         {
             List<Commis> liste = CreationListeCommisDepuisFichier(nomFichier);
             List<Commis> l2 = liste.FindAll(x => ListeCommis.Contains(x));
@@ -181,7 +181,7 @@ namespace PizzeriaMarsala
         }
 
         //Livreurs
-        public void OuvrirFichierLivreurs(string nomFichier)
+        public static void OuvrirFichierLivreurs(string nomFichier)
         {
             List<Livreur> liste = CreationListeLivreursDepuisFichier(nomFichier);
             List<Livreur> l2 = liste.FindAll(x => ListeLivreurs.Contains(x));
@@ -190,7 +190,7 @@ namespace PizzeriaMarsala
         }
 
         //Commandes
-        public void OuvrirFichierCommandes(string nomFichier)
+        public static void OuvrirFichierCommandes(string nomFichier)
         {
             List<Commande> liste = CreationListeCommandesDepuisFichier(nomFichier);
             List<Commande> l2 = liste.FindAll(x => ListeCommandes.Contains(x));
@@ -258,20 +258,21 @@ namespace PizzeriaMarsala
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Commande.CSVToCommande(ligne));
+                liste.Add(Commande.FromCSV(ligne));
             }
             return liste;
         }
-        #endregion 
-        */
+        #endregion
 
-        /*
+        #endregion
+
         /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
          * Permet nottamment de trier un fichier existant:
             * On créé la liste à partir du fichier
             * On trie cette liste avec le critère choisi
             * On remet la liste dans le fichier
-        
+            */
+
         public static void ModificationFichierDepuisListe(string nomFichier, object l)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -313,7 +314,8 @@ namespace PizzeriaMarsala
             sw.Close();
         }
 
-        public static string AssociationFichier(object liste)
+        
+      /*  public static string AssociationFichier(object liste)
         {
             string s = "";
             if (liste is List<Client>)
@@ -333,6 +335,8 @@ namespace PizzeriaMarsala
             }
             return s;
         }
+      */
+
         public static string ToString(List<object> l)
         {
             string s = "";
@@ -342,7 +346,7 @@ namespace PizzeriaMarsala
             }
             return s;
         }
-        */
+        
 
         /* Très interessant mais inutile x) (car ça ne peux pas marcher)
          * 
@@ -392,88 +396,97 @@ namespace PizzeriaMarsala
             return ListeLivreurs.Find(deliverer => deliverer.Nom == lastname);
         }
 
-        /*
+        public static Commande FindCommand(long id)
+        {
+            return ListeCommandes.Find(x => x.CommandID == id);
+        }
+
+
         #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier), StringCommandeRechercheId
 
-        public void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
+        public static void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
         {
             List<Commande> liste = ListeCommandes.ToList();
             Commande c = liste.Find(x => x.CommandID == id);
             c.EnregistreFactureTXT(nomFichier);
         }
 
-        public string StringCommandeRechercheId(long id)
+        public static string StringCommandeRechercheId(long id)
         {
             List<Commande> liste = ListeCommandes.ToList();
-            Commande c = Commande.RechercheCommandeParID(liste, id);
+            Commande c = FindCommand(id);
             return c.ToString();
         }
 
-        public string StringPrixCommandeRechercheId(long id)
+        public static string StringPrixCommandeRechercheId(long id)
         {
             List<Commande> liste = ListeCommandes.ToList();
-            Commande c = Commande.RechercheCommandeParID(liste, id);
-            double prix = Commande.PrixCommande(c.PizzaList, c.DrinkList);
+            Commande c = FindCommand(id);
+            double prix = c.Price();
             return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
 
         #endregion
-        */
+    
 
-        /*
+        
         #region TriListe...
 
         //Commandes
-        public void TriCommandesParId()
+        public static void SortCommandID()
         {
-            ListeCommandes.Sort(Commande.CompareIDCommande);
+            ListeCommandes.Sort(Commande.CompareID);
         }
 
-        public void TriCommandesParUrgence() 
+        public static void SortCommandUrgency() 
         {
-            ListeCommandes.Sort(Commande.CompareUrgence);
+            ListeCommandes.Sort(Commande.CompareUrgency);
+        }
+
+        public static void SortCommandPrice()
+        {
+            ListeCommandes.Sort(Commande.ComparePrices);
         }
 
         //Clients
-        public void TriClientParNom()
+        public static void SortClientName()
         {
-            ListeClients.Sort(Personne.CompareNomPrenom);
+            ListeClients.Sort(Personne.CompareName);
         }
 
-        public void TriClientParVille()
+        public static void SortClientTown()
         {
-            ListeClients.Sort(Personne.CompareVille);
+            ListeClients.Sort(Personne.CompareTown);
         }
 
-        public void TriClientParCumul()
+        public static void SortClientTotalOrders()
         {
-            ListeClients.Sort(Client.ComparePrixCumule);
+            ListeClients.Sort(Client.CompareTotalOrders);
         }
 
         //Livreurs
-        public void TriLivreursParNom()
+        public static void SortDelivererName()
         {
-            ListeLivreurs.Sort(Livreur.CompareNomPrenom);
+            ListeLivreurs.Sort(Livreur.CompareName);
         }
 
-        public void TriLivreursParVille()
+        public static void SortDelivererTown()
         {
-            ListeLivreurs.Sort(Livreur.CompareVille);
+            ListeLivreurs.Sort(Livreur.CompareTown);
         }
 
         //Commis
-        public void TriCommisParNom()
+        public static void SortWorkerName()
         {
-            ListeCommis.Sort(Commis.CompareNomPrenom);
+            ListeCommis.Sort(Commis.CompareName);
         }
 
-        public void TriCommisParVille()
+        public static void SortWorkerTown()
         {
-            ListeCommis.Sort(Commis.CompareVille);
+            ListeCommis.Sort(Commis.CompareTown);
         }
 
         #endregion
-        */
 
         /*
         #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
@@ -549,9 +562,9 @@ namespace PizzeriaMarsala
         #endregion
         */
 
-        /*
+
         #region EtatEffectifs
-        public string EtatEffectifs()
+        public static string EtatEffectifs()
         {
             string s = "";
             List<Commis> lc = ListeCommis.ToList();
@@ -567,6 +580,6 @@ namespace PizzeriaMarsala
             return s;
         }
         #endregion
-        */
+
     }
 }

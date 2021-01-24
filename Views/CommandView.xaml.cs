@@ -49,11 +49,9 @@ namespace PizzeriaMarsala
         public void New()
         {
             Pizzeria.ListeCommandes.Add(new Commande(
-                DateTime.Now,
                 new Client("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
                 new Commis("azd", "azd", "azd", 01238, EtatCommis.surplace, DateTime.Now),
-                new Livreur("azd", "azd", "azd", 081238, EtatLivreur.surplace, "azd"),
-                EtatSolde.enettente
+                new Livreur("azd", "azd", "azd", 081238, EtatLivreur.surplace, "azd")
             ));
         }
 

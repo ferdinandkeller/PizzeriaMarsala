@@ -8,7 +8,7 @@ namespace PizzeriaMarsala
 {
     public class Commis : Personne
     {
-        private EtatCommis Presence { get; set; }
+        public EtatCommis Presence { get;private set; }
         private DateTime Embauche { get; set; }
 
         public int CommandesGerees { get; set; }

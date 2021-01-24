@@ -158,22 +158,31 @@ namespace PizzeriaMarsala
             return command_1.Price().CompareTo(command_2.Price());
         }
 
+
         /*
+         * Méthode pour enregistrer une Facture au format Txt ou CSV
+         * On ne peut pas utiliser la méthode EnregistreDansFichierTXT/CSV de SortableObservableCollection:
+            * Les méthodes ToCSV et ToString de Commande n'affichent pas les éléments d'une commande détaillée
+         */
+
+        #region Enregistrement Facture dans fichiers
+
+        #region Méthodes ToString() et ToCSV() adaptées
         public string DetailCommandeToString()
         {
-            string s = "N° Commande : "+ IDCommande.ToString();
-            if(PizzasCommande!=null && PizzasCommande.Count != 0)
+            string s = "N° Commande : " + CommandID.ToString();
+            if (PizzaList != null && PizzaList.Count != 0)
             {
-                foreach (KeyValuePair < Pizza,int> kv in PizzasCommande)
+                foreach (KeyValuePair<Pizza, int> kv in PizzaList)
                 {
                     s += "Pizza : " + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
             }
-            if (BoissonsCommande != null && BoissonsCommande.Count != 0)
+            if (DrinkList != null && DrinkList.Count != 0)
             {
-                foreach (KeyValuePair<Boisson, int> kv in BoissonsCommande)
+                foreach (KeyValuePair<Boisson, int> kv in DrinkList)
                 {
-                    s += kv.Key.Type.ToString()+" : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Prix}$]"+ " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                    s += kv.Key.Type.ToString() + " : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Prix}$]" + " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
             }
             return s;
@@ -182,27 +191,23 @@ namespace PizzeriaMarsala
         public string DetailCommandeToCSV()
         {
             string s = "";
-            if (PizzasCommande != null && PizzasCommande.Count != 0)
+            if (PizzaList != null && PizzaList.Count != 0)
             {
-                foreach (KeyValuePair<Pizza, int> kv in PizzasCommande)
+                foreach (KeyValuePair<Pizza, int> kv in PizzaList)
                 {
-                    s += this.IDCommande.ToString()+";Pizza"+kv.Key.Prix.ToString()+";" + kv.Key.Type.ToString()+";"+kv.Key.Taille.ToString()+";;"+kv.Value.ToString() + "\n";
+                    s += this.CommandID.ToString() + ";Pizza" + kv.Key.Prix.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Taille.ToString() + ";;" + kv.Value.ToString() + "\n";
                 }
             }
-            if (BoissonsCommande != null && BoissonsCommande.Count != 0)
+            if (DrinkList != null && DrinkList.Count != 0)
             {
-                foreach (KeyValuePair<Boisson, int> kv in BoissonsCommande)
+                foreach (KeyValuePair<Boisson, int> kv in DrinkList)
                 {
-                    s += this.IDCommande.ToString() + ";"+kv.Key.Type.ToString()+";" + kv.Key.Prix.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
+                    s += this.CommandID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Prix.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
                 }
             }
             return s;
         }
         #endregion
-        */
-
-        /*
-        #region Enregistrement Facture dans fichiers
         public void EnregistreFactureTXT(string nomFichier)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -219,11 +224,6 @@ namespace PizzeriaMarsala
 
         #endregion
 
-        public static Commande RechercheCommandeParID(List<Commande> liste, long id)
-        {
-            return liste.Find(x => x.IDCommande == id);
-        }
-        */
 
     }
 }
