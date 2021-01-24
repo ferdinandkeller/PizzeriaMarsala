@@ -105,6 +105,62 @@ namespace PizzeriaMarsala
         */
 
         /*
+         * Méthode retournant la liste des commandes passées dans une période de temps donnée
+         */
+
+        public static SortableObservableCollection<Commande> CommandesInTimeSpan(DateTime d1,DateTime d2)
+        {
+            SortableObservableCollection<Commande> c = new SortableObservableCollection<Commande>();
+            foreach(Commande commande in ListeCommandes)
+            {
+                if (commande.MadeDuringTimeSpan(d1, d2))
+                {
+                    c.Add(commande);
+                }
+            }
+            return c;
+        }
+
+        /*
+         * Moyenne des prix de toutes les commandes
+         */
+
+        public static double MoyenneToutesCommandes()
+        {
+            double res = 0;
+            List<Commande> liste = ListeCommandes.ToList();
+            liste.ForEach(x => res += x.Price());
+            return res/liste.Count;
+        }
+
+        /*
+         * Moyenne des comptes clients : AUCUNE IDEE DE CE QUE CA VEUT DIRE
+         * Hypothèse : On retourne [Moyenne dates premiere commande; Moyenne Cumul Client]
+         */
+
+        public static SortedList<DateTime,double> MoyenneComptesClients()
+        {
+            double res = 0;
+            int annee = 0;
+            int mois = 0;
+            int jour = 0;
+            List<Client> liste = ListeClients.ToList();
+            int n = liste.Count;
+            foreach(Client client in liste)
+            {
+                res += client.CumulCommandes;
+                annee += client.PremiereCommande.Year;
+                mois += client.PremiereCommande.Month;
+                jour += client.PremiereCommande.Day;
+            }
+            DateTime dt = new DateTime(annee / n,mois/n,jour/n);
+            SortedList<DateTime, double> sl = new SortedList<DateTime, double> ();
+            sl.Add(dt, res / n);
+            return sl;
+        }
+
+
+        /*
         #region Ouverture de fichiers et ajout aux listes automatique
         //Clients
         public void OuvrirFichierClient(string nomFichier)

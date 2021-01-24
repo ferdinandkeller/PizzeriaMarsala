@@ -113,6 +113,20 @@ namespace PizzeriaMarsala
         }
 
         /*
+         * Méthode permettant de savoir si une commande a été passée dans l'intervalle de temps donné
+         */
+
+        public bool MadeDuringTimeSpan(DateTime d1, DateTime d2)
+        {
+            bool test = false;
+            if(Date.CompareTo(d1)>=0 && Date.CompareTo(d2) <= 0)
+            {
+                test = true;
+            }
+            return test;
+        }
+
+        /*
          * Conversion de la commande dans d'autres formats
          */
         public static Commande FromCSV(string commande)
