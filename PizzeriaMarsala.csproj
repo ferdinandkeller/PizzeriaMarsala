@@ -83,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\EditCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WorkerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +137,9 @@
     </Compile>
     <Compile Include="Components\ViewSwitcherComponent.xaml.cs">
       <DependentUpon>ViewSwitcherComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditCustomerView.xaml.cs">
+      <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>

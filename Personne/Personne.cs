@@ -15,10 +15,10 @@ namespace PizzeriaMarsala
     public abstract class Personne: IToCSV
     {
 
-        public string Nom { get; protected set; }
-        public string Prenom { get; protected set; }
-        public string Adresse { get; protected set; }
-        public long NumeroTel { get; protected set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        public string Adresse { get; set; }
+        public long NumeroTel { get; set; }
 
         public Personne(string nom, string prenom, string adresse, long numero_tel)
         {

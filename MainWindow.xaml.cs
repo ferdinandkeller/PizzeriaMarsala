@@ -44,8 +44,6 @@ namespace PizzeriaMarsala
         private WorkerView worker_view;
         private DelivererView deliverer_view;
 
-        private CreateCustomerView create_customer_view;
-
         /*
         * Fonction principale du WPF
         */
@@ -71,6 +69,10 @@ namespace PizzeriaMarsala
 
         public void SwitchToCreateCustomerView() {
             ViewFrame.Content = new CreateCustomerView(this);
+        }
+        public void SwitchToEditCustomerView(Client customer)
+        {
+            ViewFrame.Content = new EditCustomerView(this, customer);
         }
 
     }

@@ -30,7 +30,7 @@ namespace PizzeriaMarsala
                 Pizzeria.SortCommandsByID, Pizzeria.SortCommandsByPrices, Pizzeria.SortCommandsByUrgency,
                 New, OpenFile,
                 "CommandDataTemplate",
-                "PAR ID", "PAR PRIX", "PAR TEMPS"
+                "PAR ID", "PAR PRIX", "PAR TEMPS", (o) => { }
             );
 
             // on affiche le content presenter dans l'interface

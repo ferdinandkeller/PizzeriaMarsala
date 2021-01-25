@@ -46,12 +46,14 @@ namespace PizzeriaMarsala
 
         public delegate void Action();
         public delegate void OpenFileAction(String file_url);
+        public delegate void ObjectClicked(object el);
 
         public Action SortMethod1;
         public Action SortMethod2;
         public Action SortMethod3;
         public Action NewElement;
         public OpenFileAction OpenFile;
+        public ObjectClicked ObjectClickedFunc;
 
         public string NameSortMenu1 { get; set; }
         public string NameSortMenu2 { get; set; }
@@ -61,13 +63,16 @@ namespace PizzeriaMarsala
             Action sort_method_1, Action sort_method_2, Action sort_method_3,
             Action new_element, OpenFileAction open_file,
             string data_template,
-            string name_sort_menu_1, string name_sort_menu_2, string name_sort_menu_3
+            string name_sort_menu_1, string name_sort_menu_2, string name_sort_menu_3,
+            ObjectClicked object_clicked_function
         )
         {
             InitializeComponent();
 
             // set context
             this.DataContext = this;
+
+            ObjectClickedFunc = object_clicked_function;
 
             // on sauvegarde les paramêtres de la fênetre
             SortMethod1 = sort_method_1;
@@ -146,6 +151,11 @@ namespace PizzeriaMarsala
             {
                 OpenFile(file_dialog.FileName);
             }
+        }
+
+        private void ElementClicked(object sender, MouseButtonEventArgs e)
+        {
+            ObjectClickedFunc(((Border)sender).Tag);
         }
     }
 }

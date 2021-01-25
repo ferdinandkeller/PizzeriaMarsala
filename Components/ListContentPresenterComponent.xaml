@@ -33,7 +33,7 @@
         </DataTemplate>
         <!-- Data template des clients -->
         <DataTemplate x:Key="CustomerDataTemplate">
-            <Border Height="170" Margin="5">
+            <Border Height="170" Margin="5" MouseLeftButtonUp="ElementClicked" Tag="{Binding}">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
                     <Style>
@@ -47,7 +47,7 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding IDClient}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Label Content="{Binding Nom}" VerticalAlignment="Center" HorizontalAlignment="Center" />
             </Border>
         </DataTemplate>
     </Page.Resources>

@@ -8,7 +8,7 @@ namespace PizzeriaMarsala
 {
     public class Client : Personne
     {
-        public long IDClient { get; private set; }
+        public long IDClient { get; set; }
         public DateTime PremiereCommande { get; private set; }
         public double CumulCommandes { get; set; }
 
