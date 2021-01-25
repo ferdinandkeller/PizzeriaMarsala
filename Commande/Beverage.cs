@@ -7,30 +7,30 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    public class Boisson : Produit
+    public class Beverage : Product
     {
-        public TypeBoisson Type { get; private set; }
+        public BeverageType Type { get; private set; }
         public double Volume { get; private set; } // volume en cl
 
-        public Boisson(TypeBoisson type, double volume)
+        public Beverage(BeverageType type, double volume)
         {
             Type = type;
             Volume = volume;
 
-            Prix = (double)Type / 1000 * Volume; // prix en euros
+            Price = (double)Type / 1000 * Volume; // prix en euros
         }
 
         public override string ToString()
         {
-            return $"{Type} ({Volume}cl) [{Prix}$]";
+            return $"{Type} ({Volume}cl) [{Price}$]";
         }
 
-        public static int CompareTypeVolume(Boisson p, Boisson q)
+        public static int CompareTypeVolume(Beverage b1, Beverage b2)
         {
-            int compa = nameof(p.Type).CompareTo(nameof(q.Type));
+            int compa = nameof(b1.Type).CompareTo(nameof(b2.Type));
             if (compa == 0)
             {
-                compa = p.Volume.CompareTo(q.Volume);
+                compa = b1.Volume.CompareTo(b2.Volume);
             }
             return compa;
         }

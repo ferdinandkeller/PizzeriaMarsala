@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    public class Pizza : Produit
+    public class Pizza : Product
     {
-        public TypePizza Type { get; private set; }
-        public TaillePizza Taille { get; }
+        public PizzaType Type { get; private set; }
+        public PizzaSize Size { get; }
 
-        public Pizza(TypePizza type, TaillePizza taille)
+        public Pizza(PizzaType type, PizzaSize size)
         {
             Type = type;
-            Taille = taille;
+            Size = size;
 
-            Prix = (double)Type/100 * (double)Taille/100;
+            Price = (double)Type/100 * (double)Size/100;
         }
 
         public override string ToString()
         {
-            return $"{Type} ({Taille}) [{Prix}$]";
+            return $"{Type} ({Size}) [{Price}$]";
         }
 
-        public static int CompareTypeTaille(Pizza p, Pizza q)
+        public static int CompareTypeSize(Pizza p1, Pizza p2)
         {
-            int compa= nameof(p.Type).CompareTo(nameof(q.Type));
-            if (compa == 0)
+            int comparison = nameof(p1.Type).CompareTo(nameof(p2.Type));
+            if (comparison == 0)
             {
-                compa = p.Taille.CompareTo(q.Taille);
+                comparison = p1.Size.CompareTo(p2.Size);
             }
-            return compa;
+            return comparison;
         }
 
 

@@ -104,7 +104,7 @@
     <Compile Include="Commande\EtatCommande.cs" />
     <Compile Include="Commande\EtatSolde.cs" />
     <Compile Include="Commande\Pizza.cs" />
-    <Compile Include="Commande\Produit.cs" />
+    <Compile Include="Commande\Product.cs" />
     <Compile Include="Commande\TaillePizza.cs" />
     <Compile Include="Commande\TypeBoisson.cs" />
     <Compile Include="Commande\TypePizza.cs" />

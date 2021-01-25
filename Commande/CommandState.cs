@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    public abstract class Produit
+    public enum CommandState
     {
-        public double Prix;
+        enpreparation, 
+        enlivraison,
+        fermee
     }
 }

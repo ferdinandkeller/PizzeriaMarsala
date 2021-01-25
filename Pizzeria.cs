@@ -24,7 +24,7 @@ namespace PizzeriaMarsala
         // mette à jour l'interface
         // nous avons de plus créer la class SortableObservableCollection afin de
         // rajouter la méthode Sort
-        public static SortableObservableCollection<Commande> ListeCommandes { get; set; } = new SortableObservableCollection<Commande>();
+        public static SortableObservableCollection<Command> ListeCommandes { get; set; } = new SortableObservableCollection<Command>();
         public static SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
         public static SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
         public static SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
@@ -34,9 +34,9 @@ namespace PizzeriaMarsala
         /*
          * Fonctions de tri
          */
-        public static void SortCommandsByID() { ListeCommandes.Sort(Commande.CompareID); }
-        public static void SortCommandsByPrices() { ListeCommandes.Sort(Commande.ComparePrices); }
-        public static void SortCommandsByUrgency() { ListeCommandes.Sort(Commande.CompareUrgency); }
+        public static void SortCommandsByID() { ListeCommandes.Sort(Command.CompareID); }
+        public static void SortCommandsByPrices() { ListeCommandes.Sort(Command.ComparePrices); }
+        public static void SortCommandsByUrgency() { ListeCommandes.Sort(Command.CompareUrgency); }
 
         public static void SortCustomersByName() { ListeClients.Sort(Personne.CompareName); }
         public static void SortCustomersByTown() { ListeClients.Sort(Personne.CompareTown); }
@@ -108,10 +108,10 @@ namespace PizzeriaMarsala
          * Méthode retournant la liste des commandes passées dans une période de temps donnée
          */
 
-        public static SortableObservableCollection<Commande> CommandesInTimeSpan(DateTime d1,DateTime d2)
+        public static SortableObservableCollection<Command> CommandesInTimeSpan(DateTime d1,DateTime d2)
         {
-            SortableObservableCollection<Commande> c = new SortableObservableCollection<Commande>();
-            foreach(Commande commande in ListeCommandes)
+            SortableObservableCollection<Command> c = new SortableObservableCollection<Command>();
+            foreach(Command commande in ListeCommandes)
             {
                 if (commande.MadeDuringTimeSpan(d1, d2))
                 {
@@ -128,7 +128,7 @@ namespace PizzeriaMarsala
         public static double MoyenneToutesCommandes()
         {
             double res = 0;
-            List<Commande> liste = ListeCommandes.ToList();
+            List<Command> liste = ListeCommandes.ToList();
             liste.ForEach(x => res += x.Price());
             return res/liste.Count;
         }
@@ -192,8 +192,8 @@ namespace PizzeriaMarsala
         //Commandes
         public static void OuvrirFichierCommandes(string nomFichier)
         {
-            List<Commande> liste = CreationListeCommandesDepuisFichier(nomFichier);
-            List<Commande> l2 = liste.FindAll(x => ListeCommandes.Contains(x));
+            List<Command> liste = CreationListeCommandesDepuisFichier(nomFichier);
+            List<Command> l2 = liste.FindAll(x => ListeCommandes.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => ListeCommandes.Add(x));
         }
@@ -250,15 +250,15 @@ namespace PizzeriaMarsala
             return liste;
         }
 
-        public static List<Commande> CreationListeCommandesDepuisFichier(string nomFichier)
+        public static List<Command> CreationListeCommandesDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
-            List<Commande> liste = new List<Commande>();
+            List<Command> liste = new List<Command>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Commande.FromCSV(ligne));
+                liste.Add(Command.FromCSV(ligne));
             }
             return liste;
         }
@@ -396,7 +396,7 @@ namespace PizzeriaMarsala
             return ListeLivreurs.Find(deliverer => deliverer.Nom == lastname);
         }
 
-        public static Commande FindCommand(long id)
+        public static Command FindCommand(long id)
         {
             return ListeCommandes.Find(x => x.CommandID == id);
         }
@@ -406,22 +406,22 @@ namespace PizzeriaMarsala
 
         public static void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
         {
-            List<Commande> liste = ListeCommandes.ToList();
-            Commande c = liste.Find(x => x.CommandID == id);
+            List<Command> liste = ListeCommandes.ToList();
+            Command c = liste.Find(x => x.CommandID == id);
             c.EnregistreFactureTXT(nomFichier);
         }
 
         public static string StringCommandeRechercheId(long id)
         {
-            List<Commande> liste = ListeCommandes.ToList();
-            Commande c = FindCommand(id);
+            List<Command> liste = ListeCommandes.ToList();
+            Command c = FindCommand(id);
             return c.ToString();
         }
 
         public static string StringPrixCommandeRechercheId(long id)
         {
-            List<Commande> liste = ListeCommandes.ToList();
-            Commande c = FindCommand(id);
+            List<Command> liste = ListeCommandes.ToList();
+            Command c = FindCommand(id);
             double prix = c.Price();
             return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
@@ -435,17 +435,17 @@ namespace PizzeriaMarsala
         //Commandes
         public static void SortCommandID()
         {
-            ListeCommandes.Sort(Commande.CompareID);
+            ListeCommandes.Sort(Command.CompareID);
         }
 
         public static void SortCommandUrgency() 
         {
-            ListeCommandes.Sort(Commande.CompareUrgency);
+            ListeCommandes.Sort(Command.CompareUrgency);
         }
 
         public static void SortCommandPrice()
         {
-            ListeCommandes.Sort(Commande.ComparePrices);
+            ListeCommandes.Sort(Command.ComparePrices);
         }
 
         //Clients

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace PizzeriaMarsala
 {
-    public class Commande : IToCSV
+    public class Command : IToCSV
     {
         // attributs de la classe
         static long CommandIDMax { get; set; } //L'identifiant actuel qu'on incrément à chaque commande
@@ -16,21 +13,21 @@ namespace PizzeriaMarsala
         public DateTime Date { get; private set; }
 
         public SortedList<Pizza, int> PizzaList { get; private set; } = new SortedList<Pizza, int>();
-        public SortedList<Boisson, int> DrinkList { get; private set; } = new SortedList<Boisson, int>();
+        public SortedList<Beverage, int> BeverageList { get; private set; } = new SortedList<Beverage, int>();
        
         public Client CommandCustomer { get; private set; }
         public Commis CommandWorker { get; private set; }
         public Livreur CommandDeliverer { get; private set; }
         
-        public EtatCommande Etat { get; private set; }
-        public EtatSolde Solde { get; private set; }
+        public CommandState State { get; private set; }
+        public BalanceState Balance { get; private set; }
 
         /*
          * Constructeurs de la classe
          */
 
         //Lors d'une saisie par le commis
-        public Commande(Client client, Commis commis, Livreur livreur)
+        public Command(Client client, Commis commis, Livreur livreur)
         {
             CommandIDMax ++;
             CommandID = CommandIDMax;
@@ -38,22 +35,22 @@ namespace PizzeriaMarsala
             CommandCustomer = client;
             CommandWorker = commis;
             CommandDeliverer = livreur;
-            Etat = EtatCommande.enpreparation;
-            Solde = EtatSolde.enattente;
+            State = CommandState.enpreparation;
+            Balance = BalanceState.enattente;
             CommandWorker.CommandesGerees += 1;
         }
 
         //Lors de la saisie depuis un fichier
-        public Commande(long id_commande, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
+        public Command(long command_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
             : this(Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name))
         {
             Date = date;
-            CommandID = id_commande;
+            CommandID = command_id;
             if (CommandIDMax < CommandID)
             {
                 CommandIDMax = CommandID;
             }
-            Solde = (EtatSolde)Enum.Parse(typeof(EtatSolde), solde);
+            Balance = (BalanceState)Enum.Parse(typeof(BalanceState), solde);
         }
 
 
@@ -67,13 +64,13 @@ namespace PizzeriaMarsala
             // on compte le prix des pizzas
             foreach(KeyValuePair<Pizza, int> pair in PizzaList)
             {
-                price += pair.Key.Prix * pair.Value;
+                price += pair.Key.Price * pair.Value;
             }
 
             // on compte le prix des boissons
-            foreach(KeyValuePair<Boisson, int> pair in DrinkList)
+            foreach(KeyValuePair<Beverage, int> pair in BeverageList)
             {
-                price += pair.Key.Prix * pair.Value;
+                price += pair.Key.Price * pair.Value;
             }
 
             // on renvoie le prix
@@ -83,16 +80,16 @@ namespace PizzeriaMarsala
         /*
          * Fonctions qui changent l'état de la commande et des personnes associées
          */
-        public void DepartLivraison()
+        public void StartDelivery()
         {
-            Etat = EtatCommande.enlivraison;
+            State = CommandState.enlivraison;
             //Le livreur assigné part en livraison
             CommandDeliverer.Etat = EtatLivreur.enlivraison;
         }
-        public void PaiementRecu()
+        public void PayementReceived()
         {
-            Etat = EtatCommande.fermee;
-            Solde = EtatSolde.ok;
+            State = CommandState.fermee;
+            Balance = BalanceState.ok;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
             CommandDeliverer.Etat = EtatLivreur.surplace;
             CommandDeliverer.CumulLivraisons++;
@@ -101,10 +98,10 @@ namespace PizzeriaMarsala
             //Commande fermée, le commis n'a plus à s'en occuper
             CommandWorker.CommandesGerees--; 
         }
-        public void PerteCommande()
+        public void CommandLost()
         {
-            Etat = EtatCommande.fermee;
-            Solde = EtatSolde.perdue;
+            State = CommandState.fermee;
+            Balance = BalanceState.perdue;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
             CommandDeliverer.Etat = EtatLivreur.surplace;
             CommandDeliverer.CumulLivraisons++;
@@ -129,31 +126,31 @@ namespace PizzeriaMarsala
         /*
          * Conversion de la commande dans d'autres formats
          */
-        public static Commande FromCSV(string commande)
+        public static Command FromCSV(string commande)
         {
             String[] infos = commande.Split(';');
             DateTime DateCommande = Convert.ToDateTime(infos[2]);
             DateCommande += new TimeSpan(int.Parse(infos[1].Substring(0, infos[1].Length - 1)), 0, 0);
-            return new Commande(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
+            return new Command(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
         }
         public string ToCSV()
         {
-            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.NumeroTel};{CommandWorker.Nom};{CommandDeliverer.Nom};{Etat};{Solde}";
+            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.NumeroTel};{CommandWorker.Nom};{CommandDeliverer.Nom};{State};{Balance}";
         }
 
 
         /*
          *  Fonctions de tri des commandes
          */
-        public static int CompareID(Commande command_1, Commande command_2)
+        public static int CompareID(Command command_1, Command command_2)
         {
             return command_1.CommandID.CompareTo(command_2.CommandID);
         }
-        public static int CompareUrgency(Commande command_1, Commande command_2)
+        public static int CompareUrgency(Command command_1, Command command_2)
         {
             return command_1.Date.CompareTo(command_2.Date);
         }
-        public static int ComparePrices(Commande command_1, Commande command_2)
+        public static int ComparePrices(Command command_1, Command command_2)
         {
             return command_1.Price().CompareTo(command_2.Price());
         }
@@ -178,11 +175,11 @@ namespace PizzeriaMarsala
                     s += "Pizza : " + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
             }
-            if (DrinkList != null && DrinkList.Count != 0)
+            if (BeverageList != null && BeverageList.Count != 0)
             {
-                foreach (KeyValuePair<Boisson, int> kv in DrinkList)
+                foreach (KeyValuePair<Beverage, int> kv in BeverageList)
                 {
-                    s += kv.Key.Type.ToString() + " : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Prix}$]" + " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                    s += kv.Key.Type.ToString() + " : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Price}$]" + " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
             }
             return s;
@@ -195,14 +192,14 @@ namespace PizzeriaMarsala
             {
                 foreach (KeyValuePair<Pizza, int> kv in PizzaList)
                 {
-                    s += this.CommandID.ToString() + ";Pizza" + kv.Key.Prix.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Taille.ToString() + ";;" + kv.Value.ToString() + "\n";
+                    s += this.CommandID.ToString() + ";Pizza" + kv.Key.Price.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Size.ToString() + ";;" + kv.Value.ToString() + "\n";
                 }
             }
-            if (DrinkList != null && DrinkList.Count != 0)
+            if (BeverageList != null && BeverageList.Count != 0)
             {
-                foreach (KeyValuePair<Boisson, int> kv in DrinkList)
+                foreach (KeyValuePair<Beverage, int> kv in BeverageList)
                 {
-                    s += this.CommandID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Prix.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
+                    s += this.CommandID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Price.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
                 }
             }
             return s;
