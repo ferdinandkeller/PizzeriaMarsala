@@ -20,10 +20,10 @@
         
         <!-- section création client -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <TextBox Text="{Binding Nom}" />
-            <TextBox Text="{Binding Prenom}" />
-            <TextBox Text="{Binding Adresse}" />
-            <TextBox Text="{Binding NumeroTel}" />
+            <TextBox Text="{Binding LastName}" />
+            <TextBox Text="{Binding FirstName}" />
+            <TextBox Text="{Binding Address}" />
+            <TextBox Text="{Binding PhoneNumber}" />
             <Button Content="Finir" Click="EndEdition" />
             <Button Content="Supprimer" Click="DeleteElement" />
         </StackPanel>

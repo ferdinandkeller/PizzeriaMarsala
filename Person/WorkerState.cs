@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    public enum EtatCommis
+    public enum WorkerState
     {
         surplace,
         enconges

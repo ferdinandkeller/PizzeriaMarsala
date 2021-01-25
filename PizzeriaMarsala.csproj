@@ -99,28 +99,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commande\Boisson.cs" />
-    <Compile Include="Commande\Commande.cs" />
-    <Compile Include="Commande\EtatCommande.cs" />
-    <Compile Include="Commande\EtatSolde.cs" />
+    <Compile Include="Commande\Beverage.cs" />
+    <Compile Include="Commande\Command.cs" />
+    <Compile Include="Commande\CommandState.cs" />
+    <Compile Include="Commande\BalanceState.cs" />
     <Compile Include="Commande\Pizza.cs" />
     <Compile Include="Commande\Product.cs" />
-    <Compile Include="Commande\TaillePizza.cs" />
-    <Compile Include="Commande\TypeBoisson.cs" />
-    <Compile Include="Commande\TypePizza.cs" />
+    <Compile Include="Commande\PizzaSize.cs" />
+    <Compile Include="Commande\BeverageType.cs" />
+    <Compile Include="Commande\PizzaType.cs" />
     <Compile Include="Components\AppTitleComponent.xaml.cs">
       <DependentUpon>AppTitleComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\ListContentPresenterComponent.xaml.cs">
       <DependentUpon>ListContentPresenterComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Personne\Client.cs" />
-    <Compile Include="Personne\Commis.cs" />
-    <Compile Include="Personne\EtatCommis.cs" />
-    <Compile Include="Personne\EtatLivreur.cs" />
+    <Compile Include="Personne\Customer.cs" />
+    <Compile Include="Personne\Worker.cs" />
+    <Compile Include="Personne\WorkerState.cs" />
+    <Compile Include="Personne\DelivererState.cs" />
     <Compile Include="Personne\IToCSV.cs" />
-    <Compile Include="Personne\Livreur.cs" />
-    <Compile Include="Personne\Personne.cs" />
+    <Compile Include="Personne\Deliverer.cs" />
+    <Compile Include="Personne\Person.cs" />
     <Compile Include="Pizzeria.cs" />
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="Views\CreateCustomerView.xaml.cs">
@@ -144,7 +144,7 @@
     <Compile Include="Views\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GenerateurIdentifiant.cs" />
+    <Compile Include="RandomGenerator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

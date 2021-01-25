@@ -47,7 +47,10 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding Nom}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <StackPanel>
+                    <Label Content="{Binding FirstName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
             </Border>
         </DataTemplate>
     </Page.Resources>

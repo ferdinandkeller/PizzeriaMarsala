@@ -19,9 +19,9 @@ namespace PizzeriaMarsala
     public partial class EditCustomerView : Page
     {
         MainWindow main_window;
-        Client customer;
+        Customer customer;
 
-        public EditCustomerView(MainWindow main_window, Client customer)
+        public EditCustomerView(MainWindow main_window, Customer customer)
         {
             InitializeComponent();
 

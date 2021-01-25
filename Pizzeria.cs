@@ -25,9 +25,9 @@ namespace PizzeriaMarsala
         // nous avons de plus créer la class SortableObservableCollection afin de
         // rajouter la méthode Sort
         public static SortableObservableCollection<Command> ListeCommandes { get; set; } = new SortableObservableCollection<Command>();
-        public static SortableObservableCollection<Client> ListeClients { get; set; } = new SortableObservableCollection<Client>();
-        public static SortableObservableCollection<Commis> ListeCommis { get; set; } = new SortableObservableCollection<Commis>();
-        public static SortableObservableCollection<Livreur> ListeLivreurs { get; set; } = new SortableObservableCollection<Livreur>();
+        public static SortableObservableCollection<Customer> ListeClients { get; set; } = new SortableObservableCollection<Customer>();
+        public static SortableObservableCollection<Worker> ListeCommis { get; set; } = new SortableObservableCollection<Worker>();
+        public static SortableObservableCollection<Deliverer> ListeLivreurs { get; set; } = new SortableObservableCollection<Deliverer>();
 
         // delegate int Compare(object obj1, object obj2);
 
@@ -38,21 +38,21 @@ namespace PizzeriaMarsala
         public static void SortCommandsByPrices() { ListeCommandes.Sort(Command.ComparePrices); }
         public static void SortCommandsByUrgency() { ListeCommandes.Sort(Command.CompareUrgency); }
 
-        public static void SortCustomersByName() { ListeClients.Sort(Personne.CompareName); }
-        public static void SortCustomersByTown() { ListeClients.Sort(Personne.CompareTown); }
-        public static void SortCustomersByTotalOrders() { ListeClients.Sort(Client.CompareTotalOrders); }
+        public static void SortCustomersByName() { ListeClients.Sort(Person.CompareName); }
+        public static void SortCustomersByTown() { ListeClients.Sort(Person.CompareTown); }
+        public static void SortCustomersByTotalOrders() { ListeClients.Sort(Customer.CompareTotalOrders); }
 
         
         #region delegate Trouve
         delegate object Trouve(object critere);
 
-        public static Client TrouveClient(string s)
+        public static Customer TrouveClient(string s)
         {
             if(ListeClients!=null && ListeClients.Count != 0)
             {
                 for (int i=0;i<ListeClients.Count; i++)
                 {
-                    if (ListeClients[i].NumeroTel.ToString() == s)
+                    if (ListeClients[i].PhoneNumber.ToString() == s)
                     {
                         return ListeClients[i];
                     }
@@ -65,13 +65,13 @@ namespace PizzeriaMarsala
             }
         }
 
-        public static Livreur TrouveLivreur(string s)
+        public static Deliverer TrouveLivreur(string s)
         {
             if (ListeLivreurs != null && ListeLivreurs.Count != 0)
             {
                 for (int i = 0; i < ListeLivreurs.Count; i++)
                 {
-                    if (ListeLivreurs[i].Nom.ToString() == s)
+                    if (ListeLivreurs[i].LastName.ToString() == s)
                     {
                         return ListeLivreurs[i];
                     }
@@ -83,13 +83,13 @@ namespace PizzeriaMarsala
                 return null;
             }
         }
-        public static Commis TrouveCommis(string s)
+        public static Worker TrouveCommis(string s)
         {
             if (ListeCommis != null && ListeCommis.Count != 0)
             {
                 for (int i = 0; i < ListeCommis.Count; i++)
                 {
-                    if (ListeCommis[i].Nom.ToString() == s)
+                    if (ListeCommis[i].LastName.ToString() == s)
                     {
                         return ListeCommis[i];
                     }
@@ -144,14 +144,14 @@ namespace PizzeriaMarsala
             int annee = 0;
             int mois = 0;
             int jour = 0;
-            List<Client> liste = ListeClients.ToList();
+            List<Customer> liste = ListeClients.ToList();
             int n = liste.Count;
-            foreach(Client client in liste)
+            foreach(Customer client in liste)
             {
-                res += client.CumulCommandes;
-                annee += client.PremiereCommande.Year;
-                mois += client.PremiereCommande.Month;
-                jour += client.PremiereCommande.Day;
+                res += client.CommandsTotalValue;
+                annee += client.FirstCommandDate.Year;
+                mois += client.FirstCommandDate.Month;
+                jour += client.FirstCommandDate.Day;
             }
             DateTime dt = new DateTime(annee / n,mois/n,jour/n);
             SortedList<DateTime, double> sl = new SortedList<DateTime, double> ();
@@ -165,8 +165,8 @@ namespace PizzeriaMarsala
         //Clients
         public static void OuvrirFichierClient(string nomFichier)
         {
-            List<Client> liste = CreationListeClientsDepuisFichier(nomFichier);
-            List<Client> l2 = liste.FindAll(x => ListeClients.Contains(x));
+            List<Customer> liste = CreationListeClientsDepuisFichier(nomFichier);
+            List<Customer> l2 = liste.FindAll(x => ListeClients.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x=>ListeClients.Add(x));
         }
@@ -174,8 +174,8 @@ namespace PizzeriaMarsala
         //Commis
         public static void OuvrirFichierCommis(string nomFichier)
         {
-            List<Commis> liste = CreationListeCommisDepuisFichier(nomFichier);
-            List<Commis> l2 = liste.FindAll(x => ListeCommis.Contains(x));
+            List<Worker> liste = CreationListeCommisDepuisFichier(nomFichier);
+            List<Worker> l2 = liste.FindAll(x => ListeCommis.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => ListeCommis.Add(x));
         }
@@ -183,8 +183,8 @@ namespace PizzeriaMarsala
         //Livreurs
         public static void OuvrirFichierLivreurs(string nomFichier)
         {
-            List<Livreur> liste = CreationListeLivreursDepuisFichier(nomFichier);
-            List<Livreur> l2 = liste.FindAll(x => ListeLivreurs.Contains(x));
+            List<Deliverer> liste = CreationListeLivreursDepuisFichier(nomFichier);
+            List<Deliverer> l2 = liste.FindAll(x => ListeLivreurs.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => ListeLivreurs.Add(x));
         }
@@ -211,41 +211,41 @@ namespace PizzeriaMarsala
             }
             return liste;
         }
-        public static List<Client> CreationListeClientsDepuisFichier(string nomFichier)
+        public static List<Customer> CreationListeClientsDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
-            List<Client> liste = new List<Client>();
+            List<Customer> liste = new List<Customer>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Client.CSVToClient(ligne));
+                liste.Add(Customer.CSVToClient(ligne));
             }
             return liste;
         }
 
-        public static List<Commis> CreationListeCommisDepuisFichier(string nomFichier)
+        public static List<Worker> CreationListeCommisDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
-            List<Commis> liste = new List<Commis>();
+            List<Worker> liste = new List<Worker>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Commis.CSVToCommis(ligne));
+                liste.Add(Worker.CSVToWorker(ligne));
             }
             return liste;
         }
 
-        public static List<Livreur> CreationListeLivreursDepuisFichier(string nomFichier)
+        public static List<Deliverer> CreationListeLivreursDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
-            List<Livreur> liste = new List<Livreur>();
+            List<Deliverer> liste = new List<Deliverer>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Livreur.CSVToLivreur(ligne));
+                liste.Add(Deliverer.CSVToDeliverer(ligne));
             }
             return liste;
         }
@@ -284,9 +284,9 @@ namespace PizzeriaMarsala
                     m.ForEach(x => sw.WriteLine(x.ToString()));
                 }
             }
-            if (l is List<Personne>)
+            if (l is List<Person>)
             {
-                List<Personne> m = (List<Personne>)l;
+                List<Person> m = (List<Person>)l;
                 if (m != null && m.Count != 0)
                 {
                     m.ForEach(x => sw.WriteLine(x.ToString()));
@@ -379,21 +379,21 @@ namespace PizzeriaMarsala
         }
         */
 
-        public static Client FindCustomer(String lastname, String firstname)
+        public static Customer FindCustomer(String lastname, String firstname)
         {
-            return ListeClients.Find(customer => customer.Nom == lastname && customer.Prenom == firstname);
+            return ListeClients.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
         }
-        public static Client FindCustomer(long phone_numer)
+        public static Customer FindCustomer(long phone_numer)
         {
-            return ListeClients.Find(customer => customer.NumeroTel == phone_numer);
+            return ListeClients.Find(customer => customer.PhoneNumber == phone_numer);
         }
-        public static Commis FindWorker(String lastname)
+        public static Worker FindWorker(String lastname)
         {
-            return ListeCommis.Find(worker => worker.Nom == lastname);
+            return ListeCommis.Find(worker => worker.LastName == lastname);
         }
-        public static Livreur FindDeliverer(String lastname)
+        public static Deliverer FindDeliverer(String lastname)
         {
-            return ListeLivreurs.Find(deliverer => deliverer.Nom == lastname);
+            return ListeLivreurs.Find(deliverer => deliverer.LastName == lastname);
         }
 
         public static Command FindCommand(long id)
@@ -451,39 +451,39 @@ namespace PizzeriaMarsala
         //Clients
         public static void SortClientName()
         {
-            ListeClients.Sort(Personne.CompareName);
+            ListeClients.Sort(Person.CompareName);
         }
 
         public static void SortClientTown()
         {
-            ListeClients.Sort(Personne.CompareTown);
+            ListeClients.Sort(Person.CompareTown);
         }
 
         public static void SortClientTotalOrders()
         {
-            ListeClients.Sort(Client.CompareTotalOrders);
+            ListeClients.Sort(Customer.CompareTotalOrders);
         }
 
         //Livreurs
         public static void SortDelivererName()
         {
-            ListeLivreurs.Sort(Livreur.CompareName);
+            ListeLivreurs.Sort(Deliverer.CompareName);
         }
 
         public static void SortDelivererTown()
         {
-            ListeLivreurs.Sort(Livreur.CompareTown);
+            ListeLivreurs.Sort(Deliverer.CompareTown);
         }
 
         //Commis
         public static void SortWorkerName()
         {
-            ListeCommis.Sort(Commis.CompareName);
+            ListeCommis.Sort(Worker.CompareName);
         }
 
         public static void SortWorkerTown()
         {
-            ListeCommis.Sort(Commis.CompareTown);
+            ListeCommis.Sort(Worker.CompareTown);
         }
 
         #endregion
@@ -567,15 +567,15 @@ namespace PizzeriaMarsala
         public static string EtatEffectifs()
         {
             string s = "";
-            List<Commis> lc = ListeCommis.ToList();
-            List<Livreur> ll = ListeLivreurs.ToList();
+            List<Worker> lc = ListeCommis.ToList();
+            List<Deliverer> ll = ListeLivreurs.ToList();
             if (lc!=null && lc.Count!=0)
             {
-                lc.ForEach(x => s += x.Nom + ";" + x.Presence.ToString() + "\n");
+                lc.ForEach(x => s += x.LastName + ";" + x.State.ToString() + "\n");
             }
             if (ll != null && ll.Count != 0)
             {
-                ll.ForEach(x => s += x.Nom + ";" + x.Etat.ToString() + "\n");
+                ll.ForEach(x => s += x.LastName + ";" + x.State.ToString() + "\n");
             }
             return s;
         }

@@ -15,9 +15,9 @@ namespace PizzeriaMarsala
         public SortedList<Pizza, int> PizzaList { get; private set; } = new SortedList<Pizza, int>();
         public SortedList<Beverage, int> BeverageList { get; private set; } = new SortedList<Beverage, int>();
        
-        public Client CommandCustomer { get; private set; }
-        public Commis CommandWorker { get; private set; }
-        public Livreur CommandDeliverer { get; private set; }
+        public Customer CommandCustomer { get; private set; }
+        public Worker CommandWorker { get; private set; }
+        public Deliverer CommandDeliverer { get; private set; }
         
         public CommandState State { get; private set; }
         public BalanceState Balance { get; private set; }
@@ -27,7 +27,7 @@ namespace PizzeriaMarsala
          */
 
         //Lors d'une saisie par le commis
-        public Command(Client client, Commis commis, Livreur livreur)
+        public Command(Customer client, Worker commis, Deliverer livreur)
         {
             CommandIDMax ++;
             CommandID = CommandIDMax;
@@ -37,7 +37,7 @@ namespace PizzeriaMarsala
             CommandDeliverer = livreur;
             State = CommandState.enpreparation;
             Balance = BalanceState.enattente;
-            CommandWorker.CommandesGerees += 1;
+            CommandWorker.ManagedCommandNumber += 1;
         }
 
         //Lors de la saisie depuis un fichier
@@ -84,29 +84,29 @@ namespace PizzeriaMarsala
         {
             State = CommandState.enlivraison;
             //Le livreur assigné part en livraison
-            CommandDeliverer.Etat = EtatLivreur.enlivraison;
+            CommandDeliverer.State = DelivererState.enlivraison;
         }
         public void PayementReceived()
         {
             State = CommandState.fermee;
             Balance = BalanceState.ok;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
-            CommandDeliverer.Etat = EtatLivreur.surplace;
-            CommandDeliverer.CumulLivraisons++;
+            CommandDeliverer.State = DelivererState.surplace;
+            CommandDeliverer.ManagedDeliveryNumber++;
             //Cammande payée, le client augmente le cumul de ses commandes
-            CommandCustomer.CumulCommandes += this.Price();
+            CommandCustomer.CommandsTotalValue += this.Price();
             //Commande fermée, le commis n'a plus à s'en occuper
-            CommandWorker.CommandesGerees--; 
+            CommandWorker.ManagedCommandNumber--; 
         }
         public void CommandLost()
         {
             State = CommandState.fermee;
             Balance = BalanceState.perdue;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
-            CommandDeliverer.Etat = EtatLivreur.surplace;
-            CommandDeliverer.CumulLivraisons++;
+            CommandDeliverer.State = DelivererState.surplace;
+            CommandDeliverer.ManagedDeliveryNumber++;
             //Commande fermée, le commis n'a plus à s'en occuper
-            CommandWorker.CommandesGerees--;
+            CommandWorker.ManagedCommandNumber--;
         }
 
         /*
@@ -135,7 +135,7 @@ namespace PizzeriaMarsala
         }
         public string ToCSV()
         {
-            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.NumeroTel};{CommandWorker.Nom};{CommandDeliverer.Nom};{State};{Balance}";
+            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.PhoneNumber};{CommandWorker.LastName};{CommandDeliverer.LastName};{State};{Balance}";
         }
 
 
