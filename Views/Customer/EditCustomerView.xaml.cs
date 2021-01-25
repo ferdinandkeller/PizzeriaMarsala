@@ -27,6 +27,8 @@ namespace PizzeriaMarsala
 
             DataContext = customer;
 
+            AppTitle.Content = new AppTitleComponent();
+
             this.main_window = main_window;
             this.customer = customer;
         }

@@ -63,11 +63,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateCustomerView.xaml">
+    <Page Include="Views\Customer\CreateCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CustomerView.xaml">
+    <Page Include="Views\Customer\CustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -83,7 +83,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EditCustomerView.xaml">
+    <Page Include="Views\Customer\EditCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,34 +99,34 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commande\Beverage.cs" />
-    <Compile Include="Commande\Command.cs" />
-    <Compile Include="Commande\CommandState.cs" />
-    <Compile Include="Commande\BalanceState.cs" />
-    <Compile Include="Commande\Pizza.cs" />
-    <Compile Include="Commande\Product.cs" />
-    <Compile Include="Commande\PizzaSize.cs" />
-    <Compile Include="Commande\BeverageType.cs" />
-    <Compile Include="Commande\PizzaType.cs" />
+    <Compile Include="Command\Beverage.cs" />
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\CommandState.cs" />
+    <Compile Include="Command\BalanceState.cs" />
+    <Compile Include="Command\Pizza.cs" />
+    <Compile Include="Command\Product.cs" />
+    <Compile Include="Command\PizzaSize.cs" />
+    <Compile Include="Command\BeverageType.cs" />
+    <Compile Include="Command\PizzaType.cs" />
     <Compile Include="Components\AppTitleComponent.xaml.cs">
       <DependentUpon>AppTitleComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\ListContentPresenterComponent.xaml.cs">
       <DependentUpon>ListContentPresenterComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Personne\Customer.cs" />
-    <Compile Include="Personne\Worker.cs" />
-    <Compile Include="Personne\WorkerState.cs" />
-    <Compile Include="Personne\DelivererState.cs" />
-    <Compile Include="Personne\IToCSV.cs" />
-    <Compile Include="Personne\Deliverer.cs" />
-    <Compile Include="Personne\Person.cs" />
+    <Compile Include="Person\Customer.cs" />
+    <Compile Include="Person\Worker.cs" />
+    <Compile Include="Person\WorkerState.cs" />
+    <Compile Include="Person\DelivererState.cs" />
+    <Compile Include="Person\IToCSV.cs" />
+    <Compile Include="Person\Deliverer.cs" />
+    <Compile Include="Person\Person.cs" />
     <Compile Include="Pizzeria.cs" />
     <Compile Include="SortableObservableCollection.cs" />
-    <Compile Include="Views\CreateCustomerView.xaml.cs">
+    <Compile Include="Views\Customer\CreateCustomerView.xaml.cs">
       <DependentUpon>CreateCustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CustomerView.xaml.cs">
+    <Compile Include="Views\Customer\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommandView.xaml.cs">
@@ -138,7 +138,7 @@
     <Compile Include="Components\ViewSwitcherComponent.xaml.cs">
       <DependentUpon>ViewSwitcherComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditCustomerView.xaml.cs">
+    <Compile Include="Views\Customer\EditCustomerView.xaml.cs">
       <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerView.xaml.cs">
