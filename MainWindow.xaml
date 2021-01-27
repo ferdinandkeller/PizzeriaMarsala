@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzeriaMarsala"
         mc:Ignorable="d"
-        Title="Pizzeria Marsala" Height="600" Width="900" MinHeight="410" MinWidth="655"
+        Title="Pizzeria Marsala" Height="600" Width="900" MinHeight="410" MinWidth="685"
         WindowStartupLocation="CenterScreen"
         >
     <Grid>

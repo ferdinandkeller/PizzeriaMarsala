@@ -42,7 +42,14 @@ namespace PizzeriaMarsala
         public static void SortCustomersByTown() { ListeClients.Sort(Person.CompareTown); }
         public static void SortCustomersByTotalOrders() { ListeClients.Sort(Customer.CompareTotalOrders); }
 
-        
+        public static void SortWorkerByName() { ListeCommis.Sort(Worker.CompareName); }
+        public static void SortWorkerByTown() { ListeCommis.Sort(Worker.CompareTown); }
+        public static void SortWorkerByManagedCommandNumber() { ListeCommis.Sort(Worker.CompareManagedCommandNumber); }
+
+        public static void SortDelivererByName() { ListeLivreurs.Sort(Deliverer.CompareName); }
+        public static void SortDelivererByTown() { ListeLivreurs.Sort(Deliverer.CompareTown); }
+        public static void SortDelivererByManagedDeliveryNumber() { ListeLivreurs.Sort(Deliverer.CompareManagedDeliveryNumber); }
+
         #region delegate Trouve
         delegate object Trouve(object critere);
 
@@ -428,76 +435,6 @@ namespace PizzeriaMarsala
 
         #endregion
     
-
-        
-        #region TriListe...
-
-        //Commandes
-        public static void SortCommandID()
-        {
-            ListeCommandes.Sort(Command.CompareID);
-        }
-
-        public static void SortCommandUrgency() 
-        {
-            ListeCommandes.Sort(Command.CompareUrgency);
-        }
-
-        public static void SortCommandPrice()
-        {
-            ListeCommandes.Sort(Command.ComparePrices);
-        }
-
-        //Clients
-        public static void SortClientName()
-        {
-            ListeClients.Sort(Person.CompareName);
-        }
-
-        public static void SortClientTown()
-        {
-            ListeClients.Sort(Person.CompareTown);
-        }
-
-        public static void SortClientTotalOrders()
-        {
-            ListeClients.Sort(Customer.CompareTotalOrders);
-        }
-
-        //Livreurs
-        public static void SortDelivererName()
-        {
-            ListeLivreurs.Sort(Deliverer.CompareName);
-        }
-
-        public static void SortDelivererTown()
-        {
-            ListeLivreurs.Sort(Deliverer.CompareTown);
-        }
-
-        public static void SortDelivererManagedDeliveryNumber()
-        {
-            ListeLivreurs.Sort(Deliverer.CompareManagedDeliveryNumber);
-        }
-
-        //Commis
-        public static void SortWorkerName()
-        {
-            ListeCommis.Sort(Worker.CompareName);
-        }
-
-        public static void SortWorkerTown()
-        {
-            ListeCommis.Sort(Worker.CompareTown);
-        }
-
-        public static void SortWorkerManagedCommandNumber()
-        {
-            ListeCommis.Sort(Worker.CompareManagedCommandNumber);
-        }
-
-        #endregion
-
         /*
         #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
 

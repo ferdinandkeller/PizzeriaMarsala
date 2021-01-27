@@ -21,23 +21,6 @@ namespace PizzeriaMarsala
     public partial class MainWindow : Window
     {
 
-        /** /!\ CODE A NE PAS SUPPRIMER /!\
-        // delegate qui met à jour les variables locales 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private List<StringWrapper> _Commandes = new List<StringWrapper>();
-        public List<StringWrapper> Commandes
-        {
-            get => _Commandes;
-            set
-            {
-                _Commandes = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(Commandes)));
-                }
-            }
-        } */
-
         // on conserve les instances des view afin de pouvoir switcher de l'une à l'autre
         private CommandView command_view;
         private CustomerView customer_view;
@@ -62,36 +45,20 @@ namespace PizzeriaMarsala
             ViewFrame.Content = command_view;
         }
 
+        // switch view functions
         public void SwitchToCommandView() { ViewFrame.Content = command_view; }
         public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
         public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
         public void SwitchToDelivererView() { ViewFrame.Content = deliverer_view; }
 
-        public void SwitchToCreateCustomerView() {
-            ViewFrame.Content = new CreateCustomerView(this);
-        }
-        public void SwitchToEditCustomerView(Customer customer)
-        {
-            ViewFrame.Content = new EditCustomerView(this, customer);
-        }
+        public void SwitchToCreateCustomerView() { ViewFrame.Content = new CreateCustomerView(this); }
+        public void SwitchToEditCustomerView(Customer customer) { ViewFrame.Content = new EditCustomerView(this, customer); }
 
-        public void SwitchToCreateWorkerView()
-        {
-            ViewFrame.Content = new CreateWorkerView(this);
-        }
-        public void SwitchToEditWorkerView(Worker worker)
-        {
-            ViewFrame.Content = new EditWorkerView(this, worker);
-        }
+        public void SwitchToCreateWorkerView() { ViewFrame.Content = new CreateWorkerView(this); }
+        public void SwitchToEditWorkerView(Worker worker) { ViewFrame.Content = new EditWorkerView(this, worker); }
 
-        public void SwitchToCreateDelivererView()
-        {
-            ViewFrame.Content = new CreateDelivererView(this);
-        }
-        public void SwitchToEditDelivererView(Deliverer deliverer)
-        {
-            ViewFrame.Content = new EditDelivererView(this, deliverer);
-        }
+        public void SwitchToCreateDelivererView() { ViewFrame.Content = new CreateDelivererView(this); }
+        public void SwitchToEditDelivererView(Deliverer deliverer) { ViewFrame.Content = new EditDelivererView(this, deliverer); }
 
     }
 }

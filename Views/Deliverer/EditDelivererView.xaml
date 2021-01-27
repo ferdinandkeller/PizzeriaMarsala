@@ -24,6 +24,8 @@
             <TextBox Text="{Binding FirstName}" />
             <TextBox Text="{Binding Address}" />
             <TextBox Text="{Binding PhoneNumber}" />
+            <TextBox Text="{Binding State}" />
+            <TextBox Text="{Binding VehicleType}" />
             <Button Content="Finir" Click="EndEdition" />
             <Button Content="Supprimer" Click="DeleteElement" />
         </StackPanel>
