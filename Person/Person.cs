@@ -61,7 +61,12 @@ namespace PizzeriaMarsala
             int comparison = a1[a1.Length - 1].CompareTo(a2[a2.Length - 1]);
             if (comparison == 0)
             {
-                comparison = (Convert.ToInt32(a1[0])).CompareTo(Convert.ToInt32(a2[0]));
+                comparison = a1[a1.Length - 2].CompareTo(a2[a2.Length - 2]);
+                if (comparison == 0)
+                {
+                    comparison = (Convert.ToInt32(a1[0])).CompareTo(Convert.ToInt32(a2[0]));
+                }
+                
             }
             return comparison;
         }
