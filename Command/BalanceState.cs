@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Enumération pour être certain que chaque élément créé ne puisse prendre qu'une valeur autorisée
+    /// Valeurs autorisées : enattente,ok,perdue
+    /// </summary>
     public enum BalanceState
     {
         enattente,
