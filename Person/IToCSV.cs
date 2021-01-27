@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Interface permettant de "généraliser" la méthode ToCSV()
+    /// </summary>
     public interface IToCSV
     {
         string ToCSV();

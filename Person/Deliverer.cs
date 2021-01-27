@@ -11,7 +11,7 @@ namespace PizzeriaMarsala
     /// Elle hérite de Personne car tout livreur est une personne
     /// </summary>
     /// <attributs>
-    /// State : l'état du livreur (surplace, enconge, enlivraison)
+    /// State : l'état du livreur (surplace, enconges, enlivraison)
     /// VehiculeType: le type de véhicule utilisé par le livreur
     /// ManagedDeliveryNumber: le nombre de commandes effectuées
     /// </attributs>
@@ -71,19 +71,34 @@ namespace PizzeriaMarsala
         /// ToCSV() de la classe fille en utilisant celle de la classe mère
         /// </summary>
         /// <returns>
-        /// NomDeFamille;Prénom;Adresse;NuméroDeTéléphone;
+        /// NomDeFamille;Prénom;Adresse;NuméroDeTéléphone;Etat;TypeVehicule
         /// </returns>
         public override String ToCSV()
         {
             return base.ToCSV() + $";{State};{VehicleType}";
         }
 
+        /// <summary>
+        /// Création d'un livreur depuis une ligne d'un fichier CSV
+        /// </summary>
+        /// <param name="deliverer">La ligne de fichier CSV représentant le livreur</param>
+        /// <returns>Le livreur</returns>
         public static Deliverer CSVToDeliverer(String deliverer)
         {
             String[] infos = deliverer.Split(';');
             return new Deliverer(infos[0], infos[1], infos[2], long.Parse(infos[3]), (DelivererState)Enum.Parse(typeof(DelivererState), infos[4]), infos[5]);
         }
 
+        /// <summary>
+        /// Comparaison de deux livreurs en fonction du nombre de commandes gérées
+        /// </summary>
+        /// <param name="d1">Livreur 1</param>
+        /// <param name="d2">Livreur 2</param>
+        /// <returns>
+        /// -1 si le livreur 1 a géré moins de commandes que le 2
+        /// 0 s'ils ont géré le même nombre de commandes
+        /// 1 sinon
+        /// </returns>
         public static int CompareManagedDeliveryNumber(Deliverer d1, Deliverer d2)
         {
             return d1.ManagedDeliveryNumber.CompareTo(d2.ManagedDeliveryNumber);
