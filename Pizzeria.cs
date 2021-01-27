@@ -44,9 +44,11 @@ namespace PizzeriaMarsala
 
         public static void SortWorkerByName() { ListeCommis.Sort(Worker.CompareName); }
         public static void SortWorkerByTown() { ListeCommis.Sort(Worker.CompareTown); }
+        public static void SortWorkerByManagedCommandNumber() { ListeCommis.Sort(Worker.CompareManagedCommandNumber); }
 
         public static void SortDelivererByName() { ListeLivreurs.Sort(Deliverer.CompareName); }
         public static void SortDelivererByTown() { ListeLivreurs.Sort(Deliverer.CompareTown); }
+        public static void SortDelivererByManagedDeliveryNumber() { ListeLivreurs.Sort(Deliverer.CompareManagedDeliveryNumber); }
 
         #region delegate Trouve
         delegate object Trouve(object critere);
@@ -433,7 +435,6 @@ namespace PizzeriaMarsala
 
         #endregion
     
-
         /*
         #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
 
