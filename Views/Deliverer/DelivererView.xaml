@@ -9,7 +9,9 @@
       Title="DelivererView">
 
     <Grid>
-        <Label Content="LIVREUR" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" FontFamily="Open Sans BOLD" />
+        <!-- on affiche une liste de livreurs -->
+        <Frame Name="ListContentPresenter" />
+        <!-- on affiche la bare de menu -->
         <Frame Name="MenuBar" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" />
     </Grid>
 </Page>

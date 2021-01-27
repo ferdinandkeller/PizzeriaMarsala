@@ -84,5 +84,14 @@ namespace PizzeriaMarsala
             ViewFrame.Content = new EditWorkerView(this, worker);
         }
 
+        public void SwitchToCreateDelivererView()
+        {
+            ViewFrame.Content = new CreateDelivererView(this);
+        }
+        public void SwitchToEditDelivererView(Deliverer deliverer)
+        {
+            ViewFrame.Content = new EditDelivererView(this, deliverer);
+        }
+
     }
 }
