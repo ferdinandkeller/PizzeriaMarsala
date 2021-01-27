@@ -1,0 +1,32 @@
+﻿<Page x:Class="PizzeriaMarsala.CreateDelivererView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PizzeriaMarsala"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CreateDelivererView">
+
+    <Grid>
+        <!-- on créer deux sections : une pour le menu et une pour les commandes -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <!-- section menu -->
+        <Frame Name="AppTitle" Grid.Row="0" />
+        
+        <!-- section création client -->
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <TextBox Text="{Binding LastName}" />
+            <TextBox Text="{Binding FirstName}" />
+            <TextBox Text="{Binding Address}" />
+            <TextBox Text="{Binding PhoneNumber}" />
+            <TextBox Text="{Binding State}" />
+            <TextBox Text="{Binding VehicleType}" />
+            <Button Content="Crééer le livreur" Click="CreateDeliverer" />
+        </StackPanel>
+    </Grid>
+</Page>

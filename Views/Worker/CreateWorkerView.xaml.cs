@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class CreateCustomerView : Page
+    public partial class CreateWorkerView : Page
     {
         MainWindow main_window;
 
@@ -23,8 +23,9 @@ namespace PizzeriaMarsala
         public string LastName { get; set; } = "Nom";
         public string Address { get; set; } = "Adresse";
         public string PhoneNumber { get; set; } = "0600000000";
+        public WorkerState State { get; set; } = WorkerState.surplace;
 
-        public CreateCustomerView(MainWindow main_window)
+        public CreateWorkerView(MainWindow main_window)
         {
             InitializeComponent();
 
@@ -35,10 +36,10 @@ namespace PizzeriaMarsala
             AppTitle.Content = new AppTitleComponent();
         }
 
-        private void CreateCustomer(object sender, RoutedEventArgs e)
+        private void CreateWorker(object sender, RoutedEventArgs e)
         {
-            Pizzeria.ListeClients.Add(new Customer(LastName, FirstName, Address, long.Parse(PhoneNumber), DateTime.Now));
-            main_window.SwitchToCustomerView();
+            Pizzeria.ListeCommis.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), State, DateTime.Now));
+            main_window.SwitchToWorkerView();
         }
     }
 }

@@ -12,33 +12,36 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
-    public partial class CreateCustomerView : Page
+    public partial class EditDelivererView : Page
     {
         MainWindow main_window;
+        Deliverer deliverer;
 
-        public string FirstName { get; set; } = "Prénom";
-        public string LastName { get; set; } = "Nom";
-        public string Address { get; set; } = "Adresse";
-        public string PhoneNumber { get; set; } = "0600000000";
-
-        public CreateCustomerView(MainWindow main_window)
+        public EditDelivererView(MainWindow main_window, Deliverer deliverer)
         {
             InitializeComponent();
 
-            this.DataContext = this;
-
-            this.main_window = main_window;
+            DataContext = deliverer;
 
             AppTitle.Content = new AppTitleComponent();
+
+            this.main_window = main_window;
+            this.deliverer = deliverer;
         }
 
-        private void CreateCustomer(object sender, RoutedEventArgs e)
+        private void EndEdition(object sender, RoutedEventArgs e)
         {
-            Pizzeria.ListeClients.Add(new Customer(LastName, FirstName, Address, long.Parse(PhoneNumber), DateTime.Now));
             main_window.SwitchToCustomerView();
+        }
+
+        private void DeleteElement(object sender, RoutedEventArgs e)
+        {
+            Pizzeria.ListeLivreurs.Remove(deliverer);
+            main_window.SwitchToDelivererView();
         }
     }
 }

@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class CustomerView : Page
+    public partial class WorkerView : Page
     {
 
         MainWindow main_window;
 
-        public CustomerView(MainWindow main_window)
+        public WorkerView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -36,17 +36,17 @@ namespace PizzeriaMarsala
                 Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
                 New, OpenFile,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD", (o) => { main_window.SwitchToEditCustomerView((Customer)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD", (o) => { main_window.SwitchToEditWorkerView((Worker)o); }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.ListeClients;
+            presenter.ItemsControlList.DataContext = Pizzeria.ListeCommis;
         }
 
         public void New()
         {
-            main_window.SwitchToCreateCustomerView();
+            main_window.SwitchToCreateWorkerView();
         }
 
         public void OpenFile(String file_url)

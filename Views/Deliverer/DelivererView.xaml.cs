@@ -15,12 +15,12 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class CustomerView : Page
+    public partial class DelivererView : Page
     {
 
         MainWindow main_window;
 
-        public CustomerView(MainWindow main_window)
+        public DelivererView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -41,12 +41,12 @@ namespace PizzeriaMarsala
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.ListeClients;
+            presenter.ItemsControlList.DataContext = Pizzeria.ListeLivreurs;
         }
 
         public void New()
         {
-            main_window.SwitchToCreateCustomerView();
+            main_window.SwitchToCreateDelivererView();
         }
 
         public void OpenFile(String file_url)
