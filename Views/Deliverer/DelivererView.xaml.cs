@@ -36,7 +36,7 @@ namespace PizzeriaMarsala
                 Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
                 New, OpenFile,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD", (o) => { main_window.SwitchToEditCustomerView((Customer)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD", (o) => { main_window.SwitchToEditDelivererView((Deliverer)o); }
             );
 
             // on affiche le content presenter dans l'interface
