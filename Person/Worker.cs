@@ -8,8 +8,8 @@ namespace PizzeriaMarsala
 {
     public class Worker : Person
     {
-        public WorkerState State { get;private set; }
-        private DateTime HiringDate { get; set; }
+        public WorkerState State { get; set; }
+        public DateTime HiringDate { get; set; }
 
         public int ManagedCommandNumber { get; set; }
 

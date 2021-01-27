@@ -7,8 +7,8 @@ namespace PizzeriaMarsala
     public class Command : IToCSV
     {
         // attributs de la classe
-        static long CommandIDMax { get; set; } //L'identifiant actuel qu'on incrément à chaque commande
-        public long CommandID { get; set; }//L'identifiant de la commande
+        static long CommandIDMax { get; set; } // L'identifiant actuel qu'on incrément à chaque commande
+        public long CommandID { get; set; } // L'identifiant de la commande
 
         public DateTime Date { get; private set; }
 

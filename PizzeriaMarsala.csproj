@@ -63,6 +63,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Worker\CreateWorkerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Worker\EditWorkerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Customer\CreateCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,7 +95,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\WorkerView.xaml">
+    <Page Include="Views\Worker\WorkerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -123,6 +131,12 @@
     <Compile Include="Person\Person.cs" />
     <Compile Include="Pizzeria.cs" />
     <Compile Include="SortableObservableCollection.cs" />
+    <Compile Include="Views\Worker\CreateWorkerView.xaml.cs">
+      <DependentUpon>CreateWorkerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Worker\EditWorkerView.xaml.cs">
+      <DependentUpon>EditWorkerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Customer\CreateCustomerView.xaml.cs">
       <DependentUpon>CreateCustomerView.xaml</DependentUpon>
     </Compile>
@@ -141,7 +155,7 @@
     <Compile Include="Views\Customer\EditCustomerView.xaml.cs">
       <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WorkerView.xaml.cs">
+    <Compile Include="Views\Worker\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="RandomGenerator.cs" />
