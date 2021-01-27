@@ -72,7 +72,7 @@
         <Grid Grid.Row="1">
             <Grid.Resources>
                 <Style TargetType="Label">
-                    <Setter Property="Width" Value="100" />
+                    <Setter Property="Width" Value="110" />
                     <Setter Property="Margin" Value="5 0 5 0" />
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                     <Setter Property="VerticalContentAlignment" Value="Center" />
