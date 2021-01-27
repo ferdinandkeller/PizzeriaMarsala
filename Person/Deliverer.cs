@@ -54,11 +54,25 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
+
+        /// <summary>
+        /// ToString() de la classe fille en utilisant celle de la classe mère
+        /// </summary>
+        /// <returns>
+        /// NomDeFamille Prénom [NuméroDeTéléphone] : Adresse
+        /// Etat du livreur : Etat | Type de véhicule : TypeVehicule | Nombre de livraisons effectuées : NombreLivraisons
+        /// </returns>
         public override string ToString()
         {
             return base.ToString() + $"\nEtat du livreur : {State} | Type de véhicule : {VehicleType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
         }
 
+        /// <summary>
+        /// ToCSV() de la classe fille en utilisant celle de la classe mère
+        /// </summary>
+        /// <returns>
+        /// NomDeFamille;Prénom;Adresse;NuméroDeTéléphone;
+        /// </returns>
         public override String ToCSV()
         {
             return base.ToCSV() + $";{State};{VehicleType}";
@@ -68,6 +82,11 @@ namespace PizzeriaMarsala
         {
             String[] infos = deliverer.Split(';');
             return new Deliverer(infos[0], infos[1], infos[2], long.Parse(infos[3]), (DelivererState)Enum.Parse(typeof(DelivererState), infos[4]), infos[5]);
+        }
+
+        public static int CompareManagedDeliveryNumber(Deliverer d1, Deliverer d2)
+        {
+            return d1.ManagedDeliveryNumber.CompareTo(d2.ManagedDeliveryNumber);
         }
         #endregion
     }

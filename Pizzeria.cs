@@ -475,6 +475,11 @@ namespace PizzeriaMarsala
             ListeLivreurs.Sort(Deliverer.CompareTown);
         }
 
+        public static void SortDelivererManagedDeliveryNumber()
+        {
+            ListeLivreurs.Sort(Deliverer.CompareManagedDeliveryNumber);
+        }
+
         //Commis
         public static void SortWorkerName()
         {
@@ -484,6 +489,11 @@ namespace PizzeriaMarsala
         public static void SortWorkerTown()
         {
             ListeCommis.Sort(Worker.CompareTown);
+        }
+
+        public static void SortWorkerManagedCommandNumber()
+        {
+            ListeCommis.Sort(Worker.CompareManagedCommandNumber);
         }
 
         #endregion

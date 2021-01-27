@@ -37,5 +37,10 @@ namespace PizzeriaMarsala
             return new Worker(infos[0], infos[1], infos[2], long.Parse(infos[3]), (WorkerState)Enum.Parse(typeof(WorkerState), infos[4]), DateTime.Parse(infos[5]));
         }
 
+        public static int CompareManagedCommandNumber(Worker a, Worker b)
+        {
+            return a.ManagedCommandNumber.CompareTo(b.ManagedCommandNumber);
+        }
+
     }
 }
