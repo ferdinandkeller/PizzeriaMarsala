@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PizzeriaMarsala
 {
-    public enum PizzaType // prix en centimes pour taille moyenne
+    /// <summary>
+    /// Enumération des types possibles d'une pizza
+    /// Chaque type est associé à une valeur: le prix en centimes pour une pizza de taille moyenne
+    /// </summary>
+    public enum PizzaType
     {
         Margherita = 900,
         Reine = 1000,

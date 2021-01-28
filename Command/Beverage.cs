@@ -32,15 +32,33 @@ namespace PizzeriaMarsala
             Type = type;
             Volume = volume;
 
-            Price = (double)Type / 1000 * Volume; // prix en euros
+            Price = (double)Type / 1000 * Volume; // prix en euros, Price est un attribut de la classe Product
         }
         #endregion
 
+        #region Méthodes
+
+        /// <summary>
+        /// ToString()
+        /// </summary>
+        /// <returns>
+        /// TypeDeBoisson (Volumecl) [Prix Euros]
+        /// </returns>
         public override string ToString()
         {
-            return $"{Type} ({Volume}cl) [{Price}$]";
+            return $"{Type} ({Volume}cl) [{Price} Euros]";
         }
 
+        /// <summary>
+        /// Comparaison de deux boisson en fonction de son nom puis de son volume
+        /// </summary>
+        /// <param name="b1">Boisson 1</param>
+        /// <param name="b2">Boisson 2</param>
+        /// <returns>
+        /// -1 si la boisson 1 a un nom se situant avant celui de la boisson 2 (ordre alphabétique) ou si les noms sont égaux mais que le volume de b1 < celui de b2
+        /// 0 si les deux boissons ont le même nom et le même volume
+        /// 1 sinon
+        /// </returns>
         public static int CompareTypeVolume(Beverage b1, Beverage b2)
         {
             int compa = nameof(b1.Type).CompareTo(nameof(b2.Type));
@@ -50,5 +68,6 @@ namespace PizzeriaMarsala
             }
             return compa;
         }
+        #endregion
     }
 }
