@@ -35,7 +35,7 @@ namespace PizzeriaMarsala
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.ListeCommandes;
+            presenter.ItemsControlList.DataContext = Pizzeria.OrdersList;
         }
 
         public void Sort()
@@ -48,7 +48,7 @@ namespace PizzeriaMarsala
 
         public void New()
         {
-            Pizzeria.ListeCommandes.Add(new Command(
+            Pizzeria.OrdersList.Add(new Command(
                 new Customer("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
                 new Worker("azd", "azd", "azd", 01238, WorkerState.surplace, DateTime.Now),
                 new Deliverer("azd", "azd", "azd", 081238, DelivererState.surplace, "azd")

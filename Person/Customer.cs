@@ -12,16 +12,16 @@ namespace PizzeriaMarsala
     /// </summary>
     /// <attributs>
     /// CustomerID: Identifiant du client (N+1 e client de la pizzeria ou identifiant déclaré dans un fichier)
-    /// FirstCommandDate: Date de la première commande du client
-    /// CommandsTotalValue: Valeur des commandes cumulées (honorées) du client
+    /// FirstOrderDate: Date de la première commande du client
+    /// OrdersTotalValue: Valeur des commandes cumulées (honorées) du client
     /// CustomerIDMax: permet d'enregistrer l'identifiant courant des clients de la pizzeria (le plus grand identifiant utilisé)
     /// </attributs>
     public class Customer : Person
     {
         #region Attributs
         public long CustomerID { get; set; }
-        public DateTime FirstCommandDate { get; private set; }
-        public double CommandsTotalValue { get; set; }
+        public DateTime FirstOrderDate { get; private set; }
+        public double OrdersTotalValue { get; set; }
         static long CustomerIDMax { get; set; } = 0;
         #endregion
 
@@ -40,7 +40,7 @@ namespace PizzeriaMarsala
         {
             CustomerIDMax++; //Il y a un client de plus dans le "fichier clients"
             CustomerID = CustomerIDMax; //Le nouveau client prend le nouvel id créé pour lui
-            FirstCommandDate = first_command_date;
+            FirstOrderDate = first_command_date;
         }
 
         /// <summary>
@@ -52,13 +52,13 @@ namespace PizzeriaMarsala
         /// <param name="address">Adresse</param>
         /// <param name="phone_number">Numéro de téléphone</param>
         /// <param name="first_command_date">Date de première commande</param>
-        /// <param name="total_value_commands">Montant cumulé des commandes honorées</param>
-        public Customer(long customer_id, string last_name, string first_name, string address, long phone_number, DateTime first_command_date, double total_value_commands)
+        /// <param name="total_value_Orders">Montant cumulé des commandes honorées</param>
+        public Customer(long customer_id, string last_name, string first_name, string address, long phone_number, DateTime first_command_date, double total_value_Orders)
             : base(last_name, first_name, address, phone_number)
         {
             CustomerID = customer_id;
-            FirstCommandDate = first_command_date;
-            CommandsTotalValue = total_value_commands;
+            FirstOrderDate = first_command_date;
+            OrdersTotalValue = total_value_Orders;
             if (CustomerIDMax < CustomerID)//On actualise l'id max si le client saisi possède un identifiant supérieur à l'id courant
             {
                 CustomerIDMax = CustomerID;
@@ -77,7 +77,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToString()
         {
-            return base.ToString() + $"\nPremière commande : {FirstCommandDate.ToShortDateString()} | Cumul des commandes : {CommandsTotalValue}";
+            return base.ToString() + $"\nPremière commande : {FirstOrderDate.ToShortDateString()} | Cumul des commandes : {OrdersTotalValue}";
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToCSV()
         {
-            return $"{CustomerID};" + base.ToCSV() + $";{FirstCommandDate.ToShortDateString()};{CommandsTotalValue}";
+            return $"{CustomerID};" + base.ToCSV() + $";{FirstOrderDate.ToShortDateString()};{OrdersTotalValue}";
         }
 
         /// <summary>
@@ -103,8 +103,8 @@ namespace PizzeriaMarsala
         {
             String[] infos = client.Split(';');
             DateTime first_command_date = infos.Length == 5 ? DateTime.Now : Convert.ToDateTime(infos[5]);
-            double commands_total_value = infos.LongLength == 6 ? 0 : double.Parse(infos[6]);
-            return new Customer(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), first_command_date, commands_total_value);
+            double Orders_total_value = infos.LongLength == 6 ? 0 : double.Parse(infos[6]);
+            return new Customer(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), first_command_date, Orders_total_value);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public static int CompareTotalOrders(Customer c1, Customer c2)
         {
-            return c1.CommandsTotalValue.CompareTo(c2.CommandsTotalValue);
+            return c1.OrdersTotalValue.CompareTo(c2.OrdersTotalValue);
         }
 
         #endregion

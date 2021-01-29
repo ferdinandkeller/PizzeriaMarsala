@@ -8,117 +8,89 @@ using System.IO;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Représente la pizzeria
+    ///  Elle n'est instanciée qu'une seule fois
+    ///  Toutes les actions effectuées à l'aide de l'interface graphique passent par elle(autrement dit c'est le centre de contrôle de l'application)
+    ///  Cette classe fait office de Main
+    /// </summary>
+    /// <attributs>
+    /// Tous statiques car doivent être accessibles et modifiables du côté de l'interface graphique
+    /// CommandList: liste des commandes de la pizzeria
+    /// ClientsList : liste des clients
+    /// WorkersList : liste des commis
+    /// DeliverersList : liste des livreurs
+    /// Ces listes sont directement affichées par l'interface,
+    /// donc elle doivent être de type ObservableCollection pour qu'une modification de la liste mette à jour l'interface
+    /// Nous avons de plus créé la class SortableObservableCollection afin de rajouter la méthode Sort
+    /// </attributs>
 
-    /*
-     * Cette classe représente la pizzeria de notre programme
-     * 
-     * Elle n'est instanciée qu'une seule fois, et toutes les actions effectuées à l'aide de l'interface
-     * graphique passent par elle (autrement dit c'est le centre de contrôle de l'application)
-     */
+
     public static class Pizzeria
     {
 
-        // on stocke ici les références à nos commandes, clients, commis, livreurs
-        // ces listes sont directement affichées par l'interface, donc elle doivent
-        // être de type ObservableCollection pour qu'une modification de la liste
-        // mette à jour l'interface
-        // nous avons de plus créer la class SortableObservableCollection afin de
-        // rajouter la méthode Sort
-        public static SortableObservableCollection<Command> ListeCommandes { get; set; } = new SortableObservableCollection<Command>();
-        public static SortableObservableCollection<Customer> ListeClients { get; set; } = new SortableObservableCollection<Customer>();
-        public static SortableObservableCollection<Worker> ListeCommis { get; set; } = new SortableObservableCollection<Worker>();
-        public static SortableObservableCollection<Deliverer> ListeLivreurs { get; set; } = new SortableObservableCollection<Deliverer>();
-
-        // delegate int Compare(object obj1, object obj2);
-
-        /*
-         * Fonctions de tri
-         */
-        public static void SortCommandsByID() { ListeCommandes.Sort(Command.CompareID); }
-        public static void SortCommandsByPrices() { ListeCommandes.Sort(Command.ComparePrices); }
-        public static void SortCommandsByUrgency() { ListeCommandes.Sort(Command.CompareUrgency); }
-
-        public static void SortCustomersByName() { ListeClients.Sort(Person.CompareName); }
-        public static void SortCustomersByTown() { ListeClients.Sort(Person.CompareTown); }
-        public static void SortCustomersByTotalOrders() { ListeClients.Sort(Customer.CompareTotalOrders); }
-
-        public static void SortWorkerByName() { ListeCommis.Sort(Worker.CompareName); }
-        public static void SortWorkerByTown() { ListeCommis.Sort(Worker.CompareTown); }
-        public static void SortWorkerByManagedCommandNumber() { ListeCommis.Sort(Worker.CompareManagedCommandNumber); }
-
-        public static void SortDelivererByName() { ListeLivreurs.Sort(Deliverer.CompareName); }
-        public static void SortDelivererByTown() { ListeLivreurs.Sort(Deliverer.CompareTown); }
-        public static void SortDelivererByManagedDeliveryNumber() { ListeLivreurs.Sort(Deliverer.CompareManagedDeliveryNumber); }
-
-        #region delegate Trouve
-        delegate object Trouve(object critere);
-
-        public static Customer TrouveClient(string s)
-        {
-            if(ListeClients!=null && ListeClients.Count != 0)
-            {
-                for (int i=0;i<ListeClients.Count; i++)
-                {
-                    if (ListeClients[i].PhoneNumber.ToString() == s)
-                    {
-                        return ListeClients[i];
-                    }
-                }
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static Deliverer TrouveLivreur(string s)
-        {
-            if (ListeLivreurs != null && ListeLivreurs.Count != 0)
-            {
-                for (int i = 0; i < ListeLivreurs.Count; i++)
-                {
-                    if (ListeLivreurs[i].LastName.ToString() == s)
-                    {
-                        return ListeLivreurs[i];
-                    }
-                }
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        public static Worker TrouveCommis(string s)
-        {
-            if (ListeCommis != null && ListeCommis.Count != 0)
-            {
-                for (int i = 0; i < ListeCommis.Count; i++)
-                {
-                    if (ListeCommis[i].LastName.ToString() == s)
-                    {
-                        return ListeCommis[i];
-                    }
-                }
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        #region Attributs
+        public static SortableObservableCollection<Order> OrdersList { get; set; } = new SortableObservableCollection<Order>();
+        public static SortableObservableCollection<Customer> ClientsList { get; set; } = new SortableObservableCollection<Customer>();
+        public static SortableObservableCollection<Worker> WorkersList { get; set; } = new SortableObservableCollection<Worker>();
+        public static SortableObservableCollection<Deliverer> DeliverersList { get; set; } = new SortableObservableCollection<Deliverer>();
         #endregion
-        
 
+        #region Méthodes
         /*
-         * Méthode retournant la liste des commandes passées dans une période de temps donnée
+         * Toutes les méthodes sont statiques
+         * On veut pouvoir appeler toutes les méthodes pour interagir facilement avec l'interface graphique
          */
 
-        public static SortableObservableCollection<Command> CommandesInTimeSpan(DateTime d1,DateTime d2)
+        /// <summary>
+        /// Implémentent la méthode Sort sur les différents attributs
+        /// Utilisent différentes méthodes de comparaison en fonction du critère de tri
+        /// </summary>
+        #region Méthodes de tri
+
+        /*
+         * Sur la liste de commandes (par identifiant, prix, urgence)
+         */
+
+        public static void SortOrdersByID() { OrdersList.Sort(Order.CompareID); }
+        public static void SortOrdersByPrices() { OrdersList.Sort(Order.ComparePrices); }
+        public static void SortOrdersByUrgency() { OrdersList.Sort(Order.CompareUrgency); }
+
+        /*
+         * Sur la liste de clients (par nom, ville, commandes cumulées)
+         */
+
+        public static void SortCustomersByName() { ClientsList.Sort(Person.CompareName); }
+        public static void SortCustomersByTown() { ClientsList.Sort(Person.CompareTown); }
+        public static void SortCustomersByTotalOrders() { ClientsList.Sort(Customer.CompareTotalOrders); }
+
+        /*
+         * Sur la liste de commis (par nom, ville, commandes gérées)
+         */
+        public static void SortWorkerByName() { WorkersList.Sort(Worker.CompareName); }
+        public static void SortWorkerByTown() { WorkersList.Sort(Worker.CompareTown); }
+        public static void SortWorkerByManagedCommandNumber() { WorkersList.Sort(Worker.CompareManagedCommandNumber); }
+
+        /*
+         * Sur la liste de livreurs (par nom, ville, commandes livrées)
+         */
+        public static void SortDelivererByName() { DeliverersList.Sort(Deliverer.CompareName); }
+        public static void SortDelivererByTown() { DeliverersList.Sort(Deliverer.CompareTown); }
+        public static void SortDelivererByManagedDeliveryNumber() { DeliverersList.Sort(Deliverer.CompareManagedDeliveryNumber); }
+        #endregion
+
+
+        /// <summary>
+        /// Liste des commandes passées durant une période de temps donnée
+        /// Utilisation de la méthode MadeDuringTimeSpan de la classe Order
+        /// </summary>
+        /// <param name="d1">Borne inférieure de la période (moment initial)</param>
+        /// <param name="d2">Borne supérieure (moment final)</param>
+        /// <returns>La SortableObservableCollection<Order> des commandes recherchées </returns>
+        public static SortableObservableCollection<Order> CommandesInTimeSpan(DateTime d1,DateTime d2)
         {
-            SortableObservableCollection<Command> c = new SortableObservableCollection<Command>();
-            foreach(Command commande in ListeCommandes)
+            SortableObservableCollection<Order> c = new SortableObservableCollection<Order>();
+            foreach(Order commande in OrdersList)
             {
                 if (commande.MadeDuringTimeSpan(d1, d2))
                 {
@@ -128,81 +100,90 @@ namespace PizzeriaMarsala
             return c;
         }
 
-        /*
-         * Moyenne des prix de toutes les commandes
-         */
-
-        public static double MoyenneToutesCommandes()
+        
+        /// <summary>
+        /// Moyenne des prix de toutes les commandes faites dans la pizzéria
+        /// </summary>
+        /// <returns>La moyenne cherchée (prix en euros)</returns>
+        public static double AllOrdersMean()
         {
             double res = 0;
-            List<Command> liste = ListeCommandes.ToList();
+            List<Order> liste = OrdersList.ToList();
             liste.ForEach(x => res += x.Price());
             return res/liste.Count;
         }
 
-        /*
-         * Moyenne des comptes clients : AUCUNE IDEE DE CE QUE CA VEUT DIRE
-         * Hypothèse : On retourne [Moyenne dates premiere commande; Moyenne Cumul Client]
-         */
-
+        /// <summary>
+        /// "Moyenne des comptes clients"
+        /// </summary>
+        /// <returns>
+        /// SortedList d'une seule KeyValuePair
+        /// key = Moyenne des dates de premiere commande de l'ensemble des clients
+        /// value= Moyenne des montants cumulés des clients
+        /// </returns>
         public static SortedList<DateTime,double> MoyenneComptesClients()
         {
             double res = 0;
             int annee = 0;
             int mois = 0;
             int jour = 0;
-            List<Customer> liste = ListeClients.ToList();
+            List<Customer> liste = ClientsList.ToList();
             int n = liste.Count;
             foreach(Customer client in liste)
             {
-                res += client.CommandsTotalValue;
-                annee += client.FirstCommandDate.Year;
-                mois += client.FirstCommandDate.Month;
-                jour += client.FirstCommandDate.Day;
+                res += client.OrdersTotalValue;
+                annee += client.FirstOrderDate.Year;
+                mois += client.FirstOrderDate.Month;
+                jour += client.FirstOrderDate.Day;
             }
             DateTime dt = new DateTime(annee / n,mois/n,jour/n);
             SortedList<DateTime, double> sl = new SortedList<DateTime, double> ();
             sl.Add(dt, res / n);
             return sl;
         }
-
-
         
         #region Ouverture de fichiers et ajout aux listes automatique
+
+        /// <summary>
+        /// On ajoute le contenu d'un fichier à une des listes de personnes en fonction du type de fichier ouvert
+        /// On ajoute seulement les éléments qui ne sont pas déjà présents dans la liste
+        /// </summary>
+        /// <param name="nomFichier">Le fichier source</param>
+
         //Clients
         public static void OuvrirFichierClient(string nomFichier)
         {
             List<Customer> liste = CreationListeClientsDepuisFichier(nomFichier);
-            List<Customer> l2 = liste.FindAll(x => ListeClients.Contains(x));
+            List<Customer> l2 = liste.FindAll(x => ClientsList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x=>ListeClients.Add(x));
+            liste.ForEach(x=>ClientsList.Add(x));
         }
 
         //Commis
         public static void OuvrirFichierCommis(string nomFichier)
         {
             List<Worker> liste = CreationListeCommisDepuisFichier(nomFichier);
-            List<Worker> l2 = liste.FindAll(x => ListeCommis.Contains(x));
+            List<Worker> l2 = liste.FindAll(x => WorkersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => ListeCommis.Add(x));
+            liste.ForEach(x => WorkersList.Add(x));
         }
 
         //Livreurs
         public static void OuvrirFichierLivreurs(string nomFichier)
         {
             List<Deliverer> liste = CreationListeLivreursDepuisFichier(nomFichier);
-            List<Deliverer> l2 = liste.FindAll(x => ListeLivreurs.Contains(x));
+            List<Deliverer> l2 = liste.FindAll(x => DeliverersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => ListeLivreurs.Add(x));
+            liste.ForEach(x => DeliverersList.Add(x));
         }
 
         //Commandes
         public static void OuvrirFichierCommandes(string nomFichier)
         {
-            List<Command> liste = CreationListeCommandesDepuisFichier(nomFichier);
-            List<Command> l2 = liste.FindAll(x => ListeCommandes.Contains(x));
+            List<Order> liste = CreationListeCommandesDepuisFichier(nomFichier);
+            List<Order> l2 = liste.FindAll(x => OrdersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => ListeCommandes.Add(x));
+            liste.ForEach(x => OrdersList.Add(x));
         }
 
             #region Création d'une liste depuis un fichier
@@ -257,15 +238,15 @@ namespace PizzeriaMarsala
             return liste;
         }
 
-        public static List<Command> CreationListeCommandesDepuisFichier(string nomFichier)
+        public static List<Order> CreationListeCommandesDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
-            List<Command> liste = new List<Command>();
+            List<Order> liste = new List<Order>();
             string ligne = "";
             while (sr.Peek() > 0)
             {
                 ligne = sr.ReadLine();
-                liste.Add(Command.FromCSV(ligne));
+                liste.Add(Order.FromCSV(ligne));
             }
             return liste;
         }
@@ -273,13 +254,15 @@ namespace PizzeriaMarsala
 
         #endregion
 
-        /*Méthode permettant de créer ou modifier un fichier à partir d'une liste
-         * Permet nottamment de trier un fichier existant:
-            * On créé la liste à partir du fichier
-            * On trie cette liste avec le critère choisi
-            * On remet la liste dans le fichier
-            */
-
+        /// <summary>
+        /// Méthode permettant de créer ou modifier un fichier à partir d'une liste
+        /// Permet nottamment de trier un fichier existant:
+        ///     On créé la liste à partir du fichier
+        ///     On trie cette liste avec le critère choisi
+        ///     On remet la liste dans le fichier
+        /// </summary>
+        /// <param name="nomFichier">Le fichier à modifier</param>
+        /// <param name="l">le critère de tri</param>
         public static void ModificationFichierDepuisListe(string nomFichier, object l)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -302,7 +285,11 @@ namespace PizzeriaMarsala
             sw.Close();
         }
 
-        //Méthode permettant d'ajouter un élément en fin de fichier
+        /// <summary>
+        /// Méthode permettant d'ajouter un élément en fin de fichier
+        /// </summary>
+        /// <param name="nomFichier">Le fichier en question</param>
+        /// <param name="obj">L'élément à ajouter</param>
 
         public static void AjoutFichier(string nomFichier, object obj)
         {
@@ -311,7 +298,13 @@ namespace PizzeriaMarsala
             sw.Close();
         }
 
-        //Méthode permettant de modifier une ligne du fichier
+
+        /// <summary>
+        /// Méthode permettant de modifier une ligne du fichier
+        /// </summary>
+        /// <param name="nomFichier">Le fichier</param>
+        /// <param name="index">L'index de la ligne à changer</param>
+        /// <param name="obj">L'élément de remplacement</param>
         public static void ModificationLigneFichier(string nomFichier, int index, object obj)
         {
             List<string> l = CreationListeDepuisFichier(nomFichier);
@@ -344,6 +337,14 @@ namespace PizzeriaMarsala
         }
       */
 
+        /// <summary>
+        /// ToString() sur l'ensemble des éléments de la liste
+        /// </summary>
+        /// <param name="l">La liste</param>
+        /// <returns>
+        /// Une chaîne de caractères de plusieurs lignes
+        /// Chaque ligne est la représentation d'un élément de la liste sous forme de chaîne de caractères
+        /// </returns>
         public static string ToString(List<object> l)
         {
             string s = "";
@@ -353,7 +354,7 @@ namespace PizzeriaMarsala
             }
             return s;
         }
-        
+
 
         /* Très interessant mais inutile x) (car ça ne peux pas marcher)
          * 
@@ -386,49 +387,91 @@ namespace PizzeriaMarsala
         }
         */
 
+        #region Méthodes permettant de trouver une personne ou une commande
+        /// <summary>
+        /// Trouver un client par son nom et prénom
+        /// </summary>
+        /// <param name="lastname">Nom</param>
+        /// <param name="firstname">Prénom</param>
+        /// <returns>Le client cherché</returns>
         public static Customer FindCustomer(String lastname, String firstname)
         {
-            return ListeClients.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
+            return ClientsList.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
         }
+        /// <summary>
+        /// Trouver un client par son numéro de téléphone
+        /// </summary>
+        /// <param name="phone_numer">Le numéro</param>
+        /// <returns>Le client cherché</returns>
         public static Customer FindCustomer(long phone_numer)
         {
-            return ListeClients.Find(customer => customer.PhoneNumber == phone_numer);
+            return ClientsList.Find(customer => customer.PhoneNumber == phone_numer);
         }
+        /// <summary>
+        /// Trouver un commis avec son nom
+        /// </summary>
+        /// <param name="lastname">Nom de famille</param>
+        /// <returns>Le commis cherché</returns>
         public static Worker FindWorker(String lastname)
         {
-            return ListeCommis.Find(worker => worker.LastName == lastname);
+            return WorkersList.Find(worker => worker.LastName == lastname);
         }
+        /// <summary>
+        /// Trouver un livreur avec son nom
+        /// </summary>
+        /// <param name="lastname">Nom de famille</param>
+        /// <returns>Le livreur cherché</returns>
         public static Deliverer FindDeliverer(String lastname)
         {
-            return ListeLivreurs.Find(deliverer => deliverer.LastName == lastname);
+            return DeliverersList.Find(deliverer => deliverer.LastName == lastname);
         }
-
-        public static Command FindCommand(long id)
+        /// <summary>
+        /// Trouver une commande avec son identifiant
+        /// </summary>
+        /// <param name="id">L'identifiant de la commande</param>
+        /// <returns>La commande cherchée</returns>
+        public static Order FindOrder(long id)
         {
-            return ListeCommandes.Find(x => x.CommandID == id);
+            return OrdersList.Find(x => x.OrderID == id);
         }
+        #endregion
 
 
-        #region EnregistrementFactureDansFichierTXT(identifiant, nom du fichier), StringCommandeRechercheId
+        #region SaveReceiptTXTFile(identifiant, nom du fichier), SearchedOrderToString
 
-        public static void EnregistrementFactureDansFichierTXT(long id, string nomFichier)
+        /// <summary>
+        /// Enregistrer la facture d'une commande dans un fichier .txt
+        /// </summary>
+        /// <param name="id">Identifiant de la commande</param>
+        /// <param name="nomFichier">Nom du fichier</param>
+        public static void SaveReceiptTXTFile(long id, string nomFichier)
         {
-            List<Command> liste = ListeCommandes.ToList();
-            Command c = liste.Find(x => x.CommandID == id);
+            List<Order> liste = OrdersList.ToList();
+            Order c = liste.Find(x => x.OrderID == id);
             c.EnregistreFactureTXT(nomFichier);
         }
 
-        public static string StringCommandeRechercheId(long id)
+        /// <summary>
+        /// Trouve une commande avec son identifiant et la met sous forme de string
+        /// </summary>
+        /// <param name="id">L'identifiant de la commande</param>
+        /// <returns>Description de la commande cherchée</returns>
+        public static string SearchedOrderToString(long id)
         {
-            List<Command> liste = ListeCommandes.ToList();
-            Command c = FindCommand(id);
+            List<Order> liste = OrdersList.ToList();
+            Order c = FindOrder(id);
             return c.ToString();
         }
 
-        public static string StringPrixCommandeRechercheId(long id)
+        /// <summary>
+        /// Donne le prix d'une commande et rappelle l'identifiant de cette commande
+        /// </summary>
+        /// <param name="id">l'identifiant de la commande</param>
+        /// <returns>N° Commande : NumeroCommande; Prix : PrixCommande</returns>
+        public static string SearchedOrderPriceToString(long id)
         {
-            List<Command> liste = ListeCommandes.ToList();
-            Command c = FindCommand(id);
+            List<Order> liste = OrdersList.ToList();
+            Order c = FindOrder(id);
             double prix = c.Price();
             return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
@@ -510,12 +553,22 @@ namespace PizzeriaMarsala
         */
 
 
-        #region EtatEffectifs
-        public static string EtatEffectifs()
+        #region Etat des effectifs
+
+        /// <summary>
+        /// Résume l'état des effectifs
+        /// Les effectifs se composent des commis et livreurs
+        /// </summary>
+        /// <returns>
+        /// Chaine de caractères de plusieurs ligne (une ligne par travailleur)
+        /// Pour chaque ligne :
+        ///     NomDeFamille;Etat
+        /// </returns>
+        public static string TroopsState()
         {
             string s = "";
-            List<Worker> lc = ListeCommis.ToList();
-            List<Deliverer> ll = ListeLivreurs.ToList();
+            List<Worker> lc = WorkersList.ToList();
+            List<Deliverer> ll = DeliverersList.ToList();
             if (lc!=null && lc.Count!=0)
             {
                 lc.ForEach(x => s += x.LastName + ";" + x.State.ToString() + "\n");
@@ -526,6 +579,8 @@ namespace PizzeriaMarsala
             }
             return s;
         }
+        #endregion
+
         #endregion
 
     }

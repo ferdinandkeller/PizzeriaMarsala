@@ -40,7 +40,7 @@ namespace PizzeriaMarsala
 
         private void DeleteElement(object sender, RoutedEventArgs e)
         {
-            Pizzeria.ListeClients.Remove(customer);
+            Pizzeria.ClientList.Remove(customer);
             main_window.SwitchToCustomerView();
         }
     }

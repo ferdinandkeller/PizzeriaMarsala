@@ -22,11 +22,11 @@ namespace PizzeriaMarsala
     /// State: état de la commande (enpreparation,enlivraison,fermee)
     /// Balance: état du solde de la commande (enattente,ok,perdue)
     /// </attributs>
-    public class Command : IToCSV
+    public class Order : IToCSV
     {
         #region Attributs
-        static long CommandIDMax { get; set; }
-        public long CommandID { get; set; } 
+        static long OrderIDMax { get; set; }
+        public long OrderID { get; set; } 
 
         public DateTime Date { get; private set; }
 
@@ -37,7 +37,7 @@ namespace PizzeriaMarsala
         public Worker CommandWorker { get; private set; }
         public Deliverer CommandDeliverer { get; private set; }
         
-        public CommandState State { get; private set; }
+        public OrderState State { get; private set; }
         public BalanceState Balance { get; private set; }
         #endregion
 
@@ -50,15 +50,15 @@ namespace PizzeriaMarsala
         /// <param name="client">Client passant la commande</param>
         /// <param name="commis">Commis enregistrant la commande</param>
         /// <param name="livreur">Livreur chargé de la livraison</param>
-        public Command(Customer client, Worker commis, Deliverer livreur)
+        public Order(Customer client, Worker commis, Deliverer livreur)
         {
-            CommandIDMax ++; //il y a une nouvelle commande pour la pizzeria
-            CommandID = CommandIDMax; //identifiant de la commande
+            OrderIDMax ++; //il y a une nouvelle commande pour la pizzeria
+            OrderID = OrderIDMax; //identifiant de la commande
             Date = DateTime.Now; //la commande vient d'être passée
             CommandCustomer = client;
             CommandWorker = commis;
             CommandDeliverer = livreur;
-            State = CommandState.enpreparation; //automatiquement, la commande est passée en cuisie
+            State = OrderState.enpreparation; //automatiquement, la commande est passée en cuisie
             Balance = BalanceState.enattente; //la commande n'est pas encore payée
             CommandWorker.ManagedCommandNumber += 1; //Le commis a géré une commande de plus
         }
@@ -75,14 +75,14 @@ namespace PizzeriaMarsala
         /// <param name="worker_name">Nom du commis</param>
         /// <param name="deliverer_name">Nom du livreur</param>
         /// <param name="solde">Etat du solde</param>
-        public Command(long command_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
+        public Order(long command_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
             : this(Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name))
         {
             Date = date;
-            CommandID = command_id;
-            if (CommandIDMax < CommandID)//Si l'identifiant max des commandes de la pizzeria est inférieur à celui donné dans le fichier
+            OrderID = command_id;
+            if (OrderIDMax < OrderID)//Si l'identifiant max des commandes de la pizzeria est inférieur à celui donné dans le fichier
             {
-                CommandIDMax = CommandID; //On actualise l'identifiant max
+                OrderIDMax = OrderID; //On actualise l'identifiant max
             }
             Balance = (BalanceState)Enum.Parse(typeof(BalanceState), solde); //on récupère le solde donné dans le fichier en effectuant une conversion
         }
@@ -127,7 +127,7 @@ namespace PizzeriaMarsala
         /// </summary>
         public void StartDelivery()
         {
-            State = CommandState.enlivraison;
+            State = OrderState.enlivraison;
             //Le livreur assigné part en livraison
             CommandDeliverer.State = DelivererState.enlivraison;
         }
@@ -142,7 +142,7 @@ namespace PizzeriaMarsala
         /// </summary>
         public void PayementReceived()
         {
-            State = CommandState.fermee;
+            State = OrderState.fermee;
             Balance = BalanceState.ok;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
             CommandDeliverer.State = DelivererState.surplace;
@@ -161,7 +161,7 @@ namespace PizzeriaMarsala
         /// </summary>
         public void CommandLost()
         {
-            State = CommandState.fermee;
+            State = OrderState.fermee;
             Balance = BalanceState.perdue;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
             CommandDeliverer.State = DelivererState.surplace;
@@ -199,12 +199,12 @@ namespace PizzeriaMarsala
         /// <returns>
         /// La commande correspondante
         /// </returns>
-        public static Command FromCSV(string commande)
+        public static Order FromCSV(string commande)
         {
             String[] infos = commande.Split(';');
             DateTime DateCommande = Convert.ToDateTime(infos[2]);
             DateCommande += new TimeSpan(int.Parse(infos[1].Substring(0, infos[1].Length - 1)), 0, 0);
-            return new Command(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
+            return new Order(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public string ToCSV()
         {
-            return $"{CommandID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.PhoneNumber};{CommandWorker.LastName};{CommandDeliverer.LastName};{State};{Balance}";
+            return $"{OrderID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.PhoneNumber};{CommandWorker.LastName};{CommandDeliverer.LastName};{State};{Balance}";
         }
 
 
@@ -228,9 +228,9 @@ namespace PizzeriaMarsala
         /// <returns>
         /// -1,0 ou 1 en fonction de si l'identifiant de la commande 1 est inférieur, égal ou supérieur à celui de la commande 2
         /// </returns>
-        public static int CompareID(Command command_1, Command command_2)
+        public static int CompareID(Order command_1, Order command_2)
         {
-            return command_1.CommandID.CompareTo(command_2.CommandID);
+            return command_1.OrderID.CompareTo(command_2.OrderID);
         }
         /// <summary>
         /// Comparaison par urgence ie date et heure de livraison
@@ -238,7 +238,7 @@ namespace PizzeriaMarsala
         /// <returns>
         /// -1,0 ou 1 en fonction de si la date de la commande 1 est antérieurs, égale ou postérieure à celle de la commande 2
         /// </returns>
-        public static int CompareUrgency(Command command_1, Command command_2)
+        public static int CompareUrgency(Order command_1, Order command_2)
         {
             return command_1.Date.CompareTo(command_2.Date);
         }
@@ -248,7 +248,7 @@ namespace PizzeriaMarsala
         /// <returns>
         /// -1,0 ou 1 en fonction de si le prix de la commande 1 est inférieur, égal ou supérieur à celui de la commande 2
         /// </returns>
-        public static int ComparePrices(Command command_1, Command command_2)
+        public static int ComparePrices(Order command_1, Order command_2)
         {
             return command_1.Price().CompareTo(command_2.Price());
         }
@@ -265,7 +265,7 @@ namespace PizzeriaMarsala
         #region Méthodes ToString() et ToCSV() adaptées
         public string DetailCommandeToString()
         {
-            string s = "N° Commande : " + CommandID.ToString();
+            string s = "N° Commande : " + OrderID.ToString();
             if (PizzaList != null && PizzaList.Count != 0)
             {
                 foreach (KeyValuePair<Pizza, int> kv in PizzaList)
@@ -290,14 +290,14 @@ namespace PizzeriaMarsala
             {
                 foreach (KeyValuePair<Pizza, int> kv in PizzaList)
                 {
-                    s += this.CommandID.ToString() + ";Pizza" + kv.Key.Price.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Size.ToString() + ";;" + kv.Value.ToString() + "\n";
+                    s += this.OrderID.ToString() + ";Pizza" + kv.Key.Price.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Size.ToString() + ";;" + kv.Value.ToString() + "\n";
                 }
             }
             if (BeverageList != null && BeverageList.Count != 0)
             {
                 foreach (KeyValuePair<Beverage, int> kv in BeverageList)
                 {
-                    s += this.CommandID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Price.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
+                    s += this.OrderID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Price.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
                 }
             }
             return s;
