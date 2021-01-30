@@ -36,8 +36,15 @@ namespace PizzeriaMarsala
 
         private void CreateBeverage(object sender, RoutedEventArgs e)
         {
-            Pizzeria.BeverageList.Add(new Pair<Beverage, int>(new Beverage(Type, Volume), Quantity));
-            main_window.SwitchToCreateOrderView();
+            main_window.SelectedOrder.BeverageList.Add(new Pair<Beverage, int>(new Beverage(Type, Volume), Quantity));
+            if (main_window.isEditingOrder)
+            {
+                main_window.SwitchToEditOrderView(main_window.SelectedOrder);
+            }
+            else
+            {
+                main_window.SwitchToCreateOrderView();
+            }
         }
     }
 }

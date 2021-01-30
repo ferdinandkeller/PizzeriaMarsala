@@ -63,19 +63,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Order\CreateBeverageView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Order\CreatePizzaView.xaml">
+    <Page Include="Views\Order\EditOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Order\EditBeverageView.xaml">
+    <Page Include="Views\Order\Suborder\CreateBeverageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Order\EditPizzaView.xaml">
+    <Page Include="Views\Order\Suborder\CreatePizzaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Order\Suborder\EditBeverageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Order\Suborder\EditPizzaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -83,15 +87,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Order\SelectCustomerView.xaml">
+    <Page Include="Views\Order\Suborder\SelectCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Order\SelectDelivererView.xaml">
+    <Page Include="Views\Order\Suborder\SelectDelivererView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Order\SelectWorkerView.xaml">
+    <Page Include="Views\Order\Suborder\SelectWorkerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,17 +151,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Order\EditOrderView.xaml.cs">
+      <DependentUpon>EditOrderView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pair.cs" />
-    <Compile Include="Views\Order\CreateBeverageView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\CreateBeverageView.xaml.cs">
       <DependentUpon>CreateBeverageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\CreatePizzaView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\CreatePizzaView.xaml.cs">
       <DependentUpon>CreatePizzaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\EditBeverageView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\EditBeverageView.xaml.cs">
       <DependentUpon>EditBeverageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\EditPizzaView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\EditPizzaView.xaml.cs">
       <DependentUpon>EditPizzaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\CreateOrderView.xaml.cs">
@@ -186,13 +193,13 @@
     <Compile Include="Person\Deliverer.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Pizzeria.cs" />
-    <Compile Include="Views\Order\SelectCustomerView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\SelectCustomerView.xaml.cs">
       <DependentUpon>SelectCustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\SelectDelivererView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\SelectDelivererView.xaml.cs">
       <DependentUpon>SelectDelivererView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Order\SelectWorkerView.xaml.cs">
+    <Compile Include="Views\Order\Suborder\SelectWorkerView.xaml.cs">
       <DependentUpon>SelectWorkerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="SortableObservableCollection.cs" />

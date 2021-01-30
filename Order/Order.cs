@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -23,23 +24,48 @@ namespace PizzeriaMarsala
     /// State: état de la commande (enpreparation,enlivraison,fermee)
     /// Balance: état du solde de la commande (enattente,ok,perdue)
     /// </attributs>
-    public class Order : IToCSV
+    public class Order : IToCSV, INotifyPropertyChanged
     {
         #region Attributs
+        public event PropertyChangedEventHandler PropertyChanged;
+
         static long OrderIDMax { get; set; }
         public long OrderID { get; set; } 
 
         public DateTime Date { get; private set; }
 
-        public List<Pair<Pizza, int>> PizzaList { get; set; } = new List<Pair<Pizza, int>>();
-        public List<Pair<Beverage, int>> BeverageList { get; set; } = new List<Pair<Beverage, int>>();
+        public ObservableCollection<Pair<Pizza, int>> PizzaList { get; set; } = new ObservableCollection<Pair<Pizza, int>>();
+        public ObservableCollection<Pair<Beverage, int>> BeverageList { get; set; } = new ObservableCollection<Pair<Beverage, int>>();
        
         public Customer CommandCustomer { get; private set; }
         public Worker CommandWorker { get; private set; }
         public Deliverer CommandDeliverer { get; private set; }
-        
-        public OrderState State { get; set; }
-        public BalanceState Balance { get; set; }
+
+        private OrderState _State;
+        public OrderState State {
+            get => _State;
+            set
+            {
+                _State = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("State"));
+                }
+            }
+        }
+        private BalanceState _Balance;
+        public BalanceState Balance
+        {
+            get => _Balance;
+            set
+            {
+                _Balance = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Balance"));
+                }
+            }
+        }
         public double OrderPrice { get => Price(); }
         #endregion
 
@@ -54,7 +80,7 @@ namespace PizzeriaMarsala
         /// <param name="livreur">Livreur chargé de la livraison</param>
         public Order(Customer client, Worker commis, Deliverer livreur)
         {
-            OrderIDMax ++; //il y a une nouvelle commande pour la pizzeria
+            OrderIDMax++; //il y a une nouvelle commande pour la pizzeria
             OrderID = OrderIDMax; //identifiant de la commande
             Date = DateTime.Now; //la commande vient d'être passée
             CommandCustomer = client;
@@ -63,6 +89,22 @@ namespace PizzeriaMarsala
             State = OrderState.enpreparation; //automatiquement, la commande est passée en cuisie
             Balance = BalanceState.enattente; //la commande n'est pas encore payée
             CommandWorker.ManagedCommandNumber += 1; //Le commis a géré une commande de plus
+
+            PizzaList.CollectionChanged += (s, e) =>
+            {
+                Console.WriteLine("azdazd");
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("OrderPrice"));
+                }
+            };
+            PizzaList.CollectionChanged += (s, e) =>
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("OrderPrice"));
+                }
+            };
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace PizzeriaMarsala
     }
 
     /*
-     * Classe représentation la page
+     * Classe représentation le content presenter
      */ 
     public partial class ListContentPresenterComponent : Page
     {

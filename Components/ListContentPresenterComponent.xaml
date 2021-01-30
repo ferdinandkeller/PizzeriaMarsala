@@ -14,7 +14,7 @@
     <Page.Resources>
         <!-- Data template des commandes -->
         <DataTemplate x:Key="OrderDataTemplate">
-            <Border Height="170" Margin="5">
+            <Border Height="170" Margin="5" MouseLeftButtonUp="ElementClicked" Tag="{Binding}">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
                     <Style>
@@ -31,6 +31,7 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{Binding OrderID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding CommandCustomer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandWorker.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding OrderPrice}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding Balance}" VerticalAlignment="Center" HorizontalAlignment="Center" />

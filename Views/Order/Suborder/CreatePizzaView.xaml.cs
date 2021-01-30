@@ -36,8 +36,14 @@ namespace PizzeriaMarsala
 
         private void CreatePizza(object sender, RoutedEventArgs e)
         {
-            Pizzeria.PizzaList.Add(new Pair<Pizza, int>(new Pizza(Type, Size), Quantity));
-            main_window.SwitchToCreateOrderView();
+            main_window.SelectedOrder.PizzaList.Add(new Pair<Pizza, int>(new Pizza(Type, Size), Quantity));
+            if (main_window.isEditingOrder)
+            {
+                main_window.SwitchToEditOrderView(main_window.SelectedOrder);
+            } else
+            {
+                main_window.SwitchToCreateOrderView();
+            }
         }
     }
 }
