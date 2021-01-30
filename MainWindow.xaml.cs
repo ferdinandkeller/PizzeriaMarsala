@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace PizzeriaMarsala
 
         public Worker SelectedWorker;
         public Customer SelectedCustomer;
+        public CreateOrderView create_order_view;
 
         /*
         * Fonction principale du WPF
@@ -49,6 +51,7 @@ namespace PizzeriaMarsala
 
             select_worker_view = new SelectWorkerView(this);
             select_customer_view = new SelectCustomerView(this);
+            create_order_view = new CreateOrderView(this);
 
             // on charge la view qui contient la liste des commandes
             ViewFrame.Content = command_view;
@@ -71,6 +74,10 @@ namespace PizzeriaMarsala
 
         public void SwitchToSelectWorkerView() { ViewFrame.Content = select_worker_view; }
         public void SwitchToSelectCustomerView() { ViewFrame.Content = select_customer_view; }
-
+        public void SwitchToCreateOrderView() { ViewFrame.Content = create_order_view; }
+        public void SwitchToCreatePizzaView() {  ViewFrame.Content = new CreatePizzaView(this); }
+        public void SwitchToEditPizzaView(Pair<Pizza, int> pizza_pair) {ViewFrame.Content = new EditPizzaView(this, pizza_pair); }
+        public void SwitchToCreateBeverageView() { ViewFrame.Content = new CreateBeverageView(this); }
+        public void SwitchToEditBeverageView(Pair<Beverage, int> beverage_pair) { ViewFrame.Content = new EditBeverageView(this, beverage_pair); }
     }
 }

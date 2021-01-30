@@ -13,7 +13,7 @@
             (il faut un data template pour les commandes, un pour les clients, etc...               -->
     <Page.Resources>
         <!-- Data template des commandes -->
-        <DataTemplate x:Key="CommandDataTemplate">
+        <DataTemplate x:Key="OrderDataTemplate">
             <Border Height="170" Margin="5">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
@@ -28,7 +28,12 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding CommandID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <StackPanel>
+                    <Label Content="{Binding OrderID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandCustomer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandWorker.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandDeliverer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
             </Border>
         </DataTemplate>
         <!-- Data template des clients -->
