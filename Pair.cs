@@ -18,7 +18,7 @@ namespace PizzeriaMarsala
     /// <summary>
     /// Cette classe permet de stocker une paire de valeurs dans une liste
     /// De plus puisqu'elle implémente l'interface INotifyPropertyChanged, elle met à jour
-    /// l'interface graphique automatiquement
+    /// l'interface graphique automatiquement lorsqu'on la modifie
     /// </summary>
     /// <typeparam name="T">Le type de la clé</typeparam>
     /// <typeparam name="U">Le type de la valeur</typeparam>
