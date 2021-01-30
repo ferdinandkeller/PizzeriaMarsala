@@ -19,7 +19,7 @@ namespace PizzeriaMarsala
     {
         #region Attributs
         public DelivererState State { get; set; }
-        public string VehicleType { get; set; }
+        public string TransportType { get; set; }
         public int ManagedDeliveryNumber { get; set; }
         #endregion
 
@@ -29,12 +29,12 @@ namespace PizzeriaMarsala
         /// Constructeur permettant à un commis de créer un nouveau livreur
         /// </summary>
         /// <param name="state">Etat de présence du livreur</param>
-        /// <param name="vehicle_type">Type de véhicule du livreur</param>
-        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string vehicle_type)
+        /// <param name="Transport_type">Type de véhicule du livreur</param>
+        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type)
             : base(last_name, first_name, address, phone_number)
         {
             State = state;
-            VehicleType = vehicle_type;
+            TransportType = Transport_type;
             ManagedDeliveryNumber = 0; //Le livreur vient d'être embauché, il n'a encore livré aucune commande
         }
 
@@ -42,13 +42,13 @@ namespace PizzeriaMarsala
         /// Pour créer un livreur depuis un fichier existant
         /// </summary>
         /// <param name="state">Etat de présence du livreur</param>
-        /// <param name="vehicle_type">Type de véhicule du livreur</param>
+        /// <param name="Transport_type">Type de véhicule du livreur</param>
         /// <param name="managed_delivery_number">Nombre de commandes déjà livrées</param>
-        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string vehicle_type, int managed_delivery_number)
+        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type, int managed_delivery_number)
             : base(last_name, first_name, address, phone_number)
         {
             State = state;
-            VehicleType = vehicle_type;
+            TransportType = Transport_type;
             ManagedDeliveryNumber = managed_delivery_number;
         }
         #endregion
@@ -64,7 +64,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToString()
         {
-            return base.ToString() + $"\nEtat du livreur : {State} | Type de véhicule : {VehicleType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
+            return base.ToString() + $"\nEtat du livreur : {State} | Type de véhicule : {TransportType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override String ToCSV()
         {
-            return base.ToCSV() + $";{State};{VehicleType}";
+            return base.ToCSV() + $";{State};{TransportType}";
         }
 
         /// <summary>
