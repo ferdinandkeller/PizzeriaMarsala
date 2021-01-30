@@ -38,7 +38,7 @@ namespace PizzeriaMarsala
 
         private void CreateWorker(object sender, RoutedEventArgs e)
         {
-            Pizzeria.WorkerList.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), State, DateTime.Now));
+            Pizzeria.WorkersList.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), State, DateTime.Now));
             main_window.SwitchToWorkerView();
         }
     }

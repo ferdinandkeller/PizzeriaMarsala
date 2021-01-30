@@ -18,6 +18,7 @@ namespace PizzeriaMarsala
     /// </attributs>
     public class Customer : Person
     {
+
         #region Attributs
         public long CustomerID { get; set; }
         public DateTime FirstOrderDate { get; private set; }
@@ -59,7 +60,8 @@ namespace PizzeriaMarsala
             CustomerID = customer_id;
             FirstOrderDate = first_command_date;
             OrdersTotalValue = total_value_Orders;
-            if (CustomerIDMax < CustomerID)//On actualise l'id max si le client saisi possède un identifiant supérieur à l'id courant
+            //On actualise l'id max si le client saisi possède un identifiant supérieur à l'id courant
+            if (CustomerIDMax < CustomerID)
             {
                 CustomerIDMax = CustomerID;
             }

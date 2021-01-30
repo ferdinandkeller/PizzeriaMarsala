@@ -22,7 +22,7 @@ namespace PizzeriaMarsala
     {
 
         // on conserve les instances des view afin de pouvoir switcher de l'une à l'autre
-        private CommandView command_view;
+        private OrderView command_view;
         private CustomerView customer_view;
         private WorkerView worker_view;
         private DelivererView deliverer_view;
@@ -36,7 +36,7 @@ namespace PizzeriaMarsala
             InitializeComponent();
 
             // on créer chacune des views
-            command_view = new CommandView(this);
+            command_view = new OrderView(this);
             customer_view = new CustomerView(this);
             worker_view = new WorkerView(this);
             deliverer_view = new DelivererView(this);

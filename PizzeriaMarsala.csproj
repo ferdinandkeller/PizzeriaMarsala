@@ -87,7 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CommandView.xaml">
+    <Page Include="Views\OrderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -116,9 +116,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Command\Beverage.cs" />
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Command\CommandState.cs" />
     <Compile Include="Command\BalanceState.cs" />
+    <Compile Include="Command\Order.cs" />
+    <Compile Include="Command\OrderState.cs" />
     <Compile Include="Command\Pizza.cs" />
     <Compile Include="Command\Product.cs" />
     <Compile Include="Command\PizzaSize.cs" />
@@ -157,8 +157,8 @@
     <Compile Include="Views\Customer\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommandView.xaml.cs">
-      <DependentUpon>CommandView.xaml</DependentUpon>
+    <Compile Include="Views\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Deliverer\DelivererView.xaml.cs">
       <DependentUpon>DelivererView.xaml</DependentUpon>

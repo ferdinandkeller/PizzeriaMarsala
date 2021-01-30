@@ -39,7 +39,7 @@ namespace PizzeriaMarsala
 
         private void CreateDeliverer(object sender, RoutedEventArgs e)
         {
-            Pizzeria.DelivererList.Add(new Deliverer(LastName, FirstName, Address, long.Parse(PhoneNumber), State, VehicleType));
+            Pizzeria.DeliverersList.Add(new Deliverer(LastName, FirstName, Address, long.Parse(PhoneNumber), State, VehicleType));
             main_window.SwitchToDelivererView();
         }
     }

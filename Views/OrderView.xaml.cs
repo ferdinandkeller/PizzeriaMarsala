@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class CommandView : Page
+    public partial class OrderView : Page
     {
-        public CommandView(MainWindow main_window)
+        public OrderView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace PizzeriaMarsala
 
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
-                Pizzeria.SortCommandsByID, Pizzeria.SortCommandsByPrices, Pizzeria.SortCommandsByUrgency,
+                Pizzeria.SortOrdersByID, Pizzeria.SortOrdersByPrices, Pizzeria.SortOrdersByUrgency,
                 New, OpenFile,
                 "CommandDataTemplate",
                 "PAR ID", "PAR PRIX", "PAR TEMPS", (o) => { }
@@ -48,7 +48,7 @@ namespace PizzeriaMarsala
 
         public void New()
         {
-            Pizzeria.OrdersList.Add(new Command(
+            Pizzeria.OrdersList.Add(new Order(
                 new Customer("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
                 new Worker("azd", "azd", "azd", 01238, WorkerState.surplace, DateTime.Now),
                 new Deliverer("azd", "azd", "azd", 081238, DelivererState.surplace, "azd")

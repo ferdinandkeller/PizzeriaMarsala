@@ -41,7 +41,7 @@ namespace PizzeriaMarsala
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.WorkerList;
+            presenter.ItemsControlList.DataContext = Pizzeria.WorkersList;
         }
 
         public void New()

@@ -31,7 +31,7 @@ namespace PizzeriaMarsala
 
         #region Attributs
         public static SortableObservableCollection<Order> OrdersList { get; set; } = new SortableObservableCollection<Order>();
-        public static SortableObservableCollection<Customer> ClientsList { get; set; } = new SortableObservableCollection<Customer>();
+        public static SortableObservableCollection<Customer> CustomerList { get; set; } = new SortableObservableCollection<Customer>();
         public static SortableObservableCollection<Worker> WorkersList { get; set; } = new SortableObservableCollection<Worker>();
         public static SortableObservableCollection<Deliverer> DeliverersList { get; set; } = new SortableObservableCollection<Deliverer>();
         #endregion
@@ -60,9 +60,9 @@ namespace PizzeriaMarsala
          * Sur la liste de clients (par nom, ville, commandes cumulées)
          */
 
-        public static void SortCustomersByName() { ClientsList.Sort(Person.CompareName); }
-        public static void SortCustomersByTown() { ClientsList.Sort(Person.CompareTown); }
-        public static void SortCustomersByTotalOrders() { ClientsList.Sort(Customer.CompareTotalOrders); }
+        public static void SortCustomersByName() { CustomerList.Sort(Person.CompareName); }
+        public static void SortCustomersByTown() { CustomerList.Sort(Person.CompareTown); }
+        public static void SortCustomersByTotalOrders() { CustomerList.Sort(Customer.CompareTotalOrders); }
 
         /*
          * Sur la liste de commis (par nom, ville, commandes gérées)
@@ -127,7 +127,7 @@ namespace PizzeriaMarsala
             int annee = 0;
             int mois = 0;
             int jour = 0;
-            List<Customer> liste = ClientsList.ToList();
+            List<Customer> liste = CustomerList.ToList();
             int n = liste.Count;
             foreach(Customer client in liste)
             {
@@ -154,9 +154,9 @@ namespace PizzeriaMarsala
         public static void OuvrirFichierClient(string nomFichier)
         {
             List<Customer> liste = CreationListeClientsDepuisFichier(nomFichier);
-            List<Customer> l2 = liste.FindAll(x => ClientsList.Contains(x));
+            List<Customer> l2 = liste.FindAll(x => CustomerList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x=>ClientsList.Add(x));
+            liste.ForEach(x=>CustomerList.Add(x));
         }
 
         //Commis
@@ -396,7 +396,7 @@ namespace PizzeriaMarsala
         /// <returns>Le client cherché</returns>
         public static Customer FindCustomer(String lastname, String firstname)
         {
-            return ClientsList.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
+            return CustomerList.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
         }
         /// <summary>
         /// Trouver un client par son numéro de téléphone
@@ -405,7 +405,7 @@ namespace PizzeriaMarsala
         /// <returns>Le client cherché</returns>
         public static Customer FindCustomer(long phone_numer)
         {
-            return ClientsList.Find(customer => customer.PhoneNumber == phone_numer);
+            return CustomerList.Find(customer => customer.PhoneNumber == phone_numer);
         }
         /// <summary>
         /// Trouver un commis avec son nom

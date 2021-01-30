@@ -36,12 +36,12 @@ namespace PizzeriaMarsala
                 Pizzeria.SortDelivererByName, Pizzeria.SortDelivererByTown, Pizzeria.SortDelivererByManagedDeliveryNumber,
                 New, OpenFile,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR LIVRAISON", (o) => { main_window.SwitchToEditDelivererView((Deliverer)o); }
+                "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (o) => { main_window.SwitchToEditDelivererView((Deliverer)o); }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.DelivererList;
+            presenter.ItemsControlList.DataContext = Pizzeria.DeliverersList;
         }
 
         public void New()
