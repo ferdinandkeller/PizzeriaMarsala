@@ -15,12 +15,11 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class DelivererView : Page
+    public partial class SelectCustomerView : Page
     {
-
         MainWindow main_window;
 
-        public DelivererView(MainWindow main_window)
+        public SelectCustomerView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -28,30 +27,20 @@ namespace PizzeriaMarsala
             // on sauvegarde l'objet fenêtre
             this.main_window = main_window;
 
-            // on charge la barre des menus
-            MenuBar.Content = new ViewSwitcherComponent(main_window);
-
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
-                Pizzeria.SortDelivererByName, Pizzeria.SortDelivererByTown, Pizzeria.SortDelivererByManagedDeliveryNumber,
-                New, OpenFile,
+                Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
+                null, null,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (o) => { main_window.SwitchToEditDelivererView((Deliverer)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (customer) => {
+                    main_window.SelectedCustomer = (Customer)customer;
+                    main_window.SwitchToCommandView();
+                }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.DeliverersList;
-        }
-
-        public void New()
-        {
-            main_window.SwitchToCreateDelivererView();
-        }
-
-        public void OpenFile(String file_url)
-        {
-            Console.WriteLine(file_url);
+            presenter.ItemsControlList.DataContext = Pizzeria.CustomerList;
         }
     }
 }

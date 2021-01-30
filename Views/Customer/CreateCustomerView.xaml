@@ -9,7 +9,7 @@
       Title="CreateCustomerView">
 
     <Grid>
-        <!-- on créer deux sections : une pour le menu et une pour les commandes -->
+        <!-- on créer deux sections : une pour le menu et une pour les clients -->
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />

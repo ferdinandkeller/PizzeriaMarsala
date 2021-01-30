@@ -148,7 +148,7 @@ namespace PizzeriaMarsala
             CommandDeliverer.State = DelivererState.surplace;
             CommandDeliverer.ManagedDeliveryNumber++;
             //Cammande payée, le client augmente le cumul de ses commandes
-            CommandCustomer.CommandsTotalValue += this.Price();
+            CommandCustomer.OrdersTotalValue += this.Price();
         }
 
         /// <summary>

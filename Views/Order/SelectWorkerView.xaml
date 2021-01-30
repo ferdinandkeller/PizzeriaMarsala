@@ -1,4 +1,4 @@
-﻿<Page x:Class="PizzeriaMarsala.CommandView"
+﻿<Page x:Class="PizzeriaMarsala.SelectWorkerView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,11 +6,9 @@
       xmlns:local="clr-namespace:PizzeriaMarsala"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CommandView">
+      Title="SelectWorkerView">
     <Grid>
-        <!-- on affiche une liste de contenu -->
+        <!-- on affiche une liste des commis -->
         <Frame Name="ListContentPresenter" />
-        <!-- on affiche la bare de menu -->
-        <Frame Name="MenuBar" HorizontalAlignment="Right" VerticalAlignment="Top" Height="40" />
     </Grid>
 </Page>

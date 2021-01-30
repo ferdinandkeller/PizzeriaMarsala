@@ -63,6 +63,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Order\SelectCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Order\SelectWorkerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Deliverer\CreateDelivererView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,7 +95,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CommandView.xaml">
+    <Page Include="Views\Order\OrderView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -116,9 +124,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Command\Beverage.cs" />
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Command\CommandState.cs" />
     <Compile Include="Command\BalanceState.cs" />
+    <Compile Include="Command\Order.cs" />
+    <Compile Include="Command\OrderState.cs" />
     <Compile Include="Command\Pizza.cs" />
     <Compile Include="Command\Product.cs" />
     <Compile Include="Command\PizzaSize.cs" />
@@ -138,6 +146,12 @@
     <Compile Include="Person\Deliverer.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Pizzeria.cs" />
+    <Compile Include="Views\Order\SelectCustomerView.xaml.cs">
+      <DependentUpon>SelectCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\SelectWorkerView.xaml.cs">
+      <DependentUpon>SelectWorkerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SortableObservableCollection.cs" />
     <Compile Include="Views\Deliverer\CreateDelivererView.xaml.cs">
       <DependentUpon>CreateDelivererView.xaml</DependentUpon>
@@ -157,8 +171,8 @@
     <Compile Include="Views\Customer\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CommandView.xaml.cs">
-      <DependentUpon>CommandView.xaml</DependentUpon>
+    <Compile Include="Views\Order\OrderView.xaml.cs">
+      <DependentUpon>OrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Deliverer\DelivererView.xaml.cs">
       <DependentUpon>DelivererView.xaml</DependentUpon>

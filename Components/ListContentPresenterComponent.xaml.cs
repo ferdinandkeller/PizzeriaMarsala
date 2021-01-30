@@ -67,11 +67,13 @@ namespace PizzeriaMarsala
             ObjectClicked object_clicked_function
         )
         {
+            // on initialise les composants
             InitializeComponent();
 
-            // set context
+            // on définit le contexte
             this.DataContext = this;
 
+            // on définit la fonction appelée lorsqu'on clique sur un élément
             ObjectClickedFunc = object_clicked_function;
 
             // on sauvegarde les paramêtres de la fênetre
@@ -81,6 +83,7 @@ namespace PizzeriaMarsala
             NewElement = new_element;
             OpenFile = open_file;
 
+            // Lorsque la liste des éléments affichés change, on met à jour l'interface
             ((INotifyCollectionChanged)ItemsControlList.Items).CollectionChanged += (s, e) =>
             {
                 ResizeWrapPanelElements();

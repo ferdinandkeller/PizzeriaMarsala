@@ -86,7 +86,7 @@ namespace PizzeriaMarsala
         /// 0 si les deux nombres sont égaux
         /// 1 sinon
         /// </returns>
-        public static int CompareManagedCommandNumber(Worker a, Worker b)
+        public static int CompareManagedOrderNumber(Worker a, Worker b)
         {
             return a.ManagedCommandNumber.CompareTo(b.ManagedCommandNumber);
         }
