@@ -54,7 +54,6 @@ namespace PizzeriaMarsala
         /*
          * Sur la liste de commandes (par identifiant, prix, urgence)
          */
-
         public static void SortOrdersByID() { OrdersList.Sort(Order.CompareID); }
         public static void SortOrdersByPrices() { OrdersList.Sort(Order.ComparePrices); }
         public static void SortOrdersByUrgency() { OrdersList.Sort(Order.CompareUrgency); }
@@ -62,7 +61,6 @@ namespace PizzeriaMarsala
         /*
          * Sur la liste de clients (par nom, ville, commandes cumulées)
          */
-
         public static void SortCustomersByName() { CustomerList.Sort(Person.CompareName); }
         public static void SortCustomersByTown() { CustomerList.Sort(Person.CompareTown); }
         public static void SortCustomersByTotalOrders() { CustomerList.Sort(Customer.CompareTotalOrders); }

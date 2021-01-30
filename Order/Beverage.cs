@@ -32,7 +32,7 @@ namespace PizzeriaMarsala
             Type = type;
             Volume = volume;
 
-            Price = (double)Type / 1000 * Volume; // prix en euros, Price est un attribut de la classe Product
+            Price = (double)Type / 10000 * Volume; // prix en euros, Price est un attribut de la classe Product
         }
         #endregion
 

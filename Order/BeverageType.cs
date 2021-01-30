@@ -11,7 +11,6 @@ namespace PizzeriaMarsala
     /// Permet de ne donner qu'un type prédéfini à une boisson tout en associant un prix à chaque type de boisson
     /// Les prix sont exprimés en centimes/L
     /// </summary>
-
     public enum BeverageType
     {
         Coca = 120,

@@ -42,7 +42,5 @@ namespace PizzeriaMarsala
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.OrdersList;
         }
-
     }
-
 }

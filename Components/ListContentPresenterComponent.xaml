@@ -31,8 +31,9 @@
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{Binding OrderID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding CommandCustomer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Label Content="{Binding CommandWorker.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Label Content="{Binding CommandDeliverer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding OrderPrice}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Balance}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>
         </DataTemplate>

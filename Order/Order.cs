@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace PizzeriaMarsala
 {
@@ -30,15 +31,16 @@ namespace PizzeriaMarsala
 
         public DateTime Date { get; private set; }
 
-        public SortedList<Pizza, int> PizzaList { get; private set; } = new SortedList<Pizza, int>();
-        public SortedList<Beverage, int> BeverageList { get; private set; } = new SortedList<Beverage, int>();
+        public List<Pair<Pizza, int>> PizzaList { get; set; } = new List<Pair<Pizza, int>>();
+        public List<Pair<Beverage, int>> BeverageList { get; set; } = new List<Pair<Beverage, int>>();
        
         public Customer CommandCustomer { get; private set; }
         public Worker CommandWorker { get; private set; }
         public Deliverer CommandDeliverer { get; private set; }
         
-        public OrderState State { get; private set; }
-        public BalanceState Balance { get; private set; }
+        public OrderState State { get; set; }
+        public BalanceState Balance { get; set; }
+        public double OrderPrice { get => Price(); }
         #endregion
 
         #region Constructeurs
@@ -101,13 +103,13 @@ namespace PizzeriaMarsala
             double price = 0;
 
             // on compte le prix des pizzas
-            foreach(KeyValuePair<Pizza, int> pair in PizzaList)
+            foreach(Pair<Pizza, int> pair in PizzaList)
             {
                 price += pair.Key.Price * pair.Value;
             }
 
             // on compte le prix des boissons
-            foreach(KeyValuePair<Beverage, int> pair in BeverageList)
+            foreach(Pair<Beverage, int> pair in BeverageList)
             {
                 price += pair.Key.Price * pair.Value;
             }
@@ -268,14 +270,14 @@ namespace PizzeriaMarsala
             string s = "N° Commande : " + OrderID.ToString();
             if (PizzaList != null && PizzaList.Count != 0)
             {
-                foreach (KeyValuePair<Pizza, int> kv in PizzaList)
+                foreach (Pair<Pizza, int> kv in PizzaList)
                 {
                     s += "Pizza : " + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
             }
             if (BeverageList != null && BeverageList.Count != 0)
             {
-                foreach (KeyValuePair<Beverage, int> kv in BeverageList)
+                foreach (Pair<Beverage, int> kv in BeverageList)
                 {
                     s += kv.Key.Type.ToString() + " : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Price}$]" + " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
                 }
@@ -288,14 +290,14 @@ namespace PizzeriaMarsala
             string s = "";
             if (PizzaList != null && PizzaList.Count != 0)
             {
-                foreach (KeyValuePair<Pizza, int> kv in PizzaList)
+                foreach (Pair<Pizza, int> kv in PizzaList)
                 {
                     s += this.OrderID.ToString() + ";Pizza" + kv.Key.Price.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Size.ToString() + ";;" + kv.Value.ToString() + "\n";
                 }
             }
             if (BeverageList != null && BeverageList.Count != 0)
             {
-                foreach (KeyValuePair<Beverage, int> kv in BeverageList)
+                foreach (Pair<Beverage, int> kv in BeverageList)
                 {
                     s += this.OrderID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Price.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
                 }

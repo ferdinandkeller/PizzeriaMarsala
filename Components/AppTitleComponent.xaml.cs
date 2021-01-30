@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    /// <summary>
-    /// Interaction logic for AppTitleComponent.xaml
-    /// </summary>
     public partial class AppTitleComponent : Page
     {
         public AppTitleComponent()
