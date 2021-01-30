@@ -15,12 +15,11 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class WorkerView : Page
+    public partial class SelectWorkerView : Page
     {
-
         MainWindow main_window;
 
-        public WorkerView(MainWindow main_window)
+        public SelectWorkerView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -28,30 +27,20 @@ namespace PizzeriaMarsala
             // on sauvegarde l'objet fenêtre
             this.main_window = main_window;
 
-            // on charge la barre des menus
-            MenuBar.Content = new ViewSwitcherComponent(main_window);
-
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortWorkerByName, Pizzeria.SortWorkerByTown, Pizzeria.SortWorkerByManagedOrderNumber,
-                New, OpenFile,
+                null, null,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (o) => { main_window.SwitchToEditWorkerView((Worker)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (worker) => {
+                    main_window.SelectedWorker = (Worker)worker;
+                    main_window.SwitchToSelectCustomerView();
+                }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.WorkersList;
-        }
-
-        public void New()
-        {
-            main_window.SwitchToCreateWorkerView();
-        }
-
-        public void OpenFile(String file_url)
-        {
-            Console.WriteLine(file_url);
         }
     }
 }

@@ -69,7 +69,7 @@ namespace PizzeriaMarsala
          */
         public static void SortWorkerByName() { WorkersList.Sort(Worker.CompareName); }
         public static void SortWorkerByTown() { WorkersList.Sort(Worker.CompareTown); }
-        public static void SortWorkerByManagedCommandNumber() { WorkersList.Sort(Worker.CompareManagedCommandNumber); }
+        public static void SortWorkerByManagedOrderNumber() { WorkersList.Sort(Worker.CompareManagedOrderNumber); }
 
         /*
          * Sur la liste de livreurs (par nom, ville, commandes livrées)

@@ -17,10 +17,15 @@ namespace PizzeriaMarsala
 {
     public partial class OrderView : Page
     {
+        MainWindow main_window;
+
         public OrderView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
+
+            // on sauvegarde l'objet main window
+            this.main_window = main_window;
 
             // on charge la barre des menus
             MenuBar.Content = new ViewSwitcherComponent(main_window);
@@ -48,11 +53,12 @@ namespace PizzeriaMarsala
 
         public void New()
         {
-            Pizzeria.OrdersList.Add(new Order(
+            main_window.SwitchToSelectWorkerView();
+            /* Pizzeria.OrdersList.Add(new Order(
                 new Customer("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
                 new Worker("azd", "azd", "azd", 01238, WorkerState.surplace, DateTime.Now),
                 new Deliverer("azd", "azd", "azd", 081238, DelivererState.surplace, "azd")
-            ));
+            )); */
         }
 
         public void OpenFile(String file_url)
