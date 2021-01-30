@@ -34,7 +34,7 @@ namespace PizzeriaMarsala
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
-                New, OpenFile,
+                main_window.SwitchToCreateCustomerView, Console.WriteLine,
                 "CustomerDataTemplate",
                 "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (o) => { main_window.SwitchToEditCustomerView((Customer)o); }
             );
@@ -42,16 +42,6 @@ namespace PizzeriaMarsala
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.CustomerList;
-        }
-
-        public void New()
-        {
-            main_window.SwitchToCreateCustomerView();
-        }
-
-        public void OpenFile(String file_url)
-        {
-            Console.WriteLine(file_url);
         }
     }
 }

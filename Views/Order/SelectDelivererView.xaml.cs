@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class SelectCustomerView : Page
+    public partial class SelectDelivererView : Page
     {
         MainWindow main_window;
 
-        public SelectCustomerView(MainWindow main_window)
+        public SelectDelivererView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
@@ -29,18 +29,18 @@ namespace PizzeriaMarsala
 
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
-                Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
-                main_window.SwitchToCreateCustomerView, Console.WriteLine,
-                "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (customer) => {
-                    main_window.SelectedCustomer = (Customer)customer;
-                    main_window.SwitchToSelectDelivererView();
+                Pizzeria.SortDelivererByName, Pizzeria.SortDelivererByTown, Pizzeria.SortDelivererByManagedDeliveryNumber,
+                main_window.SwitchToCreateDelivererView, Console.WriteLine,
+                "DelivererDataTemplate",
+                "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (deliverer) => {
+                    main_window.SelectedDeliverer = (Deliverer)deliverer;
+                    main_window.SwitchToCreateOrderView();
                 }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.CustomersList;
+            presenter.ItemsControlList.DataContext = Pizzeria.DeliverersList;
         }
     }
 }

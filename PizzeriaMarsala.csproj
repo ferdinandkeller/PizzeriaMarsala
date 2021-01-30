@@ -63,9 +63,33 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Order\CreateBeverageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Order\CreatePizzaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Order\EditBeverageView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Order\EditPizzaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Order\CreateOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Order\SelectCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Order\SelectDelivererView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Order\SelectWorkerView.xaml">
       <SubType>Designer</SubType>
@@ -123,15 +147,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Command\Beverage.cs" />
-    <Compile Include="Command\BalanceState.cs" />
-    <Compile Include="Command\Order.cs" />
-    <Compile Include="Command\OrderState.cs" />
-    <Compile Include="Command\Pizza.cs" />
-    <Compile Include="Command\Product.cs" />
-    <Compile Include="Command\PizzaSize.cs" />
-    <Compile Include="Command\BeverageType.cs" />
-    <Compile Include="Command\PizzaType.cs" />
+    <Compile Include="Pair.cs" />
+    <Compile Include="Views\Order\CreateBeverageView.xaml.cs">
+      <DependentUpon>CreateBeverageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\CreatePizzaView.xaml.cs">
+      <DependentUpon>CreatePizzaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\EditBeverageView.xaml.cs">
+      <DependentUpon>EditBeverageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\EditPizzaView.xaml.cs">
+      <DependentUpon>EditPizzaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\CreateOrderView.xaml.cs">
+      <DependentUpon>CreateOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Order\Beverage.cs" />
+    <Compile Include="Order\BalanceState.cs" />
+    <Compile Include="Order\Order.cs" />
+    <Compile Include="Order\OrderState.cs" />
+    <Compile Include="Order\Pizza.cs" />
+    <Compile Include="Order\Product.cs" />
+    <Compile Include="Order\PizzaSize.cs" />
+    <Compile Include="Order\BeverageType.cs" />
+    <Compile Include="Order\PizzaType.cs" />
     <Compile Include="Components\AppTitleComponent.xaml.cs">
       <DependentUpon>AppTitleComponent.xaml</DependentUpon>
     </Compile>
@@ -148,6 +188,9 @@
     <Compile Include="Pizzeria.cs" />
     <Compile Include="Views\Order\SelectCustomerView.xaml.cs">
       <DependentUpon>SelectCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\SelectDelivererView.xaml.cs">
+      <DependentUpon>SelectDelivererView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\SelectWorkerView.xaml.cs">
       <DependentUpon>SelectWorkerView.xaml</DependentUpon>

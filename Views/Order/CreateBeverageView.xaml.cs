@@ -15,17 +15,15 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class CreateWorkerView : Page
+    public partial class CreateBeverageView : Page
     {
         MainWindow main_window;
 
-        public string FirstName { get; set; } = "Prénom";
-        public string LastName { get; set; } = "Nom";
-        public string Address { get; set; } = "42 allée des tilleuls Paris";
-        public string PhoneNumber { get; set; } = "0600000000";
-        public WorkerState State { get; set; } = WorkerState.surplace;
+        public BeverageType Type { get; set; } = BeverageType.Coca;
+        public int Volume { get; set; } = 50;
+        public int Quantity { get; set; } = 1;
 
-        public CreateWorkerView(MainWindow main_window)
+        public CreateBeverageView(MainWindow main_window)
         {
             InitializeComponent();
 
@@ -36,10 +34,10 @@ namespace PizzeriaMarsala
             AppTitle.Content = new AppTitleComponent();
         }
 
-        private void CreateWorker(object sender, RoutedEventArgs e)
+        private void CreateBeverage(object sender, RoutedEventArgs e)
         {
-            Pizzeria.WorkersList.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), State, DateTime.Now));
-            main_window.SwitchToWorkerView();
+            Pizzeria.BeverageList.Add(new Pair<Beverage, int>(new Beverage(Type, Volume), Quantity));
+            main_window.SwitchToCreateOrderView();
         }
     }
 }

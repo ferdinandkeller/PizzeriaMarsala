@@ -13,7 +13,7 @@
             (il faut un data template pour les commandes, un pour les clients, etc...               -->
     <Page.Resources>
         <!-- Data template des commandes -->
-        <DataTemplate x:Key="CommandDataTemplate">
+        <DataTemplate x:Key="OrderDataTemplate">
             <Border Height="170" Margin="5">
                 <!-- on crééer une boite simple avec un fond gris et une bordure -->
                 <Border.Style>
@@ -28,7 +28,12 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <Label Content="{Binding CommandID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="{Binding OrderID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandCustomer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandWorker.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandDeliverer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
             </Border>
         </DataTemplate>
         <!-- Data template des clients -->
@@ -47,9 +52,67 @@
                     </Style>
                 </Border.Style>
                 <!-- on affiche un label au center -->
-                <StackPanel>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Content="{Binding FirstName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding PhoneNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding OrdersTotalValue}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding FirstOrderDate}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <!-- Data template des commis -->
+        <DataTemplate x:Key="WorkerDataTemplate">
+            <Border Height="170" Margin="5" MouseLeftButtonUp="ElementClicked" Tag="{Binding}">
+                <!-- on crééer une boite simple avec un fond gris et une bordure -->
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="#F5F5F5"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="#EAEAEA" />
+                                <Setter Property="Border.Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <!-- on affiche un label au center -->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="{Binding FirstName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding PhoneNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding HiringDate}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding ManagedCommandNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <!-- Data template des livreurs -->
+        <DataTemplate x:Key="DelivererDataTemplate">
+            <Border Height="170" Margin="5" MouseLeftButtonUp="ElementClicked" Tag="{Binding}">
+                <!-- on crééer une boite simple avec un fond gris et une bordure -->
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.Background" Value="#F5F5F5"/>
+                        <Style.Triggers>
+                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                <Setter Property="Border.Background" Value="#EAEAEA" />
+                                <Setter Property="Border.Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <!-- on affiche un label au center -->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="{Binding FirstName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding PhoneNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding ManagedDeliveryNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding TransportType}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>
         </DataTemplate>

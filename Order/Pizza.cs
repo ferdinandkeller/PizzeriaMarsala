@@ -14,15 +14,14 @@ namespace PizzeriaMarsala
     /// Type: le type de la pizza (cf PizzaType)
     /// Size: la taille de la pizza (Petite,Moyenne,Grande)
     /// </attributs>
-    public class Pizza : Product
+    public class Pizza : Product, IComparable<Pizza>
     {
         #region Attributs
-        public PizzaType Type { get; private set; }
-        public PizzaSize Size { get; }
+        public PizzaType Type { get; set; }
+        public PizzaSize Size { get; set; }
         #endregion
 
         #region Constructeur
-
         /// <summary>
         /// Constructeur de base
         /// </summary>
@@ -38,7 +37,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// ToString()
         /// </summary>
@@ -68,6 +66,11 @@ namespace PizzeriaMarsala
                 comparison = p1.Size.CompareTo(p2.Size);//Comparaison de la valeur chiffrée associée à l'énumaration
             }
             return comparison;
+        }
+
+        public int CompareTo(Pizza pizza)
+        {
+            return CompareTypeSize(this, pizza);
         }
         #endregion
 

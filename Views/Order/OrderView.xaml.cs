@@ -33,37 +33,14 @@ namespace PizzeriaMarsala
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortOrdersByID, Pizzeria.SortOrdersByPrices, Pizzeria.SortOrdersByUrgency,
-                New, OpenFile,
-                "CommandDataTemplate",
+                main_window.SwitchToSelectWorkerView, Console.WriteLine,
+                "OrderDataTemplate",
                 "PAR ID", "PAR PRIX", "PAR TEMPS", (o) => { }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.OrdersList;
-        }
-
-        public void Sort()
-        {
-        }
-
-        public void Sort2()
-        {
-        }
-
-        public void New()
-        {
-            main_window.SwitchToSelectWorkerView();
-            /* Pizzeria.OrdersList.Add(new Order(
-                new Customer("Ferdinand", "Keller", "adresse clien", 06123912, DateTime.Now),
-                new Worker("azd", "azd", "azd", 01238, WorkerState.surplace, DateTime.Now),
-                new Deliverer("azd", "azd", "azd", 081238, DelivererState.surplace, "azd")
-            )); */
-        }
-
-        public void OpenFile(String file_url)
-        {
-            Console.WriteLine(file_url);
         }
 
     }

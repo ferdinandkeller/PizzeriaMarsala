@@ -12,36 +12,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
-    public partial class EditDelivererView : Page
+    public partial class EditBeverageView : Page
     {
         MainWindow main_window;
-        Deliverer deliverer;
+        Pair<Beverage, int> beverage_pair;
 
-        public EditDelivererView(MainWindow main_window, Deliverer deliverer)
+        public EditBeverageView(MainWindow main_window, Pair<Beverage, int> beverage_pair)
         {
             InitializeComponent();
 
-            DataContext = deliverer;
+            DataContext = beverage_pair;
 
             AppTitle.Content = new AppTitleComponent();
 
             this.main_window = main_window;
-            this.deliverer = deliverer;
+            this.beverage_pair = beverage_pair;
         }
 
         private void EndEdition(object sender, RoutedEventArgs e)
         {
-            main_window.SwitchToDelivererView();
+            main_window.SwitchToCreateOrderView();
         }
 
         private void DeleteElement(object sender, RoutedEventArgs e)
         {
-            Pizzeria.DeliverersList.Remove(deliverer);
-            main_window.SwitchToDelivererView();
+            Pizzeria.BeverageList.Remove(beverage_pair);
+            main_window.SwitchToCreateOrderView();
         }
     }
 }

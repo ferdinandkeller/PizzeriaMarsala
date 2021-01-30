@@ -17,8 +17,8 @@ namespace PizzeriaMarsala
     public class Beverage : Product
     {
         #region Attributs
-        public BeverageType Type { get; private set; }
-        public double Volume { get; private set; } // volume en cl
+        public BeverageType Type { get; set; }
+        public double Volume { get; set; } // volume en cl
         #endregion
 
         #region Constructeur

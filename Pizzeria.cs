@@ -34,6 +34,9 @@ namespace PizzeriaMarsala
         public static SortableObservableCollection<Customer> CustomerList { get; set; } = new SortableObservableCollection<Customer>();
         public static SortableObservableCollection<Worker> WorkersList { get; set; } = new SortableObservableCollection<Worker>();
         public static SortableObservableCollection<Deliverer> DeliverersList { get; set; } = new SortableObservableCollection<Deliverer>();
+
+        public static ObservableCollection<Pair<Pizza, int>> PizzaList { get; set; } = new ObservableCollection<Pair<Pizza, int>>();
+        public static ObservableCollection<Pair<Beverage, int>> BeverageList { get; set; } = new ObservableCollection<Pair<Beverage, int>>();
         #endregion
 
         #region Méthodes
