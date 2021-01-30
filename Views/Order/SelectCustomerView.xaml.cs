@@ -34,7 +34,7 @@ namespace PizzeriaMarsala
                 "CustomerDataTemplate",
                 "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (customer) => {
                     main_window.SelectedCustomer = (Customer)customer;
-                    main_window.SwitchToCreateOrderView();
+                    main_window.SwitchToSelectDelivererView();
                 }
             );
 

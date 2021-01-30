@@ -87,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Order\SelectDelivererView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Order\SelectWorkerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +188,9 @@
     <Compile Include="Pizzeria.cs" />
     <Compile Include="Views\Order\SelectCustomerView.xaml.cs">
       <DependentUpon>SelectCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\SelectDelivererView.xaml.cs">
+      <DependentUpon>SelectDelivererView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Order\SelectWorkerView.xaml.cs">
       <DependentUpon>SelectWorkerView.xaml</DependentUpon>

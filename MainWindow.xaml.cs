@@ -30,9 +30,11 @@ namespace PizzeriaMarsala
 
         private SelectWorkerView select_worker_view;
         private SelectCustomerView select_customer_view;
+        private SelectDelivererView select_deliverer_view;
 
         public Worker SelectedWorker;
         public Customer SelectedCustomer;
+        public Deliverer SelectedDeliverer;
         public CreateOrderView create_order_view;
 
         /*
@@ -51,6 +53,7 @@ namespace PizzeriaMarsala
 
             select_worker_view = new SelectWorkerView(this);
             select_customer_view = new SelectCustomerView(this);
+            select_deliverer_view = new SelectDelivererView(this);
             create_order_view = new CreateOrderView(this);
 
             // on charge la view qui contient la liste des commandes
@@ -74,6 +77,7 @@ namespace PizzeriaMarsala
 
         public void SwitchToSelectWorkerView() { ViewFrame.Content = select_worker_view; }
         public void SwitchToSelectCustomerView() { ViewFrame.Content = select_customer_view; }
+        public void SwitchToSelectDelivererView() { ViewFrame.Content = select_deliverer_view; }
         public void SwitchToCreateOrderView() { ViewFrame.Content = create_order_view; }
         public void SwitchToCreatePizzaView() {  ViewFrame.Content = new CreatePizzaView(this); }
         public void SwitchToEditPizzaView(Pair<Pizza, int> pizza_pair) {ViewFrame.Content = new EditPizzaView(this, pizza_pair); }

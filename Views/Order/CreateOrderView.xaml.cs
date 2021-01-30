@@ -60,7 +60,7 @@ namespace PizzeriaMarsala
         {
             if (PizzaList.Count > 0)
             {
-                Order order = new Order(main_window.SelectedCustomer, main_window.SelectedWorker, null);
+                Order order = new Order(main_window.SelectedCustomer, main_window.SelectedWorker, main_window.SelectedDeliverer);
                 Pizzeria.OrdersList.Add(order);
                 Pizzeria.PizzaList.Clear();
                 Pizzeria.BeverageList.Clear();

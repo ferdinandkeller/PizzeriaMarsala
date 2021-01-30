@@ -35,7 +35,7 @@ namespace PizzeriaMarsala
 
         private void EndEdition(object sender, RoutedEventArgs e)
         {
-            main_window.SwitchToCustomerView();
+            main_window.SwitchToDelivererView();
         }
 
         private void DeleteElement(object sender, RoutedEventArgs e)

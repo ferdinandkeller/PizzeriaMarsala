@@ -15,34 +15,32 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
-    public partial class OrderView : Page
+    public partial class SelectDelivererView : Page
     {
         MainWindow main_window;
 
-        public OrderView(MainWindow main_window)
+        public SelectDelivererView(MainWindow main_window)
         {
             // on initialise les composants
             InitializeComponent();
 
-            // on sauvegarde l'objet main window
+            // on sauvegarde l'objet fenêtre
             this.main_window = main_window;
-
-            // on charge la barre des menus
-            MenuBar.Content = new ViewSwitcherComponent(main_window);
 
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
-                Pizzeria.SortOrdersByID, Pizzeria.SortOrdersByPrices, Pizzeria.SortOrdersByUrgency,
-                main_window.SwitchToSelectWorkerView, Console.WriteLine,
-                "OrderDataTemplate",
-                "PAR ID", "PAR PRIX", "PAR TEMPS", (o) => { }
+                Pizzeria.SortDelivererByName, Pizzeria.SortDelivererByTown, Pizzeria.SortDelivererByManagedDeliveryNumber,
+                main_window.SwitchToCreateDelivererView, Console.WriteLine,
+                "DelivererDataTemplate",
+                "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (deliverer) => {
+                    main_window.SelectedDeliverer = (Deliverer)deliverer;
+                    main_window.SwitchToCreateOrderView();
+                }
             );
 
             // on affiche le content presenter dans l'interface
             ListContentPresenter.Content = presenter;
-            presenter.ItemsControlList.DataContext = Pizzeria.OrdersList;
+            presenter.ItemsControlList.DataContext = Pizzeria.DeliverersList;
         }
-
     }
-
 }
