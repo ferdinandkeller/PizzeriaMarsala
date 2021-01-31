@@ -24,6 +24,7 @@ namespace PizzeriaMarsala
     /// <typeparam name="U">Le type de la valeur</typeparam>
     public class Pair<T, U> : INotifyPropertyChanged
     {
+        #region Attributs
         public event PropertyChangedEventHandler PropertyChanged;
 
         private T _Key;
@@ -46,7 +47,9 @@ namespace PizzeriaMarsala
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
             }
         }
+        #endregion
 
+        #region Constructeur
         /// <summary>
         /// Constructeur principal d'une paire
         /// </summary>
@@ -57,6 +60,7 @@ namespace PizzeriaMarsala
             Key = key;
             Value = value;
         }
+        #endregion
     }
 
 }
