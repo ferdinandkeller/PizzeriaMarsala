@@ -37,7 +37,7 @@ namespace PizzeriaMarsala
 
         private void CreatePizza(object sender, RoutedEventArgs e)
         {
-            if (order.Balance != BalanceState.ok)
+            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
             { 
                 main_window.SwitchToCreatePizzaView();
             }
@@ -45,7 +45,7 @@ namespace PizzeriaMarsala
 
         private void EditPizza(object sender, MouseButtonEventArgs e)
         {
-            if (order.Balance != BalanceState.ok)
+            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
             {
                 main_window.SwitchToEditPizzaView((Pair<Pizza, int>)((Border)sender).Tag);
             }
@@ -53,7 +53,7 @@ namespace PizzeriaMarsala
 
         private void CreateBeverage(object sender, RoutedEventArgs e)
         {
-            if (order.Balance != BalanceState.ok)
+            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
             {
                 main_window.SwitchToCreateBeverageView();
             }
@@ -61,7 +61,7 @@ namespace PizzeriaMarsala
 
         private void EditBeverage(object sender, MouseButtonEventArgs e)
         {
-            if (order.Balance != BalanceState.ok)
+            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
             {
                 main_window.SwitchToEditBeverageView((Pair<Beverage, int>)((Border)sender).Tag);
             }
@@ -69,14 +69,12 @@ namespace PizzeriaMarsala
 
         private void ChangeState(object sender, RoutedEventArgs e)
         {
-            if (order.CurrentOrderState == OrderState.enpreparation) { order.CurrentOrderState = OrderState.enlivraison; }
-            else if (order.CurrentOrderState == OrderState.enlivraison) {
-                order.CurrentOrderState = OrderState.fermee;
-                order.CommandDeliverer.ManagedDeliveryNumber++;
+            if (order.CurrentOrderState == OrderState.enpreparation)
+            {
+                order.StartDelivery();
             }
-            else if (order.CurrentOrderState == OrderState.fermee) {
-                order.CurrentOrderState = OrderState.enpreparation;
-                order.CommandDeliverer.ManagedDeliveryNumber--;
+            else if (order.CurrentOrderState == OrderState.enlivraison) {
+                order.DeliveryDone();
             }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }

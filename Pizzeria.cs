@@ -333,20 +333,7 @@ namespace PizzeriaMarsala
         }
         #endregion
 
-        #region SaveReceiptTXTFile(identifiant, nom du fichier), SearchedOrderToString
-
-        /// <summary>
-        /// Enregistrer la facture d'une commande dans un fichier .txt
-        /// </summary>
-        /// <param name="id">Identifiant de la commande</param>
-        /// <param name="nomFichier">Nom du fichier</param>
-        public static void SaveReceiptTXTFile(long id, string nomFichier)
-        {
-            List<Order> liste = OrdersList.ToList();
-            Order c = liste.Find(x => x.OrderID == id);
-            c.EnregistreFactureTXT(nomFichier);
-        }
-
+        #region Cherche des commandes
         /// <summary>
         /// Trouve une commande avec son identifiant et la met sous forme de string
         /// </summary>
@@ -371,7 +358,6 @@ namespace PizzeriaMarsala
             double prix = c.Price();
             return "N° Commande : "+id.ToString()+"; Prix : "+prix.ToString();
         }
-
         #endregion
         #endregion
 

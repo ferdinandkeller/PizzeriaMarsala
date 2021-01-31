@@ -50,5 +50,10 @@ namespace PizzeriaMarsala
         {
             main_window.SwitchToStatisticsView();
         }
+
+        private void SwitchToBonusPanel(object sender, MouseButtonEventArgs e)
+        {
+            main_window.SwitchToBonusView();
+        }
     }
 }

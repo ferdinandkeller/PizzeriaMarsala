@@ -154,36 +154,11 @@ namespace PizzeriaMarsala
         }
 
         /// <summary>
-        /// Lorsqu'un paiement est reçu
-        ///     Etat de la commande: enlivraison->fermee
-        ///     Etat du solde: ok
-        ///     Etat du livreur: enlivraison->surplace
-        ///     Le nombre de commandes effectuées par le livreure augmente de 1
-        ///     Le cumul des commandes du client augmente du prix payé
+        /// Lorsqu'une livraison a été effectuée
         /// </summary>
-        public void PayementReceived()
+        public void DeliveryDone()
         {
             CurrentOrderState = OrderState.fermee;
-            Balance = BalanceState.ok;
-            //Le livreur assigné est sur place, il a effectué une livraison en plus
-            CommandDeliverer.CurrentDelivererState = DelivererState.surplace;
-            CommandDeliverer.ManagedDeliveryNumber++;
-            //Cammande payée, le client augmente le cumul de ses commandes
-            CommandCustomer.OrdersTotalValue += this.Price();
-        }
-
-        /// <summary>
-        /// Lorsque la commande est perdue
-        ///     Etat de la commande: enlivraison->fermee
-        ///     Solde: enattente->perdue
-        ///     Etat du livreur: enlivraison->surplace
-        ///     Le cumul des livraisons du livreur augment de 1
-        ///     Le client n'augmente pas le cumul de ses commandes
-        /// </summary>
-        public void CommandLost()
-        {
-            CurrentOrderState = OrderState.fermee;
-            Balance = BalanceState.perdue;
             //Le livreur assigné est sur place, il a effectué une livraison en plus
             CommandDeliverer.CurrentDelivererState = DelivererState.surplace;
             CommandDeliverer.ManagedDeliveryNumber++;
@@ -201,7 +176,7 @@ namespace PizzeriaMarsala
         public bool MadeDuringTimeSpan(DateTime d1, DateTime d2)
         {
             bool test = false;
-            if(Date.CompareTo(d1)>=0 && Date.CompareTo(d2) <= 0)
+            if(0 <= Date.CompareTo(d1) && Date.CompareTo(d2) <= 0)
             {
                 test = true;
             }
@@ -289,63 +264,34 @@ namespace PizzeriaMarsala
         }
 
         /// <summary>
-        /// Méthodes permettant d'enregistrer une facture (le détail d'une commande) au format Txt ou CSV
-        /// On ne peut pas utiliser la méthode EnregistreDansFichierTXT/CSV de SortableObservableCollection:
-        ///     Les méthodes ToCSV et ToString de Commande n'affichent pas les éléments d'une commande détaillée
+        /// Méthodes permettant d'enregistrer une facture détaillée
         /// </summary>
-        #region Enregistrement Facture dans fichiers
-        #region Méthodes ToString() et ToCSV() adaptées
-        public string DetailCommandeToString()
+        #region Enregistrement facture détaillée
+        public string DetailedBillToString()
         {
-            string s = "N° Commande : " + OrderID.ToString();
+            string s = "N° Commande : " + OrderID.ToString() + "\n" + Date + "\n\n";
             if (PizzaList != null && PizzaList.Count != 0)
             {
                 foreach (Pair<Pizza, int> kv in PizzaList)
                 {
-                    s += "Pizza : " + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                    s += "Pizza : " + kv.Key + " (x" + kv.Value + ")" + "\n";
                 }
             }
             if (BeverageList != null && BeverageList.Count != 0)
             {
                 foreach (Pair<Beverage, int> kv in BeverageList)
                 {
-                    s += kv.Key.Type.ToString() + " : " + $"({ kv.Key.Volume}cl) [{ kv.Key.Price}$]" + " (x" + kv.Key.ToString() + " (x" + kv.Value.ToString() + ")" + "\n";
+                    s += "Boisson : " + kv.Key + " (x" + kv.Value + ")" + "\n";
                 }
             }
+            s += "\nTotal : " + Price() + " Euros\n";
             return s;
         }
 
-        public string DetailCommandeToCSV()
-        {
-            string s = "";
-            if (PizzaList != null && PizzaList.Count != 0)
-            {
-                foreach (Pair<Pizza, int> kv in PizzaList)
-                {
-                    s += this.OrderID.ToString() + ";Pizza" + kv.Key.Price.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Size.ToString() + ";;" + kv.Value.ToString() + "\n";
-                }
-            }
-            if (BeverageList != null && BeverageList.Count != 0)
-            {
-                foreach (Pair<Beverage, int> kv in BeverageList)
-                {
-                    s += this.OrderID.ToString() + ";" + kv.Key.Type.ToString() + ";" + kv.Key.Price.ToString() + ";;;" + kv.Key.Volume.ToString() + ";" + kv.Value.ToString() + "\n";
-                }
-            }
-            return s;
-        }
-        #endregion
-        public void EnregistreFactureTXT(string nomFichier)
+        public void SaveBill(string nomFichier)
         {
             StreamWriter sw = new StreamWriter(nomFichier);
-            sw.WriteLine(DetailCommandeToString());
-            sw.Close();
-        }
-
-        public void EnregistreFactureCSV(string nomFichier)
-        {
-            StreamWriter sw = new StreamWriter(nomFichier);
-            sw.WriteLine(DetailCommandeToCSV());
+            sw.WriteLine(DetailedBillToString());
             sw.Close();
         }
         #endregion

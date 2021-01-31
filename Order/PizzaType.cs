@@ -18,7 +18,7 @@ namespace PizzeriaMarsala
         Chorizo = 1150, 
         Haiwaienne = 1500,
         QuatreFromages = 1300,
-        Regina = 1530,
+        Regina = 1500,
         Napolitaine = 1100
     }
 }

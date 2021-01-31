@@ -36,6 +36,7 @@
             <Label Content="COMMIS" MouseLeftButtonUp="SwitchToWorkerPanel" />
             <Label Content="LIVREURS" MouseLeftButtonUp="SwitchToDelivererPanel" />
             <Label Content="STATS" MouseLeftButtonUp="SwitchToStatisticsPanel" />
+            <Label Content="BONUS" MouseLeftButtonUp="SwitchToBonusPanel" />
         </StackPanel>
     </Grid>
 </Page>

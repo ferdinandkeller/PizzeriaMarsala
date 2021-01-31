@@ -17,7 +17,7 @@ namespace PizzeriaMarsala
         JusOrange = 250,
         JusPomme = 200,
         EauPlate = 10,
-        Perrier = 63,
-        Schwepps = 185
+        Perrier = 60,
+        Schwepps = 190
     }
 }
