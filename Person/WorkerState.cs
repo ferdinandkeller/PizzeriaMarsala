@@ -8,11 +8,11 @@ namespace PizzeriaMarsala
 {
     /// <summary>
     /// Enumération pour être certain que chaque élément créé ne puisse prendre qu'une valeur autorisée
-    /// Valeurs autorisées : surplace, enconges
+    /// Valeurs autorisées : SurPlace, EnConges
     /// </summary>
     public enum WorkerState
     {
-        surplace,
-        enconges
+        SurPlace,
+        EnConges
     }
 }

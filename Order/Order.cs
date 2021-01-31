@@ -13,14 +13,18 @@ namespace PizzeriaMarsala
     /// <attributs>
     /// OrderIDMax: L'identifiant actuel des commandes, on l'incrémente à chaque commande (static)
     /// OrderID: identifiant de la commande
+    /// 
     /// Date: date et heure de la commande
+    /// 
     /// PizzaList: liste des pizzas de la commande 
     /// BeverageList: liste des boissons de la commande
+    /// 
     /// CommandCustomer: le client ayant passé la commande
     /// CommandWorker: le commis ayant enregistré la commande
     /// CommandDeliverer: livreur de la commande
-    /// State: état de la commande (enpreparation, enlivraison, fermee)
-    /// Balance: état du solde de la commande (enattente, ok, perdue)
+    /// 
+    /// CurrentOrderState: état de la commande (EnPreparation, EnLivraison, Fermee)
+    /// Balance: état du solde de la commande (EnAttente, OK, Perdue)
     /// OrderPrice: le prix de la commande (utilisé pour l'interface graphique)
     /// </attributs>
     public class Order : IToCSV, INotifyPropertyChanged
@@ -65,21 +69,21 @@ namespace PizzeriaMarsala
         #region Constructeurs
         /// <summary>
         /// Constructeur utilisé lors d'une saisie par le commis
-        /// Sans le détail de la commande
+        /// Il n'est alors pas nécessair de saisir le détail de la commande
         /// </summary>
         /// <param name="customer">Client passant la commande</param>
         /// <param name="worker">Commis enregistrant la commande</param>
         /// <param name="deliverer">Livreur chargé de la livraison</param>
         public Order(Customer customer, Worker worker, Deliverer deliverer)
         {
-            OrderIDMax++; //il y a une nouvelle commande pour la pizzeria
-            OrderID = OrderIDMax; //identifiant de la commande
-            Date = DateTime.Now; //la commande vient d'être passée
+            OrderIDMax++; // il y a une nouvelle commande pour la pizzeria
+            OrderID = OrderIDMax; // identifiant de la commande
+            Date = DateTime.Now; // la commande vient d'être passée
             CommandCustomer = customer;
             CommandWorker = worker;
             CommandDeliverer = deliverer;
-            CurrentOrderState = OrderState.enpreparation; //automatiquement, la commande est passée en cuisine
-            Balance = BalanceState.enattente; //la commande n'est pas encore payée
+            CurrentOrderState = OrderState.EnPreparation; // automatiquement, la commande est passée en cuisine
+            Balance = BalanceState.EnAttente; // la commande n'est pas encore payée
         }
 
         /// <summary>
@@ -90,23 +94,24 @@ namespace PizzeriaMarsala
         /// <param name="customer_phone_number">Numéro de téléphone du client</param>
         /// <param name="worker_name">Nom du commis</param>
         /// <param name="deliverer_name">Nom du livreur</param>
-        /// <param name="order_state">L'état de la commande</param>
-        /// <param name="solde">Etat du solde</param>
-        public Order(long order_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string order_state, string solde)
+        /// <param name="current_order_state">L'état de la commande</param>
+        /// <param name="order_balance">Etat du solde</param>
+        public Order(long order_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string current_order_state, string order_balance)
             : this(Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name))
         {
             Date = date;
             OrderID = order_id;
-            if (OrderIDMax < OrderID)//Si l'identifiant max des commandes de la pizzeria est inférieur à celui donné dans le fichier
+            if (OrderIDMax < OrderID)// Si l'identifiant max des commandes de la pizzeria est inférieur à celui donné dans le fichier
             {
-                OrderIDMax = OrderID; //On actualise l'identifiant max
+                OrderIDMax = OrderID; // On actualise l'identifiant max
             }
-            CurrentOrderState = (OrderState)Enum.Parse(typeof(OrderState), order_state);
-            Balance = (BalanceState)Enum.Parse(typeof(BalanceState), solde); //on récupère le solde donné dans le fichier en effectuant une conversion
+            CurrentOrderState = (OrderState)Enum.Parse(typeof(OrderState), current_order_state);
+            Balance = (BalanceState)Enum.Parse(typeof(BalanceState), order_balance);
         }
         #endregion
 
         #region Méthodes
+
         /// <summary>
         /// Cette commande informe l'interface que le prix a changé
         /// </summary>
@@ -143,14 +148,11 @@ namespace PizzeriaMarsala
 
         /// <summary>
         /// Lorsqu'une commande part en livraison
-        ///     Etat de la commande: enpreparation->enlivraison
-        ///     Etat du livreur: surplace->enlivraison
         /// </summary>
         public void StartDelivery()
         {
-            CurrentOrderState = OrderState.enlivraison;
-            //Le livreur assigné part en livraison
-            CommandDeliverer.CurrentDelivererState = DelivererState.enlivraison;
+            CurrentOrderState = OrderState.EnLivraison;
+            CommandDeliverer.CurrentDelivererState = DelivererState.EnLivraison;
         }
 
         /// <summary>
@@ -158,9 +160,8 @@ namespace PizzeriaMarsala
         /// </summary>
         public void DeliveryDone()
         {
-            CurrentOrderState = OrderState.fermee;
-            //Le livreur assigné est sur place, il a effectué une livraison en plus
-            CommandDeliverer.CurrentDelivererState = DelivererState.surplace;
+            CurrentOrderState = OrderState.Fermee;
+            CommandDeliverer.CurrentDelivererState = DelivererState.SurPlace;
             CommandDeliverer.ManagedDeliveryNumber++;
         }
 
@@ -183,6 +184,7 @@ namespace PizzeriaMarsala
             return test;
         }
 
+        #region Fonctions CSV
         /// <summary>
         /// Conversion d'une ligne de fichier CSV en une commande
         /// </summary>
@@ -194,8 +196,10 @@ namespace PizzeriaMarsala
         {
             String[] infos = commande.Split(';');
             Order order = new Order(long.Parse(infos[0]), DateTime.Parse(infos[1]), long.Parse(infos[2]), infos[3], infos[4], infos[5], infos[6]);
+
             // on compte le nombre de pizzas
             int length = int.Parse(infos[7]);
+
             // on ajouter les pizzas
             for (int i = 8; i < 8 + length * 3; i += 3)
             {
@@ -206,6 +210,7 @@ namespace PizzeriaMarsala
                     ),
                     int.Parse(infos[i + 2])));
             }
+
             // on ajoute les boissons
             for (int i = 8 + length * 3; i < infos.Length; i += 3)
             {
@@ -216,14 +221,15 @@ namespace PizzeriaMarsala
                     ),
                     int.Parse(infos[i + 2])));
             }
+
             return order;
         }
 
         /// <summary>
-        /// Méthode ToCSV()
+        /// Convertis la commande en CSV
         /// </summary>
         /// <returns>
-        /// Identifiant;HeureH;Date;NuméroClient;NomCommis;NomLivreur;Etat;Solde
+        /// La commande au format CSV
         /// </returns>
         public string ToCSV()
         {
@@ -246,7 +252,9 @@ namespace PizzeriaMarsala
 
             return s.Substring(0, s.Length-1);
         }
+        #endregion
 
+        #region Fonctions de comparaison
         /// <summary>
         /// Comparaison par identifiant
         /// </summary>
@@ -279,11 +287,13 @@ namespace PizzeriaMarsala
         {
             return command_1.Price().CompareTo(command_2.Price());
         }
+        #endregion
 
-        /// <summary>
-        /// Méthodes permettant d'enregistrer une facture détaillée
-        /// </summary>
         #region Enregistrement facture détaillée
+        /// <summary>
+        /// Méthode permettant de convertir une commande en une facture détaillée
+        /// </summary>
+        /// <returns>La facture détaillée</returns>
         public string DetailedBillToString()
         {
             string s = "N° Commande : " + OrderID.ToString() + "\n" + Date + "\n\n";
@@ -305,11 +315,16 @@ namespace PizzeriaMarsala
             return s;
         }
 
-        public void SaveBill(string nomFichier)
+        /// <summary>
+        /// Enregistre une commande sous forme de facture dans un fichier
+        /// </summary>
+        /// <param name="file_name">Le nom du fichier</param>
+        public void SaveBill(string file_name)
         {
-            StreamWriter sw = new StreamWriter(nomFichier);
-            sw.WriteLine(DetailedBillToString());
-            sw.Close();
+            using (StreamWriter sw = new StreamWriter(file_name))
+            {
+                sw.WriteLine(DetailedBillToString());
+            }
         }
         #endregion
 

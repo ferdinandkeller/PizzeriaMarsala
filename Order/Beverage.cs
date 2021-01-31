@@ -9,8 +9,7 @@ using System.ComponentModel;
 namespace PizzeriaMarsala
 {
     /// <summary>
-    /// Définition de la classe boisson
-    /// (une boisson est un produit)
+    /// Définition de la classe boisson (une boisson est un produit)
     /// </summary>
     /// <attributs>
     /// Type: type de boisson (cf enum BeverageType)
@@ -43,15 +42,13 @@ namespace PizzeriaMarsala
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
             }
         }
-        public new double Price // prix en euros, Price est un attribut de la classe Product
-        {
-            get => (double)Type / 10000 * Volume;
-        }
+        // prix en euros, Price est un attribut de la classe Product
+        public new double Price { get => (double)Type / 10000 * Volume; }
         #endregion
 
         #region Constructeur
         /// <summary>
-        /// Constructeur -> Boisson
+        /// Constructeur principal de la classe Beverage
         /// </summary>
         /// <param name="type">type de boisson</param>
         /// <param name="volume">volume de la boisson</param>
@@ -64,7 +61,7 @@ namespace PizzeriaMarsala
 
         #region Méthodes
         /// <summary>
-        /// ToString()
+        /// Cette méthode permet de convertir une boisson en un string (afin notamment de l'afficher dans la console)
         /// </summary>
         /// <returns>
         /// TypeDeBoisson (Volumecl) [Prix Euros]
@@ -77,19 +74,20 @@ namespace PizzeriaMarsala
         /// <summary>
         /// Comparaison de deux boisson en fonction de son nom puis de son volume
         /// </summary>
-        /// <param name="b1">Boisson 1</param>
-        /// <param name="b2">Boisson 2</param>
+        /// <param name="beverage1">Boisson 1</param>
+        /// <param name="beverage2">Boisson 2</param>
         /// <returns>
-        /// -1 si la boisson 1 a un nom se situant avant celui de la boisson 2 (ordre alphabétique) ou si les noms sont égaux mais que le volume de b1 < celui de b2
+        /// -1 si la boisson 1 a un nom se situant avant celui de la boisson 2 (ordre alphabétique)
+        /// ou si les noms sont égaux mais que le volume de b1 < celui de b2
         /// 0 si les deux boissons ont le même nom et le même volume
         /// 1 sinon
         /// </returns>
-        public static int CompareTypeVolume(Beverage b1, Beverage b2)
+        public static int CompareTypeVolume(Beverage beverage1, Beverage beverage2)
         {
-            int compa = nameof(b1.Type).CompareTo(nameof(b2.Type));
+            int compa = nameof(beverage1.Type).CompareTo(nameof(beverage2.Type));
             if (compa == 0)
             {
-                compa = b1.Volume.CompareTo(b2.Volume);
+                compa = beverage1.Volume.CompareTo(beverage2.Volume);
             }
             return compa;
         }

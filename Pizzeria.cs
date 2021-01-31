@@ -150,7 +150,7 @@ namespace PizzeriaMarsala
             int count = 0;
             foreach (Order order in OrdersList)
             {
-                if (order.Balance == BalanceState.ok)
+                if (order.Balance == BalanceState.OK)
                 {
                     count++;
                     res += order.Price();
@@ -206,8 +206,8 @@ namespace PizzeriaMarsala
                 {
                     OrdersList.Add(order);
                     order.CommandWorker.ManagedCommandNumber++;
-                    if (order.Balance == BalanceState.ok) { order.CommandCustomer.OrdersTotalValue += order.Price(); }
-                    if (order.CurrentOrderState == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber++; }
+                    if (order.Balance == BalanceState.OK) { order.CommandCustomer.OrdersTotalValue += order.Price(); }
+                    if (order.CurrentOrderState == OrderState.Fermee) { order.CommandDeliverer.ManagedDeliveryNumber++; }
                 }
             }
         }

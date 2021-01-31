@@ -9,7 +9,7 @@ namespace PizzeriaMarsala
     /// <summary>
     /// Enumération des types de boissons
     /// Permet de ne donner qu'un type prédéfini à une boisson tout en associant un prix à chaque type de boisson
-    /// Les prix sont exprimés en centimes/L
+    /// Les prix sont exprimés en centimes/L (on ne peut pas mettre de double ici)
     /// </summary>
     public enum BeverageType
     {

@@ -37,7 +37,7 @@ namespace PizzeriaMarsala
 
         private void CreatePizza(object sender, RoutedEventArgs e)
         {
-            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
+            if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
             { 
                 main_window.SwitchToCreatePizzaView();
             }
@@ -45,7 +45,7 @@ namespace PizzeriaMarsala
 
         private void EditPizza(object sender, MouseButtonEventArgs e)
         {
-            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
+            if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
             {
                 main_window.SwitchToEditPizzaView((Pair<Pizza, int>)((Border)sender).Tag);
             }
@@ -53,7 +53,7 @@ namespace PizzeriaMarsala
 
         private void CreateBeverage(object sender, RoutedEventArgs e)
         {
-            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
+            if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
             {
                 main_window.SwitchToCreateBeverageView();
             }
@@ -61,7 +61,7 @@ namespace PizzeriaMarsala
 
         private void EditBeverage(object sender, MouseButtonEventArgs e)
         {
-            if (order.Balance != BalanceState.ok && order.CurrentOrderState == OrderState.enpreparation)
+            if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
             {
                 main_window.SwitchToEditBeverageView((Pair<Beverage, int>)((Border)sender).Tag);
             }
@@ -69,11 +69,11 @@ namespace PizzeriaMarsala
 
         private void ChangeState(object sender, RoutedEventArgs e)
         {
-            if (order.CurrentOrderState == OrderState.enpreparation)
+            if (order.CurrentOrderState == OrderState.EnPreparation)
             {
                 order.StartDelivery();
             }
-            else if (order.CurrentOrderState == OrderState.enlivraison) {
+            else if (order.CurrentOrderState == OrderState.EnLivraison) {
                 order.DeliveryDone();
             }
 
@@ -82,19 +82,19 @@ namespace PizzeriaMarsala
 
         private void ChangeBalance(object sender, RoutedEventArgs e)
         {
-            if (order.Balance == BalanceState.enattente) 
+            if (order.Balance == BalanceState.EnAttente) 
             {
-                order.Balance = BalanceState.ok;
+                order.Balance = BalanceState.OK;
                 order.CommandCustomer.OrdersTotalValue += order.Price();
             }
-            else if (order.Balance == BalanceState.ok) 
+            else if (order.Balance == BalanceState.OK) 
             {
-                order.Balance = BalanceState.perdue;
+                order.Balance = BalanceState.Perdue;
                 order.CommandCustomer.OrdersTotalValue -= order.Price();
             }
-            else if (order.Balance == BalanceState.perdue)
+            else if (order.Balance == BalanceState.Perdue)
             {
-                order.Balance = BalanceState.enattente;
+                order.Balance = BalanceState.EnAttente;
             }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
@@ -103,11 +103,11 @@ namespace PizzeriaMarsala
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
             main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
-            if (main_window.SelectedOrder.CurrentOrderState == OrderState.fermee)
+            if (main_window.SelectedOrder.CurrentOrderState == OrderState.Fermee)
             {
                 order.CommandDeliverer.ManagedDeliveryNumber--;
             }
-            if (main_window.SelectedOrder.Balance == BalanceState.ok)
+            if (main_window.SelectedOrder.Balance == BalanceState.OK)
             {
                 order.CommandCustomer.OrdersTotalValue -= order.Price();
             }

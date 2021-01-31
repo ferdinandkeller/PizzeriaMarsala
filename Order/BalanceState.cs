@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace PizzeriaMarsala
 {
     /// <summary>
-    /// Différents états possibles pour le solde d'une commande
-    /// Enumération pour être certain que chaque élément créé ne puisse prendre qu'une valeur autorisée
-    /// Valeurs autorisées : enattente, ok, perdue
+    /// Différents états sont possibles pour le solde d'une commande
+    /// On utilise ici une énumération pour être certain que chaque élément créé ne puisse prendre qu'une valeur parmi celles autorisées
+    /// Valeurs autorisées : EnAttente, OK, Perdue
     /// </summary>
     public enum BalanceState
     {
-        enattente,
-        ok,
-        perdue
+        EnAttente,
+        OK,
+        Perdue
     }
 }

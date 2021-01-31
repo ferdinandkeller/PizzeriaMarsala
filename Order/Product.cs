@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace PizzeriaMarsala
 {
     /// <summary>
-    /// Classe abstraite : aucun objet de type Product n'est directement créé
-    /// Cette classe permet de définir le type produit dont héritent les classes Pizza et Beverage
+    /// Classe abstraite : aucun objet de type Product ne peut être instancié
+    /// Product est héritée par les classes Pizza et Beverage
     /// </summary>
     /// <attribut>
     /// Price: le prix associé à un produit, il est calculé dans les classes filles

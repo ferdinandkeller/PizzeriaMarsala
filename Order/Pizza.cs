@@ -13,7 +13,7 @@ namespace PizzeriaMarsala
     /// </summary>
     /// <attributs>
     /// Type: le type de la pizza (cf PizzaType)
-    /// Size: la taille de la pizza (Petite,Moyenne,Grande)
+    /// Size: la taille de la pizza (Petite, Moyenne, Grande)
     /// </attributs>
     public class Pizza : Product, INotifyPropertyChanged
     {
@@ -63,7 +63,7 @@ namespace PizzeriaMarsala
 
         #region Méthodes
         /// <summary>
-        /// ToString()
+        /// Méthode pour convertir une pizza en un string (pour l'afficher dans la console par exemple)
         /// </summary>
         /// <returns>
         /// Type (Taille) [Prix Euros]
@@ -74,25 +74,24 @@ namespace PizzeriaMarsala
         }
 
         /// <summary>
-        /// COmparaison de deux pizzas en fonction de leur type puis leur taille
+        /// Comparaison de deux pizzas en fonction de leur type puis leur taille
         /// </summary>
-        /// <param name="p1">Pizza 1</param>
-        /// <param name="p2">Pizza 2</param>
+        /// <param name="pizza1">Pizza 1</param>
+        /// <param name="pizza2">Pizza 2</param>
         /// <returns>
         /// -1 si le nom de la pizza 1 est alphabétiquement avant celui de la pizza 2 ou si les types sont les mêmes mais que la taille de la pizza 1 est inférieure à celle de la pizza 2
         /// 0 si les types et tailles sont les mêmes
         /// 1 sinon
         /// </returns>
-        public static int CompareTypeSize(Pizza p1, Pizza p2)
+        public static int CompareTypeSize(Pizza pizza1, Pizza pizza2)
         {
-            int comparison = nameof(p1.Type).CompareTo(nameof(p2.Type)); //Nom associé à la valeur de l'énumération (pas la valeur chiffrée)
+            int comparison = nameof(pizza1.Type).CompareTo(nameof(pizza2.Type)); //Nom associé à la valeur de l'énumération (pas la valeur chiffrée)
             if (comparison == 0)
             {
-                comparison = p1.Size.CompareTo(p2.Size);//Comparaison de la valeur chiffrée associée à l'énumaration
+                comparison = pizza1.Size.CompareTo(pizza2.Size);//Comparaison de la valeur chiffrée associée à l'énumaration
             }
             return comparison;
         }
         #endregion
-
     }
 }

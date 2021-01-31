@@ -206,7 +206,7 @@
     <Compile Include="Person\Worker.cs" />
     <Compile Include="Person\WorkerState.cs" />
     <Compile Include="Person\DelivererState.cs" />
-    <Compile Include="Person\IToCSV.cs" />
+    <Compile Include="IToCSV.cs" />
     <Compile Include="Person\Deliverer.cs" />
     <Compile Include="Person\Person.cs" />
     <Compile Include="Pizzeria.cs" />

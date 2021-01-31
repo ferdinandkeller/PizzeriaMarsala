@@ -23,7 +23,7 @@ namespace PizzeriaMarsala
         public string LastName { get; set; } = "Nom";
         public string Address { get; set; } = "42 allee des tilleuls Paris";
         public string PhoneNumber { get; set; } = "0600000000";
-        public DelivererState CurrentDelivererState { get; set; } = DelivererState.surplace;
+        public DelivererState CurrentDelivererState { get; set; } = DelivererState.SurPlace;
         public String VehicleType { get; set; } = "scooter";
 
         public CreateDelivererView(MainWindow main_window)

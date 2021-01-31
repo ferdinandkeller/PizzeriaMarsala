@@ -11,8 +11,8 @@ namespace PizzeriaMarsala
     /// </summary>
     public enum OrderState
     {
-        enpreparation, 
-        enlivraison,
-        fermee
+        EnPreparation, 
+        EnLivraison,
+        Fermee
     }
 }
