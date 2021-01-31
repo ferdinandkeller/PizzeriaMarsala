@@ -84,15 +84,20 @@ namespace PizzeriaMarsala
 
         private void ChangeBalance(object sender, RoutedEventArgs e)
         {
-            if (order.Balance == BalanceState.enattente) {
+            if (order.Balance == BalanceState.enattente) 
+            {
                 order.Balance = BalanceState.ok;
                 order.CommandCustomer.OrdersTotalValue += order.Price();
             }
-            else if (order.Balance == BalanceState.ok) {
+            else if (order.Balance == BalanceState.ok) 
+            {
                 order.Balance = BalanceState.perdue;
                 order.CommandCustomer.OrdersTotalValue -= order.Price();
             }
-            else if (order.Balance == BalanceState.perdue) { order.Balance = BalanceState.enattente; }
+            else if (order.Balance == BalanceState.perdue)
+            {
+                order.Balance = BalanceState.enattente;
+            }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
         }
@@ -100,10 +105,15 @@ namespace PizzeriaMarsala
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
             main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
-            if (main_window.SelectedOrder.CurrentOrderState == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber--; }
-            if (main_window.SelectedOrder.Balance == BalanceState.ok) { order.CommandCustomer.OrdersTotalValue -= order.Price(); }
+            if (main_window.SelectedOrder.CurrentOrderState == OrderState.fermee)
+            {
+                order.CommandDeliverer.ManagedDeliveryNumber--;
+            }
+            if (main_window.SelectedOrder.Balance == BalanceState.ok)
+            {
+                order.CommandCustomer.OrdersTotalValue -= order.Price();
+            }
             Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
-            main_window.statistics_view.UpdateUI();
             main_window.SwitchToCommandView();
         }
 
@@ -112,7 +122,6 @@ namespace PizzeriaMarsala
             if (order.PizzaList.Count > 0)
             {
                 order.UpdatePrice();
-                main_window.statistics_view.UpdateUI();
                 main_window.SwitchToCommandView();
             }
         }

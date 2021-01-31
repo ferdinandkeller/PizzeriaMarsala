@@ -34,7 +34,7 @@ namespace PizzeriaMarsala
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortWorkerByName, Pizzeria.SortWorkerByTown, Pizzeria.SortWorkerByManagedOrderNumber,
-                main_window.SwitchToCreateWorkerView, Console.WriteLine,
+                main_window.SwitchToCreateWorkerView, Pizzeria.AddFileToWorkerList,
                 "WorkerDataTemplate",
                 "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (o) => { main_window.SwitchToEditWorkerView((Worker)o); }
             );

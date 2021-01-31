@@ -19,7 +19,6 @@ namespace PizzeriaMarsala
     /// </attributs>
     public class Customer : Person
     {
-
         #region Attributs
         public long CustomerID { get; set; }
         public DateTime FirstOrderDate { get; private set; }
@@ -37,7 +36,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Constructeurs
-
         /// <summary>
         /// Utilisé par les commis pour enregistrer un nouveau client (avec la date de première commande)
         /// </summary>
@@ -64,22 +62,17 @@ namespace PizzeriaMarsala
         /// <param name="phone_number">Numéro de téléphone</param>
         /// <param name="first_command_date">Date de première commande</param>
         /// <param name="total_value_Orders">Montant cumulé des commandes honorées</param>
-        public Customer(long customer_id, string last_name, string first_name, string address, long phone_number, DateTime first_command_date, double total_value_Orders)
+        public Customer(long customer_id, string last_name, string first_name, string address, long phone_number, DateTime first_command_date)
             : base(last_name, first_name, address, phone_number)
         {
             CustomerID = customer_id;
             FirstOrderDate = first_command_date;
-            OrdersTotalValue = total_value_Orders;
             //On actualise l'id max si le client saisi possède un identifiant supérieur à l'id courant
-            if (CustomerIDMax < CustomerID)
-            {
-                CustomerIDMax = CustomerID;
-            }
+            if (CustomerIDMax < CustomerID) { CustomerIDMax = CustomerID; }
         }
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// Méthode ToString() de Customer héritant de celle de la classe Personne
         /// </summary>
@@ -111,12 +104,10 @@ namespace PizzeriaMarsala
         /// <returns>
         /// Le Customer correspondant à la ligne de fichier
         /// </returns>
-        public static Customer CSVToClient(String client)
+        public static Customer CSVToCustomer(String client)
         {
             String[] infos = client.Split(';');
-            DateTime first_command_date = infos.Length == 5 ? DateTime.Now : Convert.ToDateTime(infos[5]);
-            double Orders_total_value = infos.LongLength == 6 ? 0 : double.Parse(infos[6]);
-            return new Customer(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), first_command_date, Orders_total_value);
+            return new Customer(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DateTime.Parse(infos[5]));
         }
 
         /// <summary>
@@ -133,7 +124,6 @@ namespace PizzeriaMarsala
         {
             return c2.OrdersTotalValue.CompareTo(c1.OrdersTotalValue);
         }
-
         #endregion
 
     }

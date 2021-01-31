@@ -23,6 +23,7 @@
                 <Label Content="{Binding NumberOfOrdersForWorker}" />
                 <Label Content="{Binding AverageOrdersForWorker}" />
                 <Label Content="{Binding AverageOrderPrice}" />
+                <Label Content="{Binding TroopsState}" />
             </StackPanel>
         </Grid>
 

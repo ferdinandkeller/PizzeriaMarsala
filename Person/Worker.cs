@@ -26,7 +26,7 @@ namespace PizzeriaMarsala
             set
             {
                 _CurrentWorkerState = value;
-                NotifyPropertyChanged("State");
+                NotifyPropertyChanged("CurrentWorkerState");
             }
         }
         public DateTime HiringDate { get; private set; }
@@ -86,7 +86,6 @@ namespace PizzeriaMarsala
         /// </summary>
         /// <param name="worker">La ligne de fichier qui représente un commis</param>
         /// <returns>Le commis créé</returns>
-
         public static Worker CSVToWorker(String worker)
         {
             String[] infos = worker.Split(';');

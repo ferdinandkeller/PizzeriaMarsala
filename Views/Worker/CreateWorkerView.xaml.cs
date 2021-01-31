@@ -23,7 +23,7 @@ namespace PizzeriaMarsala
         public string LastName { get; set; } = "Nom";
         public string Address { get; set; } = "42 allée des tilleuls Paris";
         public string PhoneNumber { get; set; } = "0600000000";
-        public WorkerState State { get; set; } = WorkerState.surplace;
+        public WorkerState CurrentWorkerState { get; set; } = WorkerState.surplace;
 
         public CreateWorkerView(MainWindow main_window)
         {
@@ -38,7 +38,7 @@ namespace PizzeriaMarsala
 
         private void CreateWorker(object sender, RoutedEventArgs e)
         {
-            Pizzeria.WorkersList.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), State, DateTime.Now));
+            Pizzeria.WorkersList.Add(new Worker(LastName, FirstName, Address, long.Parse(PhoneNumber), CurrentWorkerState, DateTime.Now));
             if (main_window.isEditingOrder)
             {
                 main_window.SwitchToWorkerView();

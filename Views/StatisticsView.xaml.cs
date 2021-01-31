@@ -51,24 +51,11 @@ namespace PizzeriaMarsala
         }
         public string AverageOrderPrice
         {
-            get
-            {
-                double total = 0;
-                int count = 0;
-                foreach (Order order in Pizzeria.OrdersList)
-                {
-                    if (order. Balance == BalanceState.ok)
-                    {
-                        total += order.Price();
-                        count++;
-                    }
-                }
-                if (count == 0)
-                {
-                    count = 1;
-                }
-                return "Prix moyen d'une commande : " + ((double)total / count);
-            }
+            get => "Prix moyen d'une commande : " + Pizzeria.AllOrdersMean();
+        }
+        public string TroopsState
+        {
+            get => Pizzeria.TroopsState();
         }
 
         public StatisticsView(MainWindow main_window)
@@ -91,6 +78,7 @@ namespace PizzeriaMarsala
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NumberOfOrdersForWorker"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AverageOrdersForWorker"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AverageOrderPrice"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TroopsState"));
         }
     }
 }

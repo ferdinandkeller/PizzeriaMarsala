@@ -26,7 +26,7 @@ namespace PizzeriaMarsala
             set
             {
                 _CurrentDelivererState = value;
-                NotifyPropertyChanged("State");
+                NotifyPropertyChanged("CurrentDelivererState");
             }
         }
         private string _TransportType;
@@ -52,7 +52,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Constructeurs
-
         /// <summary>
         /// Constructeur permettant à un commis de créer un nouveau livreur
         /// </summary>
@@ -64,20 +63,6 @@ namespace PizzeriaMarsala
             CurrentDelivererState = state;
             TransportType = Transport_type;
             ManagedDeliveryNumber = 0; //Le livreur vient d'être embauché, il n'a encore livré aucune commande
-        }
-
-        /// <summary>
-        /// Pour créer un livreur depuis un fichier existant
-        /// </summary>
-        /// <param name="state">Etat de présence du livreur</param>
-        /// <param name="Transport_type">Type de véhicule du livreur</param>
-        /// <param name="managed_delivery_number">Nombre de commandes déjà livrées</param>
-        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type, int managed_delivery_number)
-            : base(last_name, first_name, address, phone_number)
-        {
-            CurrentDelivererState = state;
-            TransportType = Transport_type;
-            ManagedDeliveryNumber = managed_delivery_number;
         }
         #endregion
 

@@ -46,7 +46,7 @@ namespace PizzeriaMarsala
             set
             {
                 _CurrentOrderState = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("State"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentOrderState"));
             }
         }
         private BalanceState _Balance;

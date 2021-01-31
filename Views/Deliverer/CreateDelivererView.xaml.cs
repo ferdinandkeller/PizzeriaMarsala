@@ -23,7 +23,7 @@ namespace PizzeriaMarsala
         public string LastName { get; set; } = "Nom";
         public string Address { get; set; } = "42 allée des tilleuls Paris";
         public string PhoneNumber { get; set; } = "0600000000";
-        public DelivererState State { get; set; } = DelivererState.surplace;
+        public DelivererState CurrentDelivererState { get; set; } = DelivererState.surplace;
         public String VehicleType { get; set; } = "scooter";
 
         public CreateDelivererView(MainWindow main_window)
@@ -39,7 +39,7 @@ namespace PizzeriaMarsala
 
         private void CreateDeliverer(object sender, RoutedEventArgs e)
         {
-            Pizzeria.DeliverersList.Add(new Deliverer(LastName, FirstName, Address, long.Parse(PhoneNumber), State, VehicleType));
+            Pizzeria.DeliverersList.Add(new Deliverer(LastName, FirstName, Address, long.Parse(PhoneNumber), CurrentDelivererState, VehicleType));
             if (main_window.isEditingOrder)
             {
                 main_window.SwitchToDelivererView();

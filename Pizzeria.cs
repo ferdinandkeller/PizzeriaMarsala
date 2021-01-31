@@ -24,8 +24,6 @@ namespace PizzeriaMarsala
     /// donc elle doivent être de type ObservableCollection pour qu'une modification de la liste mette à jour l'interface
     /// Nous avons de plus créé la class SortableObservableCollection afin de rajouter la méthode Sort
     /// </attributs>
-
-
     public static class Pizzeria
     {
 
@@ -47,7 +45,6 @@ namespace PizzeriaMarsala
         /// Utilisent différentes méthodes de comparaison en fonction du critère de tri
         /// </summary>
         #region Méthodes de tri
-
         /*
          * Sur la liste de commandes (par identifiant, prix, urgence)
          */
@@ -77,7 +74,7 @@ namespace PizzeriaMarsala
         public static void SortDelivererByManagedDeliveryNumber() { DeliverersList.Sort(Deliverer.CompareManagedDeliveryNumber); }
         #endregion
 
-
+        #region Méthodes statistiques
         /// <summary>
         /// Liste des commandes passées durant une période de temps donnée
         /// Utilisation de la méthode MadeDuringTimeSpan de la classe Order
@@ -98,7 +95,6 @@ namespace PizzeriaMarsala
             return c;
         }
 
-        
         /// <summary>
         /// Moyenne des prix de toutes les commandes faites dans la pizzéria
         /// </summary>
@@ -106,76 +102,54 @@ namespace PizzeriaMarsala
         public static double AllOrdersMean()
         {
             double res = 0;
-            List<Order> liste = OrdersList.ToList();
-            liste.ForEach(x => res += x.Price());
-            return res/liste.Count;
+            int count = 0;
+            foreach (Order order in OrdersList)
+            {
+                if (order.Balance == BalanceState.ok)
+                {
+                    count++;
+                    res += order.Price();
+                }
+            }
+            if (count > 0)
+            {
+                res /= count;
+            }
+            return res;
         }
 
         /// <summary>
-        /// "Moyenne des comptes clients"
+        /// Résume l'état des effectifs
+        /// Les effectifs se composent des commis et livreurs
         /// </summary>
         /// <returns>
-        /// SortedList d'une seule KeyValuePair
-        /// key = Moyenne des dates de premiere commande de l'ensemble des clients
-        /// value= Moyenne des montants cumulés des clients
+        /// Chaine de caractères de plusieurs ligne (une ligne par travailleur)
+        /// Pour chaque ligne :
+        ///     NomDeFamille;Etat
         /// </returns>
-        public static SortedList<DateTime,double> MoyenneComptesClients()
+        public static string TroopsState()
         {
-            double res = 0;
-            int annee = 0;
-            int mois = 0;
-            int jour = 0;
-            List<Customer> liste = CustomersList.ToList();
-            int n = liste.Count;
-            foreach(Customer client in liste)
+            string s = "";
+            List<Worker> lc = WorkersList.ToList();
+            List<Deliverer> ll = DeliverersList.ToList();
+            if (lc != null && lc.Count != 0)
             {
-                res += client.OrdersTotalValue;
-                annee += client.FirstOrderDate.Year;
-                mois += client.FirstOrderDate.Month;
-                jour += client.FirstOrderDate.Day;
+                lc.ForEach(x => s += x.LastName + ";" + x.CurrentWorkerState.ToString() + "\n");
             }
-            DateTime dt = new DateTime(annee / n,mois/n,jour/n);
-            SortedList<DateTime, double> sl = new SortedList<DateTime, double> ();
-            sl.Add(dt, res / n);
-            return sl;
+            if (ll != null && ll.Count != 0)
+            {
+                ll.ForEach(x => s += x.LastName + ";" + x.CurrentDelivererState.ToString() + "\n");
+            }
+            return s;
         }
-        
-        #region Ouverture de fichiers et ajout aux listes automatique
+        #endregion
 
+        #region Ouverture de fichiers et ajout aux listes automatique
         /// <summary>
-        /// On ajoute le contenu d'un fichier à une des listes de personnes en fonction du type de fichier ouvert
+        /// On ajoute le contenu d'un fichier à la liste
         /// On ajoute seulement les éléments qui ne sont pas déjà présents dans la liste
         /// </summary>
         /// <param name="nomFichier">Le fichier source</param>
-
-        //Clients
-        public static void OuvrirFichierClient(string nomFichier)
-        {
-            List<Customer> liste = CreationListeClientsDepuisFichier(nomFichier);
-            List<Customer> l2 = liste.FindAll(x => CustomersList.Contains(x));
-            l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x=>CustomersList.Add(x));
-        }
-
-        //Commis
-        public static void OuvrirFichierCommis(string nomFichier)
-        {
-            List<Worker> liste = CreationListeCommisDepuisFichier(nomFichier);
-            List<Worker> l2 = liste.FindAll(x => WorkersList.Contains(x));
-            l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => WorkersList.Add(x));
-        }
-
-        //Livreurs
-        public static void OuvrirFichierLivreurs(string nomFichier)
-        {
-            List<Deliverer> liste = CreationListeLivreursDepuisFichier(nomFichier);
-            List<Deliverer> l2 = liste.FindAll(x => DeliverersList.Contains(x));
-            l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => DeliverersList.Add(x));
-        }
-
-        //Commandes
         public static void OuvrirFichierCommandes(string nomFichier)
         {
             List<Order> liste = CreationListeCommandesDepuisFichier(nomFichier);
@@ -184,7 +158,7 @@ namespace PizzeriaMarsala
             liste.ForEach(x => OrdersList.Add(x));
         }
 
-            #region Création d'une liste depuis un fichier
+        #region Création d'une liste depuis un fichier
         public static List<string> CreationListeDepuisFichier(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
@@ -197,30 +171,59 @@ namespace PizzeriaMarsala
             }
             return liste;
         }
-        public static List<Customer> CreationListeClientsDepuisFichier(string nomFichier)
+
+        /// <summary>
+        /// Cette fonction permet d'ajouter une liste de clients depuis un fichier CSV
+        /// dans la liste de clients, tout en évitant les doublons
+        /// </summary>
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void AddFileToCustomerList(string file_name)
         {
-            StreamReader sr = new StreamReader(nomFichier);
-            List<Customer> liste = new List<Customer>();
-            string ligne = "";
-            while (sr.Peek() > 0)
+            StreamReader stream_reader = new StreamReader(file_name);
+            while (stream_reader.Peek() > 0)
             {
-                ligne = sr.ReadLine();
-                liste.Add(Customer.CSVToClient(ligne));
+                Customer customer = Customer.CSVToCustomer(stream_reader.ReadLine());
+                if (FindCustomer(customer.PhoneNumber) == null)
+                {
+                    CustomersList.Add(customer);
+                }
             }
-            return liste;
         }
 
-        public static List<Worker> CreationListeCommisDepuisFichier(string nomFichier)
+        /// <summary>
+        /// Cette fonction permet d'ajouter une liste de commis depuis un fichier CSV
+        /// dans la liste de commis, tout en évitant les doublons
+        /// </summary>
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void AddFileToWorkerList(string file_name)
         {
-            StreamReader sr = new StreamReader(nomFichier);
-            List<Worker> liste = new List<Worker>();
-            string ligne = "";
-            while (sr.Peek() > 0)
+            StreamReader stream_reader = new StreamReader(file_name);
+            while (stream_reader.Peek() > 0)
             {
-                ligne = sr.ReadLine();
-                liste.Add(Worker.CSVToWorker(ligne));
+                Worker worker = Worker.CSVToWorker(stream_reader.ReadLine());
+                if (FindWorker(worker.LastName) == null)
+                {
+                    WorkersList.Add(worker);
+                }
             }
-            return liste;
+        }
+
+        /// <summary>
+        /// Cette fonction permet d'ajouter une liste de livreurs depuis un fichier CSV
+        /// dans la liste de livreurs, tout en évitant les doublons
+        /// </summary>
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void AddFileToDelivererList(string file_name)
+        {
+            StreamReader stream_reader = new StreamReader(file_name);
+            while (stream_reader.Peek() > 0)
+            {
+                Deliverer deliverer = Deliverer.CSVToDeliverer(stream_reader.ReadLine());
+                if (FindDeliverer(deliverer.LastName) == null)
+                {
+                    DeliverersList.Add(deliverer);
+                }
+            }
         }
 
         public static List<Deliverer> CreationListeLivreursDepuisFichier(string nomFichier)
@@ -252,6 +255,7 @@ namespace PizzeriaMarsala
 
         #endregion
 
+        /* bordel
         /// <summary>
         /// Méthode permettant de créer ou modifier un fichier à partir d'une liste
         /// Permet nottamment de trier un fichier existant:
@@ -311,78 +315,6 @@ namespace PizzeriaMarsala
             ModificationFichierDepuisListe(nomFichier, l);
             sw.Close();
         }
-
-        
-      /*  public static string AssociationFichier(object liste)
-        {
-            string s = "";
-            if (liste is List<Client>)
-            {
-                s = "FichierClients";
-            }
-            else
-            {
-                if (liste is List<Livreur>)
-                {
-                    s = "FichierLivreurs";
-                }
-                else
-                {
-                    s = "FichierCommis";
-                }
-            }
-            return s;
-        }
-      */
-
-        /// <summary>
-        /// ToString() sur l'ensemble des éléments de la liste
-        /// </summary>
-        /// <param name="l">La liste</param>
-        /// <returns>
-        /// Une chaîne de caractères de plusieurs lignes
-        /// Chaque ligne est la représentation d'un élément de la liste sous forme de chaîne de caractères
-        /// </returns>
-        public static string ToString(List<object> l)
-        {
-            string s = "";
-            if (l != null && l.Count != 0)
-            {
-                l.ForEach(x => s += x.ToString() + "\n");
-            }
-            return s;
-        }
-
-
-        /* Très interessant mais inutile x) (car ça ne peux pas marcher)
-         * 
-         * En effet, ça ne marche pas car : https://stackoverflow.com/questions/1777800/in-c-is-it-possible-to-cast-a-listchild-to-listparent (je te laisse jeter un coup d'oeil
-         * 
-         * La bonne méthode se trouve juste en dessous
-         * 
-        public static int RechercheIndexNomPrenom(List<Personne> liste, string nom, string prenom)
-        {
-            int i = liste.FindIndex(x => x.Nom == nom && x.Prenom == prenom);
-            return i;
-        }
-        public static void SupprimePersonne(List<Personne> liste, Personne p)
-        {
-            int i = liste.FindIndex(x => x.Equals((Personne)p));
-            liste.RemoveAt(i);
-            ModificationFichierDepuisListe(AssociationFichier(liste), liste);
-        }
-        public static void SupprimePersonne(List<Personne> liste, string nom, string prenom)
-        {
-            int i = RechercheIndexNomPrenom(liste, nom, prenom);
-            liste.RemoveAt(i);
-            ModificationFichierDepuisListe(AssociationFichier(liste), liste);
-        }
-        public static void ModificationListePersonnes(List<Personne> liste, string nom, string prenom, Personne p)
-        {
-            int i = RechercheIndexNomPrenom(liste, nom, prenom);
-            liste[i] = p;
-            ModificationFichierDepuisListe(AssociationFichier(liste), liste);
-        }
         */
 
         #region Méthodes permettant de trouver une personne ou une commande
@@ -434,7 +366,6 @@ namespace PizzeriaMarsala
         }
         #endregion
 
-
         #region SaveReceiptTXTFile(identifiant, nom du fichier), SearchedOrderToString
 
         /// <summary>
@@ -475,110 +406,6 @@ namespace PizzeriaMarsala
         }
 
         #endregion
-    
-        /*
-        #region EnregistrerHistoriqueCommandes & EnregistrerHistoriqueFactures(TXT/CSV)
-
-        public void EnregistrerHistoriqueCommandes(string nomFichier)
-        {
-            List<Commande> liste = ListeCommandes.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if(liste!=null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
-            }
-            sw.Close();
-        }
-
-        public void EnregistrerHistoriqueFacturesTXT(string nomFichier)
-        {
-            List<Commande> liste = ListeCommandes.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.DetailCommandeToString()));
-            }
-            sw.Close();
-        }
-
-        public void EnregistrerHistoriqueFacturesCSV(string nomFichier)
-        {
-            List<Commande> liste = ListeCommandes.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.DetailCommandeToCSV()));
-            }
-            sw.Close();
-        }
-        #endregion
-
-        #region EnregistrerFichierClient, EnregistrerFichierCommis, EnregistrerFichierLivreur CSV
-
-        public void EnregistrerFichierClient(string nomFichier)
-        {
-            List<Client> liste = ListeClients.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
-            }
-            sw.Close();
-        }
-
-        public void EnregistrerFichierCommis(string nomFichier)
-        {
-            List<Commis> liste = ListeCommis.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
-            }
-            sw.Close();
-        }
-
-        public void EnregistrerFichierLivreur(string nomFichier)
-        {
-            List<Livreur> liste = ListeLivreurs.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToCSV()));
-            }
-            sw.Close();
-        }
-        #endregion
-        */
-
-
-        #region Etat des effectifs
-
-        /// <summary>
-        /// Résume l'état des effectifs
-        /// Les effectifs se composent des commis et livreurs
-        /// </summary>
-        /// <returns>
-        /// Chaine de caractères de plusieurs ligne (une ligne par travailleur)
-        /// Pour chaque ligne :
-        ///     NomDeFamille;Etat
-        /// </returns>
-        public static string TroopsState()
-        {
-            string s = "";
-            List<Worker> lc = WorkersList.ToList();
-            List<Deliverer> ll = DeliverersList.ToList();
-            if (lc!=null && lc.Count!=0)
-            {
-                lc.ForEach(x => s += x.LastName + ";" + x.CurrentWorkerState.ToString() + "\n");
-            }
-            if (ll != null && ll.Count != 0)
-            {
-                ll.ForEach(x => s += x.LastName + ";" + x.CurrentDelivererState.ToString() + "\n");
-            }
-            return s;
-        }
-        #endregion
-
         #endregion
 
     }

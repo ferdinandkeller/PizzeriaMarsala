@@ -24,7 +24,7 @@
             <TextBox Text="{Binding FirstName}" />
             <TextBox Text="{Binding Address}" />
             <TextBox Text="{Binding PhoneNumber}" />
-            <TextBox Text="{Binding State}" />
+            <TextBox Text="{Binding CurrentWorkerState}" />
             <Button Content="Crééer le commis" Click="CreateWorker" />
         </StackPanel>
     </Grid>

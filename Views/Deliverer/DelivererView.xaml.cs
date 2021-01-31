@@ -34,7 +34,7 @@ namespace PizzeriaMarsala
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortDelivererByName, Pizzeria.SortDelivererByTown, Pizzeria.SortDelivererByManagedDeliveryNumber,
-                main_window.SwitchToCreateDelivererView, Console.WriteLine,
+                main_window.SwitchToCreateDelivererView, Pizzeria.AddFileToDelivererList,
                 "DelivererDataTemplate",
                 "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (o) => { main_window.SwitchToEditDelivererView((Deliverer)o); }
             );

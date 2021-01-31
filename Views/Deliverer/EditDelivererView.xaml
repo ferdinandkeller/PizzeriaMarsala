@@ -24,7 +24,7 @@
             <TextBox Text="{Binding FirstName}" />
             <TextBox Text="{Binding Address}" />
             <TextBox Text="{Binding PhoneNumber}" />
-            <TextBox Text="{Binding State}" />
+            <TextBox Text="{Binding CurrentDelivererState}" />
             <TextBox Text="{Binding TransportType}" />
             <Button Content="Finir" Click="EndEdition" />
             <Button Content="Supprimer" Click="DeleteElement" />

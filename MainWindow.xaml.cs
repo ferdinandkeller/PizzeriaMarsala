@@ -70,7 +70,7 @@ namespace PizzeriaMarsala
         public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
         public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
         public void SwitchToDelivererView() { ViewFrame.Content = deliverer_view; }
-        public void SwitchToStatisticsView() { ViewFrame.Content = statistics_view; }
+        public void SwitchToStatisticsView() { statistics_view.UpdateUI(); ViewFrame.Content = statistics_view; }
 
         public void SwitchToCreateCustomerView() { ViewFrame.Content = new CreateCustomerView(this); }
         public void SwitchToEditCustomerView(Customer customer) { ViewFrame.Content = new EditCustomerView(this, customer); }
