@@ -38,7 +38,13 @@ namespace PizzeriaMarsala
         private void CreateCustomer(object sender, RoutedEventArgs e)
         {
             Pizzeria.CustomersList.Add(new Customer(LastName, FirstName, Address, long.Parse(PhoneNumber), DateTime.Now));
-            main_window.SwitchToCustomerView();
+            if (main_window.isEditingOrder)
+            {
+                main_window.SwitchToCustomerView();
+            } else
+            {
+                main_window.SwitchToSelectCustomerView();
+            }
         }
     }
 }

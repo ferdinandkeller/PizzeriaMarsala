@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -14,11 +15,37 @@ namespace PizzeriaMarsala
     /// Type: le type de la pizza (cf PizzaType)
     /// Size: la taille de la pizza (Petite,Moyenne,Grande)
     /// </attributs>
-    public class Pizza : Product, IComparable<Pizza>
+    public class Pizza : Product
     {
         #region Attributs
-        public PizzaType Type { get; set; }
-        public PizzaSize Size { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private PizzaType _Type;
+        public PizzaType Type
+        {
+            get => _Type;
+            set
+            {
+                _Type = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Type"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
+            }
+        }
+        private PizzaSize _Size;
+        public PizzaSize Size
+        {
+            get => _Size;
+            set
+            {
+                _Size = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Size"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
+            }
+        }
+        public new double Price
+        {
+            get => (double)Type / 100 * (double)Size / 100;
+        }
         #endregion
 
         #region Constructeur
@@ -31,8 +58,6 @@ namespace PizzeriaMarsala
         {
             Type = type;
             Size = size;
-
-            Price = (double)Type/100 * (double)Size/100; //Price est un attribut de la classe Product, prix en euros de la pizza
         }
         #endregion
 
@@ -66,11 +91,6 @@ namespace PizzeriaMarsala
                 comparison = p1.Size.CompareTo(p2.Size);//Comparaison de la valeur chiffrée associée à l'énumaration
             }
             return comparison;
-        }
-
-        public int CompareTo(Pizza pizza)
-        {
-            return CompareTypeSize(this, pizza);
         }
         #endregion
 

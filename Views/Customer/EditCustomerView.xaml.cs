@@ -35,13 +35,27 @@ namespace PizzeriaMarsala
 
         private void EndEdition(object sender, RoutedEventArgs e)
         {
-            main_window.SwitchToCustomerView();
+            if (main_window.isEditingOrder)
+            {
+                main_window.SwitchToCustomerView();
+            }
+            else
+            {
+                main_window.SwitchToSelectCustomerView();
+            }
         }
 
         private void DeleteElement(object sender, RoutedEventArgs e)
         {
             Pizzeria.CustomersList.Remove(customer);
-            main_window.SwitchToCustomerView();
+            if (main_window.isEditingOrder)
+            {
+                main_window.SwitchToCustomerView();
+            }
+            else
+            {
+                main_window.SwitchToSelectCustomerView();
+            }
         }
     }
 }

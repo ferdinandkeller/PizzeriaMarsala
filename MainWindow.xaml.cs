@@ -78,7 +78,7 @@ namespace PizzeriaMarsala
         public void SwitchToCreateDelivererView() { ViewFrame.Content = new CreateDelivererView(this); }
         public void SwitchToEditDelivererView(Deliverer deliverer) { ViewFrame.Content = new EditDelivererView(this, deliverer); }
 
-        public void SwitchToSelectWorkerView() { ViewFrame.Content = select_worker_view; }
+        public void SwitchToSelectWorkerView() { isEditingOrder = false;  ViewFrame.Content = select_worker_view; }
         public void SwitchToSelectCustomerView() { ViewFrame.Content = select_customer_view; }
         public void SwitchToSelectDelivererView() { ViewFrame.Content = select_deliverer_view; }
         public void SwitchToCreateOrderView() { 
@@ -86,7 +86,6 @@ namespace PizzeriaMarsala
             {
                 create_order_view = new CreateOrderView(this);
             }
-            isEditingOrder = false;
             ViewFrame.Content = create_order_view;
         }
         public void SwitchToCreatePizzaView() {  ViewFrame.Content = new CreatePizzaView(this); }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -14,11 +15,37 @@ namespace PizzeriaMarsala
     /// Type: type de boisson (cf enum BeverageType)
     /// Volume: volume de la boisson
     /// </attributs>
-    public class Beverage : Product
+    public class Beverage : Product, INotifyPropertyChanged
     {
         #region Attributs
-        public BeverageType Type { get; set; }
-        public double Volume { get; set; } // volume en cl
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private BeverageType _Type;
+        public BeverageType Type
+        {
+            get => _Type;
+            set
+            {
+                _Type = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Type"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
+            }
+        }
+        private double _Volume; // volume en cl
+        public double Volume
+        {
+            get => _Volume;
+            set
+            {
+                _Volume = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Volume"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Price"));
+            }
+        }
+        public new double Price // prix en euros, Price est un attribut de la classe Product
+        {
+            get => (double)Type / 10000 * Volume;
+        }
         #endregion
 
         #region Constructeur
@@ -31,8 +58,6 @@ namespace PizzeriaMarsala
         {
             Type = type;
             Volume = volume;
-
-            Price = (double)Type / 10000 * Volume; // prix en euros, Price est un attribut de la classe Product
         }
         #endregion
 

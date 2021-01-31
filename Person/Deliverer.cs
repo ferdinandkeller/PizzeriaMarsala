@@ -129,7 +129,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public static int CompareManagedDeliveryNumber(Deliverer d1, Deliverer d2)
         {
-            return d1.ManagedDeliveryNumber.CompareTo(d2.ManagedDeliveryNumber);
+            return d2.ManagedDeliveryNumber.CompareTo(d1.ManagedDeliveryNumber);
         }
         #endregion
     }
