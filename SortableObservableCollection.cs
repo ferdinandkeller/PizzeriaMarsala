@@ -22,7 +22,6 @@ namespace PizzeriaMarsala
     public class SortableObservableCollection<T> : ObservableCollection<T>, IList<T> where T : class, IToCSV
     {
         #region Delegate
-
         /// <summary>
         /// Délégation : définition d'une comparaison entre deux éléments de type T
         /// </summary>
@@ -45,7 +44,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// Fonction de tri par insertion qui prend en entrée notre fonction de comparaison (delegate ComparaisonFunction)
         /// </summary>
@@ -64,7 +62,6 @@ namespace PizzeriaMarsala
                 this[j + 1] = val;
             }
         }
-
 
         /// <summary>
         /// Recherche un élément dans la liste 
@@ -102,37 +99,6 @@ namespace PizzeriaMarsala
         {
             return (s != null && s.Count != 0);
         }
-
-        /// <summary>
-        /// Enregitrement d'une instance dans un fichier .txt
-        /// </summary>
-        /// <param name="nomFichier">Le fichier de sauvegarde</param>
-        public void SaveInFileTXT(string nomFichier)
-        {
-            List<T> liste = this.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToString()));
-            }
-            sw.Close();
-        }
-
-        /// <summary>
-        /// Enregistrement d'une instance dans un fichier .csv
-        /// </summary>
-        /// <param name="nomFichier">Le fichier de sauvegarde</param>
-        public void SaveInFileCSV(string nomFichier)
-        {
-            List<T> liste = this.ToList();
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (liste != null && liste.Count != 0)
-            {
-                liste.ForEach(x => sw.WriteLine(x.ToCSV())); //Possible car T: class, IToCSV
-            }
-            sw.Close();
-        }
         #endregion
-
     }
 }

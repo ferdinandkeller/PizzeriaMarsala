@@ -17,12 +17,12 @@ using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
-    /*
-     * Classe représentant la fenêtre principale
-     */ 
+    /// <summary>
+    /// Classe représentant la fenêtre principale
+    /// </summary>
     public partial class MainWindow : Window
     {
-
+        #region Attributs
         // on conserve les instances des view afin de pouvoir switcher de l'une à l'autre
         private OrderView command_view;
         private CustomerView customer_view;
@@ -42,10 +42,12 @@ namespace PizzeriaMarsala
         public Order SelectedOrder;
 
         public bool isEditingOrder = true;
+        #endregion
 
-        /*
-        * Fonction principale du WPF
-        */
+        #region Constructeur
+        /// <summary>
+        /// Constructeur de la fenêtre principale
+        /// </summary>
         public MainWindow()
         {
             // on initialise les composants WPF
@@ -66,8 +68,10 @@ namespace PizzeriaMarsala
             // on charge la view qui contient la liste des commandes
             ViewFrame.Content = command_view;
         }
+        #endregion
 
-        // switch view functions
+        #region Méthodes
+        // Fonctions permettant de changer de view principales
         public void SwitchToOrderView() { ViewFrame.Content = command_view; }
         public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
         public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
@@ -75,6 +79,7 @@ namespace PizzeriaMarsala
         public void SwitchToStatisticsView() { statistics_view.UpdateUI(); ViewFrame.Content = statistics_view; }
         public void SwitchToBonusView() { ViewFrame.Content = bonus_view; }
 
+        // Fonctions permettant de changer de view secondaires
         public void SwitchToCreateCustomerView() { ViewFrame.Content = new CreateCustomerView(this); }
         public void SwitchToEditCustomerView(Customer customer) { ViewFrame.Content = new EditCustomerView(this, customer); }
 
@@ -84,6 +89,7 @@ namespace PizzeriaMarsala
         public void SwitchToCreateDelivererView() { ViewFrame.Content = new CreateDelivererView(this); }
         public void SwitchToEditDelivererView(Deliverer deliverer) { ViewFrame.Content = new EditDelivererView(this, deliverer); }
 
+        // Fonctions permettant de changer de view durant la création de la commande
         public void SwitchToSelectWorkerView() { isEditingOrder = false;  ViewFrame.Content = select_worker_view; }
         public void SwitchToSelectCustomerView() { ViewFrame.Content = select_customer_view; }
         public void SwitchToSelectDelivererView() { ViewFrame.Content = select_deliverer_view; }
@@ -99,5 +105,6 @@ namespace PizzeriaMarsala
         public void SwitchToCreateBeverageView() { ViewFrame.Content = new CreateBeverageView(this); }
         public void SwitchToEditBeverageView(Pair<Beverage, int> beverage_pair) { ViewFrame.Content = new EditBeverageView(this, beverage_pair); }
         public void SwitchToEditOrderView(Order order) { isEditingOrder = true; SelectedOrder = order; ViewFrame.Content = new EditOrderView(this, order); }
+        #endregion
     }
 }

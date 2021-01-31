@@ -10,16 +10,18 @@ namespace PizzeriaMarsala
 {
     /// <summary>
     /// Représente la pizzeria
-    ///  Elle n'est instanciée qu'une seule fois
-    ///  Toutes les actions effectuées à l'aide de l'interface graphique passent par elle(autrement dit c'est le centre de contrôle de l'application)
-    ///  Cette classe fait office de Main
+    /// Puisqu'elle n'est instanciée qu'une seule fois, et afin de simplifier le code, elle est définie comme statique
+    /// Toutes les actions effectuées à l'aide de l'interface graphique passent par elle
+    /// (autrement dit c'est le centre de contrôle de l'application)
     /// </summary>
     /// <attributs>
     /// Tous statiques car doivent être accessibles et modifiables du côté de l'interface graphique
+    /// 
     /// CommandList: liste des commandes de la pizzeria
     /// ClientsList : liste des clients
     /// WorkersList : liste des commis
     /// DeliverersList : liste des livreurs
+    /// 
     /// Ces listes sont directement affichées par l'interface,
     /// donc elle doivent être de type ObservableCollection pour qu'une modification de la liste mette à jour l'interface
     /// Nous avons de plus créé la class SortableObservableCollection afin de rajouter la méthode Sort
@@ -35,11 +37,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-        /*
-         * Toutes les méthodes sont statiques
-         * On veut pouvoir appeler toutes les méthodes pour interagir facilement avec l'interface graphique
-         */
-
         #region Méthodes de tri
         /*
          * Sur la liste de commandes (par identifiant, prix, urgence)
@@ -348,6 +345,5 @@ namespace PizzeriaMarsala
         }
         #endregion
         #endregion
-
     }
 }
