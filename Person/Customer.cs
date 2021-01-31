@@ -131,7 +131,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public static int CompareTotalOrders(Customer c1, Customer c2)
         {
-            return c1.OrdersTotalValue.CompareTo(c2.OrdersTotalValue);
+            return c2.OrdersTotalValue.CompareTo(c1.OrdersTotalValue);
         }
 
         #endregion

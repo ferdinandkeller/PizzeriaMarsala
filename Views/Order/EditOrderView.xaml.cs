@@ -32,32 +32,39 @@ namespace PizzeriaMarsala
             this.main_window = main_window;
             this.order = order;
 
-            if (order.Balance == BalanceState.ok)
-            {
-                order.CommandCustomer.OrdersTotalValue -= order.Price();
-            }
-
             AppTitle.Content = new AppTitleComponent();
         }
 
         private void CreatePizza(object sender, RoutedEventArgs e)
         {
-            main_window.SwitchToCreatePizzaView();
+            if (order.Balance != BalanceState.ok)
+            { 
+                main_window.SwitchToCreatePizzaView();
+            }
         }
 
         private void EditPizza(object sender, MouseButtonEventArgs e)
         {
-            main_window.SwitchToEditPizzaView((Pair<Pizza, int>)((Border)sender).Tag);
+            if (order.Balance != BalanceState.ok)
+            {
+                main_window.SwitchToEditPizzaView((Pair<Pizza, int>)((Border)sender).Tag);
+            }
         }
 
         private void CreateBeverage(object sender, RoutedEventArgs e)
         {
-            main_window.SwitchToCreateBeverageView();
+            if (order.Balance != BalanceState.ok)
+            {
+                main_window.SwitchToCreateBeverageView();
+            }
         }
 
         private void EditBeverage(object sender, MouseButtonEventArgs e)
         {
-            main_window.SwitchToEditBeverageView((Pair<Beverage, int>)((Border)sender).Tag);
+            if (order.Balance != BalanceState.ok)
+            {
+                main_window.SwitchToEditBeverageView((Pair<Beverage, int>)((Border)sender).Tag);
+            }
         }
 
         private void ChangeState(object sender, RoutedEventArgs e)
@@ -65,11 +72,11 @@ namespace PizzeriaMarsala
             if (order.State == OrderState.enpreparation) { order.State = OrderState.enlivraison; }
             else if (order.State == OrderState.enlivraison) {
                 order.State = OrderState.fermee;
-                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber++;
+                order.CommandDeliverer.ManagedDeliveryNumber++;
             }
             else if (order.State == OrderState.fermee) {
                 order.State = OrderState.enpreparation;
-                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber--;
+                order.CommandDeliverer.ManagedDeliveryNumber--;
             }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
@@ -77,8 +84,14 @@ namespace PizzeriaMarsala
 
         private void ChangeBalance(object sender, RoutedEventArgs e)
         {
-            if (order.Balance == BalanceState.enattente) { order.Balance = BalanceState.ok; }
-            else if (order.Balance == BalanceState.ok) { order.Balance = BalanceState.perdue; }
+            if (order.Balance == BalanceState.enattente) {
+                order.Balance = BalanceState.ok;
+                order.CommandCustomer.OrdersTotalValue += order.Price();
+            }
+            else if (order.Balance == BalanceState.ok) {
+                order.Balance = BalanceState.perdue;
+                order.CommandCustomer.OrdersTotalValue -= order.Price();
+            }
             else if (order.Balance == BalanceState.perdue) { order.Balance = BalanceState.enattente; }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
@@ -87,10 +100,8 @@ namespace PizzeriaMarsala
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
             main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
-            if (main_window.SelectedOrder.State == OrderState.fermee)
-            {
-                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber--;
-            }
+            if (main_window.SelectedOrder.State == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber--; }
+            if (main_window.SelectedOrder.Balance == BalanceState.ok) { order.CommandCustomer.OrdersTotalValue -= order.Price(); }
             Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
             main_window.SwitchToCommandView();
         }
@@ -98,10 +109,6 @@ namespace PizzeriaMarsala
         private void Exit(object sender, RoutedEventArgs e)
         {
             order.UpdatePrice();
-            if (order.Balance == BalanceState.ok)
-            {
-                main_window.SelectedOrder.CommandCustomer.OrdersTotalValue += order.Price();
-            }
             main_window.SwitchToCommandView();
         }
     }
