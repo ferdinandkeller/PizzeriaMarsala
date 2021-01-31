@@ -89,22 +89,6 @@ namespace PizzeriaMarsala
             State = OrderState.enpreparation; //automatiquement, la commande est passée en cuisie
             Balance = BalanceState.enattente; //la commande n'est pas encore payée
             CommandWorker.ManagedCommandNumber += 1; //Le commis a géré une commande de plus
-
-            PizzaList.CollectionChanged += (s, e) =>
-            {
-                Console.WriteLine("azdazd");
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("OrderPrice"));
-                }
-            };
-            PizzaList.CollectionChanged += (s, e) =>
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("OrderPrice"));
-                }
-            };
         }
 
         /// <summary>
@@ -133,6 +117,14 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
+
+        public void UpdatePrice()
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("OrderPrice"));
+            }
+        }
 
         /// <summary>
         /// Prix d'une commande

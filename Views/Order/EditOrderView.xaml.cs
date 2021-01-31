@@ -75,6 +75,7 @@ namespace PizzeriaMarsala
 
         private void Exit(object sender, RoutedEventArgs e)
         {
+            main_window.SelectedOrder.UpdatePrice();
             main_window.SwitchToCommandView();
         }
     }
