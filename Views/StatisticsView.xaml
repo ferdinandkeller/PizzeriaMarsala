@@ -8,17 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="StatisticsView">
     <Grid>
-        <!-- DEFINITION DU PRESENTEUR DE LISTE -->
         <Grid>
-            <!-- on créer deux sections : une pour le menu et une pour les commandes -->
+            <!-- on créer deux sections : une pour le menu et une pour les statistiques -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="150" />
                 <RowDefinition Height="10" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- section titre -->
             <Frame Name="AppTitle" Grid.Row="0" />
 
+            <!-- section statistiques -->
             <StackPanel Grid.Row="2" >
                 <Label Content="{Binding NumberOfOrdersForWorker}" />
                 <Label Content="{Binding AverageOrdersForWorker}" />

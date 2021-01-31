@@ -16,8 +16,12 @@ using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette vue affiche les statistiques
+    /// </summary>
     public partial class StatisticsView : Page, INotifyPropertyChanged
     {
+        #region Attributs
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string NumberOfOrdersForWorker
@@ -57,7 +61,13 @@ namespace PizzeriaMarsala
         {
             get => "Etat des effectifs :\n" + Pizzeria.TroopsState();
         }
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="main_window">Une référence à la fenêtre principale</param>
         public StatisticsView(MainWindow main_window)
         {
             // on initialise les composants
@@ -72,7 +82,12 @@ namespace PizzeriaMarsala
             // on charge la barre des menus
             MenuBar.Content = new ViewSwitcherComponent(main_window);
         }
+        #endregion
 
+        #region 
+        /// <summary>
+        /// Méthode exécutée lorsqu'il est nécessaire de recharger l'interface graphique
+        /// </summary>
         public void UpdateUI()
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NumberOfOrdersForWorker"));
@@ -80,5 +95,6 @@ namespace PizzeriaMarsala
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AverageOrderPrice"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TroopsState"));
         }
+        #endregion
     }
 }

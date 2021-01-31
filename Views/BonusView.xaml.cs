@@ -17,13 +17,21 @@ using Microsoft.Win32;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette vue affiche les bonus
+    /// </summary>
     public partial class BonusView : Page
     {
-
+        #region Attributs
         MainWindow main_window;
-
         public long BillOrderId { get; set; } = 0;
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="main_window">Une référence à la fenêtre principale</param>
         public BonusView(MainWindow main_window)
         {
             // on initialise les composants
@@ -41,7 +49,12 @@ namespace PizzeriaMarsala
             // on charge la barre des menus
             MenuBar.Content = new ViewSwitcherComponent(main_window);
         }
+        #endregion
 
+        #region Méthodes
+        /// <summary>
+        /// Méthode qui créée une facture
+        /// </summary>
         private void CreateBill(object sender, RoutedEventArgs e)
         {
             Order command = Pizzeria.FindOrder(BillOrderId);
@@ -55,6 +68,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode qui sauvegarde les clients
+        /// </summary>
         private void SaveCustomers(object sender, RoutedEventArgs e)
         {
             SaveFileDialog file_dialog = new SaveFileDialog();
@@ -64,6 +80,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode qui sauvegarde les commis
+        /// </summary>
         private void SaveWorkers(object sender, RoutedEventArgs e)
         {
             SaveFileDialog file_dialog = new SaveFileDialog();
@@ -73,6 +92,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode qui sauvegarde les livreurs
+        /// </summary>
         private void SaveDeliverers(object sender, RoutedEventArgs e)
         {
             SaveFileDialog file_dialog = new SaveFileDialog();
@@ -82,6 +104,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode qui sauvegarde les commandes
+        /// </summary>
         private void SaveOrders(object sender, RoutedEventArgs e)
         {
             SaveFileDialog file_dialog = new SaveFileDialog();
@@ -90,5 +115,6 @@ namespace PizzeriaMarsala
                 Pizzeria.SaveOrders(file_dialog.FileName);
             }
         }
+        #endregion
     }
 }
