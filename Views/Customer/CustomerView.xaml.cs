@@ -15,11 +15,20 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette vue permet d'afficher des clients
+    /// </summary>
     public partial class CustomerView : Page
     {
-
+        #region Attribut
         MainWindow main_window;
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="main_window">Une référence à la fenêtre principale</param>
         public CustomerView(MainWindow main_window)
         {
             // on initialise les composants
@@ -43,5 +52,6 @@ namespace PizzeriaMarsala
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.CustomersList;
         }
+        #endregion
     }
 }

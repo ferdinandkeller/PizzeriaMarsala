@@ -9,16 +9,16 @@
       Title="CreateDelivererView">
 
     <Grid>
-        <!-- on créer deux sections : une pour le menu et une pour les commandes -->
+        <!-- on créer deux sections : une pour le menu et une pour les livreurs -->
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <!-- section menu -->
+        <!-- section titre -->
         <Frame Name="AppTitle" Grid.Row="0" />
         
-        <!-- section création client -->
+        <!-- section création livreur -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBox Text="{Binding LastName}" />
             <TextBox Text="{Binding FirstName}" />

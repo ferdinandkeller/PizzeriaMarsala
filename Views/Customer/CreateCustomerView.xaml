@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <!-- section menu -->
+        <!-- section titre -->
         <Frame Name="AppTitle" Grid.Row="0" />
         
         <!-- section création client -->
