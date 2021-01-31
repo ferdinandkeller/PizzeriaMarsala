@@ -111,7 +111,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// Cette commande informe l'interface que le prix a changé
         /// </summary>

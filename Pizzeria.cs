@@ -28,7 +28,6 @@ namespace PizzeriaMarsala
     /// </attributs>
     public static class Pizzeria
     {
-
         #region Attributs
         public static SortableObservableCollection<Order> OrdersList { get; set; } = new SortableObservableCollection<Order>();
         public static SortableObservableCollection<Customer> CustomersList { get; set; } = new SortableObservableCollection<Customer>();

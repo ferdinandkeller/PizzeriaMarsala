@@ -40,7 +40,7 @@ namespace PizzeriaMarsala
             InitializeComponent();
 
             // On définit le contexte
-            DataContext = order;
+            this.DataContext = this;
 
             // On crééer le titre
             AppTitle.Content = new AppTitleComponent();
