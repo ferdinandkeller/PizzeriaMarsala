@@ -119,7 +119,7 @@ namespace PizzeriaMarsala
         /// key = Moyenne des dates de premiere commande de l'ensemble des clients
         /// value= Moyenne des montants cumulés des clients
         /// </returns>
-        public static SortedList<DateTime,double> MoyenneComptesClients()
+        public static SortedList<DateTime,double> AllClientsMean()
         {
             double res = 0;
             int annee = 0;
@@ -149,43 +149,43 @@ namespace PizzeriaMarsala
         /// <param name="nomFichier">Le fichier source</param>
 
         //Clients
-        public static void OuvrirFichierClient(string nomFichier)
+        public static void OpenClientFile(string nomFichier)
         {
-            List<Customer> liste = CreationListeClientsDepuisFichier(nomFichier);
+            List<Customer> liste = ClientsListFromFile(nomFichier);
             List<Customer> l2 = liste.FindAll(x => CustomersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x=>CustomersList.Add(x));
         }
 
         //Commis
-        public static void OuvrirFichierCommis(string nomFichier)
+        public static void OpenWorkerFile(string nomFichier)
         {
-            List<Worker> liste = CreationListeCommisDepuisFichier(nomFichier);
+            List<Worker> liste = WorkersListFromFile(nomFichier);
             List<Worker> l2 = liste.FindAll(x => WorkersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => WorkersList.Add(x));
         }
 
         //Livreurs
-        public static void OuvrirFichierLivreurs(string nomFichier)
+        public static void OpenDelivererFile(string nomFichier)
         {
-            List<Deliverer> liste = CreationListeLivreursDepuisFichier(nomFichier);
+            List<Deliverer> liste = DeliverersListFromFile(nomFichier);
             List<Deliverer> l2 = liste.FindAll(x => DeliverersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => DeliverersList.Add(x));
         }
 
         //Commandes
-        public static void OuvrirFichierCommandes(string nomFichier)
+        public static void OpenOrderFile(string nomFichier)
         {
-            List<Order> liste = CreationListeCommandesDepuisFichier(nomFichier);
+            List<Order> liste = OrdersListFromFile(nomFichier);
             List<Order> l2 = liste.FindAll(x => OrdersList.Contains(x));
             l2.ForEach(x => liste.Remove(x));
             liste.ForEach(x => OrdersList.Add(x));
         }
 
             #region Création d'une liste depuis un fichier
-        public static List<string> CreationListeDepuisFichier(string nomFichier)
+        public static List<string> ListFromFile(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
             List<string> liste = new List<string>();
@@ -197,7 +197,7 @@ namespace PizzeriaMarsala
             }
             return liste;
         }
-        public static List<Customer> CreationListeClientsDepuisFichier(string nomFichier)
+        public static List<Customer> ClientsListFromFile(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
             List<Customer> liste = new List<Customer>();
@@ -210,7 +210,7 @@ namespace PizzeriaMarsala
             return liste;
         }
 
-        public static List<Worker> CreationListeCommisDepuisFichier(string nomFichier)
+        public static List<Worker> WorkersListFromFile(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
             List<Worker> liste = new List<Worker>();
@@ -223,7 +223,7 @@ namespace PizzeriaMarsala
             return liste;
         }
 
-        public static List<Deliverer> CreationListeLivreursDepuisFichier(string nomFichier)
+        public static List<Deliverer> DeliverersListFromFile(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
             List<Deliverer> liste = new List<Deliverer>();
@@ -236,7 +236,7 @@ namespace PizzeriaMarsala
             return liste;
         }
 
-        public static List<Order> CreationListeCommandesDepuisFichier(string nomFichier)
+        public static List<Order> OrdersListFromFile(string nomFichier)
         {
             StreamReader sr = new StreamReader(nomFichier);
             List<Order> liste = new List<Order>();
@@ -305,7 +305,7 @@ namespace PizzeriaMarsala
         /// <param name="obj">L'élément de remplacement</param>
         public static void ModificationLigneFichier(string nomFichier, int index, object obj)
         {
-            List<string> l = CreationListeDepuisFichier(nomFichier);
+            List<string> l = ListFromFile(nomFichier);
             l.Insert(index, obj.ToString());
             StreamWriter sw = new StreamWriter(nomFichier);
             ModificationFichierDepuisListe(nomFichier, l);
