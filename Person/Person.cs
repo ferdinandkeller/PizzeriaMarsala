@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -19,13 +20,50 @@ namespace PizzeriaMarsala
     /// Address: adresse
     /// PhoneNumber: numéro de téléphone
     /// </attributs>
-    public abstract class Person: IToCSV
+    public abstract class Person: IToCSV, INotifyPropertyChanged
     {
         #region Attributs
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string Address { get; set; }
-        public long PhoneNumber { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        private string _LastName;
+        public string LastName {
+            get => _LastName;
+            set
+            {
+                _LastName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LastName"));
+            }
+        }
+        private string _FirstName;
+        public string FirstName
+        {
+            get => _FirstName;
+            set
+            {
+                _FirstName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FirstName"));
+            }
+        }
+        private string _Address;
+        public string Address
+        {
+            get => _Address;
+            set
+            {
+                _Address = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Address"));
+            }
+        }
+        private long _PhoneNumber;
+        public long PhoneNumber
+        {
+            get => _PhoneNumber;
+            set
+            {
+                _PhoneNumber = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PhoneNumber"));
+            }
+        }
         #endregion
 
         # region Constructeur
@@ -39,6 +77,10 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
+        public void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         /// <summary>
         /// Méthode ToString() pour une personne

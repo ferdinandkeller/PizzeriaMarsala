@@ -88,7 +88,6 @@ namespace PizzeriaMarsala
             CommandDeliverer = livreur;
             State = OrderState.enpreparation; //automatiquement, la commande est passée en cuisie
             Balance = BalanceState.enattente; //la commande n'est pas encore payée
-            CommandWorker.ManagedCommandNumber += 1; //Le commis a géré une commande de plus
         }
 
         /// <summary>

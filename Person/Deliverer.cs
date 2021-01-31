@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -18,9 +19,36 @@ namespace PizzeriaMarsala
     public class Deliverer : Person
     {
         #region Attributs
-        public DelivererState State { get; set; }
-        public string TransportType { get; set; }
-        public int ManagedDeliveryNumber { get; set; }
+        private DelivererState _State;
+        public DelivererState State
+        {
+            get => _State;
+            set
+            {
+                _State = value;
+                NotifyPropertyChanged("State");
+            }
+        }
+        private string _TransportType;
+        public string TransportType
+        {
+            get => _TransportType;
+            set
+            {
+                _TransportType = value;
+                NotifyPropertyChanged("TransportType");
+            }
+        }
+        public int _ManagedDeliveryNumber;
+        public int ManagedDeliveryNumber
+        {
+            get => _ManagedDeliveryNumber;
+            set
+            {
+                _ManagedDeliveryNumber = value;
+                NotifyPropertyChanged("ManagedDeliveryNumber");
+            }
+        }
         #endregion
 
         #region Constructeurs

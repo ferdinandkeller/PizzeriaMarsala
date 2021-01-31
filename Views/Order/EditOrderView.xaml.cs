@@ -32,6 +32,11 @@ namespace PizzeriaMarsala
             this.main_window = main_window;
             this.order = order;
 
+            if (order.Balance == BalanceState.ok)
+            {
+                order.CommandCustomer.OrdersTotalValue -= order.Price();
+            }
+
             AppTitle.Content = new AppTitleComponent();
         }
 
@@ -58,8 +63,14 @@ namespace PizzeriaMarsala
         private void ChangeState(object sender, RoutedEventArgs e)
         {
             if (order.State == OrderState.enpreparation) { order.State = OrderState.enlivraison; }
-            else if (order.State == OrderState.enlivraison) { order.State = OrderState.fermee; }
-            else if (order.State == OrderState.fermee) { order.State = OrderState.enpreparation; }
+            else if (order.State == OrderState.enlivraison) {
+                order.State = OrderState.fermee;
+                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber++;
+            }
+            else if (order.State == OrderState.fermee) {
+                order.State = OrderState.enpreparation;
+                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber--;
+            }
 
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
         }
@@ -73,9 +84,24 @@ namespace PizzeriaMarsala
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
         }
 
+        private void DeleteOrder(object sender, RoutedEventArgs e)
+        {
+            main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
+            if (main_window.SelectedOrder.State == OrderState.fermee)
+            {
+                main_window.SelectedOrder.CommandDeliverer.ManagedDeliveryNumber--;
+            }
+            Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
+            main_window.SwitchToCommandView();
+        }
+
         private void Exit(object sender, RoutedEventArgs e)
         {
-            main_window.SelectedOrder.UpdatePrice();
+            order.UpdatePrice();
+            if (order.Balance == BalanceState.ok)
+            {
+                main_window.SelectedOrder.CommandCustomer.OrdersTotalValue += order.Price();
+            }
             main_window.SwitchToCommandView();
         }
     }

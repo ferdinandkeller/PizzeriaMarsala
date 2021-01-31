@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -31,7 +32,7 @@ namespace PizzeriaMarsala
         private SelectWorkerView select_worker_view;
         private SelectCustomerView select_customer_view;
         private SelectDelivererView select_deliverer_view;
-        private CreateOrderView create_order_view;
+        public CreateOrderView create_order_view;
 
         public Worker SelectedWorker;
         public Customer SelectedCustomer;

@@ -127,7 +127,7 @@
 
                 <Button Grid.Column="0" Content="Ajouter une pizza" Click="CreatePizza" />
                 <Button Grid.Column="1" Content="Ajouter une boisson" Click="CreateBeverage" />
-                <Button Grid.Column="2" Content="Supprimer la commande" />
+                <Button Grid.Column="2" Content="Supprimer la commande" Click="DeleteOrder" />
                 <Button Grid.Column="3" Content="Finir" Click="Exit" />
             </Grid>
         </Grid>

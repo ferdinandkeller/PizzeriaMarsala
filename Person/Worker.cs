@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -18,14 +19,30 @@ namespace PizzeriaMarsala
     public class Worker : Person
     {
         #region Attributs
-        public WorkerState State { get; set; }
-        public DateTime HiringDate { get; set; }
-
-        public int ManagedCommandNumber { get; set; }
+        private WorkerState _State;
+        public WorkerState State
+        {
+            get => _State;
+            set
+            {
+                _State = value;
+                NotifyPropertyChanged("State");
+            }
+        }
+        public DateTime HiringDate { get; private set; }
+        private int _ManagedCommandNumber;
+        public int ManagedCommandNumber
+        {
+            get => _ManagedCommandNumber;
+            set
+            {
+                _ManagedCommandNumber = value;
+                NotifyPropertyChanged("ManagedCommandNumber");
+            }
+        }
         #endregion
 
         #region Constructeur
-
         /// <summary>
         /// Constructeur -> Création d'un commis
         /// </summary>
@@ -36,7 +53,7 @@ namespace PizzeriaMarsala
         {
             this.State = state;
             HiringDate = hiring_date;
-            ManagedCommandNumber = 0; //Le commis vient d'être embauché
+            ManagedCommandNumber = 0; // Le commis vient d'être embauché
         }
         #endregion
 

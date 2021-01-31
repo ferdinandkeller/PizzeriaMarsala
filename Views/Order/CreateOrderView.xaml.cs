@@ -63,6 +63,8 @@ namespace PizzeriaMarsala
             if (PizzaList.Count > 0)
             {
                 Pizzeria.OrdersList.Add(main_window.SelectedOrder);
+                main_window.SelectedOrder.CommandWorker.ManagedCommandNumber++;
+                main_window.create_order_view = null;
             }
             main_window.SwitchToCommandView();
         }

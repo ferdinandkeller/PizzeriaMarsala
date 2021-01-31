@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -22,7 +23,16 @@ namespace PizzeriaMarsala
         #region Attributs
         public long CustomerID { get; set; }
         public DateTime FirstOrderDate { get; private set; }
-        public double OrdersTotalValue { get; set; }
+        private double _OrdersTotalValue;
+        public double OrdersTotalValue
+        {
+            get => _OrdersTotalValue;
+            set
+            {
+                _OrdersTotalValue = value;
+                NotifyPropertyChanged("OrdersTotalValue");
+            }
+        }
         static long CustomerIDMax { get; set; } = 0;
         #endregion
 
