@@ -51,11 +51,11 @@ namespace PizzeriaMarsala
         }
         public string AverageOrderPrice
         {
-            get => "Prix moyen d'une commande : " + Pizzeria.AllOrdersMean();
+            get => "Prix moyen d'une commande : " + Pizzeria.AverageOrderPrice();
         }
         public string TroopsState
         {
-            get => Pizzeria.TroopsState();
+            get => "Etat des effectifs :\n" + Pizzeria.TroopsState();
         }
 
         public StatisticsView(MainWindow main_window)

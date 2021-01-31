@@ -33,7 +33,7 @@ namespace PizzeriaMarsala
             // on créer le content presenter
             ListContentPresenterComponent presenter = new ListContentPresenterComponent(
                 Pizzeria.SortOrdersByID, Pizzeria.SortOrdersByPrices, Pizzeria.SortOrdersByUrgency,
-                main_window.SwitchToSelectWorkerView, Console.WriteLine,
+                main_window.SwitchToSelectWorkerView, Pizzeria.AddFileToOrderList,
                 "OrderDataTemplate",
                 "PAR ID", "PAR PRIX", "PAR PRIORITE", (o) => { main_window.SwitchToEditOrderView((Order)o); }
             );

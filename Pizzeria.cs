@@ -99,7 +99,7 @@ namespace PizzeriaMarsala
         /// Moyenne des prix de toutes les commandes faites dans la pizzéria
         /// </summary>
         /// <returns>La moyenne cherchée (prix en euros)</returns>
-        public static double AllOrdersMean()
+        public static double AverageOrderPrice()
         {
             double res = 0;
             int count = 0;
@@ -115,7 +115,7 @@ namespace PizzeriaMarsala
             {
                 res /= count;
             }
-            return res;
+            return (double)((int)(res*100))/100;
         }
 
         /// <summary>
@@ -146,30 +146,25 @@ namespace PizzeriaMarsala
 
         #region Ouverture de fichiers et ajout aux listes automatique
         /// <summary>
-        /// On ajoute le contenu d'un fichier à la liste
-        /// On ajoute seulement les éléments qui ne sont pas déjà présents dans la liste
+        /// Cette fonction permet d'ajouter une liste de commandes depuis un fichier CSV
+        /// dans la liste des commandes, tout en évitant les doublons
         /// </summary>
-        /// <param name="nomFichier">Le fichier source</param>
-        public static void OuvrirFichierCommandes(string nomFichier)
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void AddFileToOrderList(string file_name)
         {
-            List<Order> liste = OrdersListFromFile(nomFichier);
-            List<Order> l2 = liste.FindAll(x => OrdersList.Contains(x));
-            l2.ForEach(x => liste.Remove(x));
-            liste.ForEach(x => OrdersList.Add(x));
-        }
-
-        #region Création d'une liste depuis un fichier
-        public static List<string> ListFromFile(string nomFichier)
-        {
-            StreamReader sr = new StreamReader(nomFichier);
-            List<string> liste = new List<string>();
-            string ligne = "";
-            while (sr.Peek() > 0)
+            StreamReader stream_reader = new StreamReader(file_name);
+            while (stream_reader.Peek() > 0)
             {
-                ligne = sr.ReadLine();
-                liste.Add(ligne);
+                string order_as_string = stream_reader.ReadLine();
+                Order order = Order.CSVToOrder(order_as_string);
+                if (FindOrder(order.OrderID) == null)
+                {
+                    OrdersList.Add(order);
+                    order.CommandWorker.ManagedCommandNumber++;
+                    if (order.Balance == BalanceState.ok) { order.CommandCustomer.OrdersTotalValue += order.Price(); }
+                    if (order.CurrentOrderState == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber++; }
+                }
             }
-            return liste;
         }
 
         /// <summary>
@@ -225,34 +220,6 @@ namespace PizzeriaMarsala
                 }
             }
         }
-
-        public static List<Deliverer> DeliverersListFromFile(string nomFichier)
-        {
-            StreamReader sr = new StreamReader(nomFichier);
-            List<Deliverer> liste = new List<Deliverer>();
-            string ligne = "";
-            while (sr.Peek() > 0)
-            {
-                ligne = sr.ReadLine();
-                liste.Add(Deliverer.CSVToDeliverer(ligne));
-            }
-            return liste;
-        }
-
-        public static List<Order> OrdersListFromFile(string nomFichier)
-        {
-            StreamReader sr = new StreamReader(nomFichier);
-            List<Order> liste = new List<Order>();
-            string ligne = "";
-            while (sr.Peek() > 0)
-            {
-                ligne = sr.ReadLine();
-                liste.Add(Order.FromCSV(ligne));
-            }
-            return liste;
-        }
-        #endregion
-
         #endregion
 
         /* bordel

@@ -67,7 +67,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// ToString() de la classe fille en utilisant celle de la classe mère
         /// </summary>

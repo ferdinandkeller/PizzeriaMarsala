@@ -15,7 +15,7 @@ namespace PizzeriaMarsala
     /// Type: le type de la pizza (cf PizzaType)
     /// Size: la taille de la pizza (Petite,Moyenne,Grande)
     /// </attributs>
-    public class Pizza : Product
+    public class Pizza : Product, INotifyPropertyChanged
     {
         #region Attributs
         public event PropertyChangedEventHandler PropertyChanged;

@@ -78,7 +78,7 @@ namespace PizzeriaMarsala
             CommandCustomer = customer;
             CommandWorker = worker;
             CommandDeliverer = deliverer;
-            CurrentOrderState = OrderState.enpreparation; //automatiquement, la commande est passée en cuisie
+            CurrentOrderState = OrderState.enpreparation; //automatiquement, la commande est passée en cuisine
             Balance = BalanceState.enattente; //la commande n'est pas encore payée
         }
 
@@ -90,8 +90,9 @@ namespace PizzeriaMarsala
         /// <param name="customer_phone_number">Numéro de téléphone du client</param>
         /// <param name="worker_name">Nom du commis</param>
         /// <param name="deliverer_name">Nom du livreur</param>
+        /// <param name="order_state">L'état de la commande</param>
         /// <param name="solde">Etat du solde</param>
-        public Order(long order_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string solde)
+        public Order(long order_id, DateTime date, long customer_phone_number, string worker_name, string deliverer_name, string order_state, string solde)
             : this(Pizzeria.FindCustomer(customer_phone_number), Pizzeria.FindWorker(worker_name), Pizzeria.FindDeliverer(deliverer_name))
         {
             Date = date;
@@ -100,12 +101,12 @@ namespace PizzeriaMarsala
             {
                 OrderIDMax = OrderID; //On actualise l'identifiant max
             }
+            CurrentOrderState = (OrderState)Enum.Parse(typeof(OrderState), order_state);
             Balance = (BalanceState)Enum.Parse(typeof(BalanceState), solde); //on récupère le solde donné dans le fichier en effectuant une conversion
         }
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// Cette commande informe l'interface que le prix a changé
         /// </summary>
@@ -139,10 +140,6 @@ namespace PizzeriaMarsala
             // on renvoie le prix
             return price;
         }
-
-        /*
-         * Fonctions qui changent l'état de la commande et des personnes associées
-         */
 
         /// <summary>
         /// Lorsqu'une commande part en livraison
@@ -218,12 +215,33 @@ namespace PizzeriaMarsala
         /// <returns>
         /// La commande correspondante
         /// </returns>
-        public static Order FromCSV(string commande)
+        public static Order CSVToOrder(string commande)
         {
             String[] infos = commande.Split(';');
-            DateTime DateCommande = Convert.ToDateTime(infos[2]);
-            DateCommande += new TimeSpan(int.Parse(infos[1].Substring(0, infos[1].Length - 1)), 0, 0);
-            return new Order(long.Parse(infos[0]), DateCommande, long.Parse(infos[3]), infos[4], infos[5], infos[6]);
+            Order order = new Order(long.Parse(infos[0]), DateTime.Parse(infos[1]), long.Parse(infos[2]), infos[3], infos[4], infos[5], infos[6]);
+            // on compte le nombre de pizzas
+            int length = int.Parse(infos[7]);
+            // on ajouter les pizzas
+            for (int i = 8; i < 8 + length * 3; i += 3)
+            {
+                order.PizzaList.Add(new Pair<Pizza, int>(
+                    new Pizza(
+                        (PizzaType)Enum.Parse(typeof(PizzaType), infos[i]),
+                        (PizzaSize)Enum.Parse(typeof(PizzaSize), infos[i + 1])
+                    ),
+                    int.Parse(infos[i + 2])));
+            }
+            // on ajoute les boissons
+            for (int i = 8 + length * 3; i < infos.Length; i += 3)
+            {
+                order.BeverageList.Add(new Pair<Beverage, int>(
+                    new Beverage(
+                        (BeverageType)Enum.Parse(typeof(BeverageType), infos[i]),
+                        int.Parse(infos[i + 1])
+                    ),
+                    int.Parse(infos[i + 2])));
+            }
+            return order;
         }
 
         /// <summary>
@@ -276,7 +294,6 @@ namespace PizzeriaMarsala
         ///     Les méthodes ToCSV et ToString de Commande n'affichent pas les éléments d'une commande détaillée
         /// </summary>
         #region Enregistrement Facture dans fichiers
-
         #region Méthodes ToString() et ToCSV() adaptées
         public string DetailCommandeToString()
         {
@@ -331,7 +348,6 @@ namespace PizzeriaMarsala
             sw.WriteLine(DetailCommandeToCSV());
             sw.Close();
         }
-
         #endregion
 
         #endregion
