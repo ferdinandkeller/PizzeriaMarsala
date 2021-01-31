@@ -98,7 +98,7 @@ namespace PizzeriaMarsala
         /// </summary>
         /// <param name="s">l'instance</param>
         /// <returns>true (non null & non vide) ou false</returns>
-        public static bool NonVide(SortableObservableCollection<T> s)
+        public static bool NotEmpty(SortableObservableCollection<T> s)
         {
             return (s != null && s.Count != 0);
         }
@@ -107,7 +107,7 @@ namespace PizzeriaMarsala
         /// Enregitrement d'une instance dans un fichier .txt
         /// </summary>
         /// <param name="nomFichier">Le fichier de sauvegarde</param>
-        public void EnregistrerDansFichierTXT(string nomFichier)
+        public void SaveInFileTXT(string nomFichier)
         {
             List<T> liste = this.ToList();
             StreamWriter sw = new StreamWriter(nomFichier);
@@ -122,7 +122,7 @@ namespace PizzeriaMarsala
         /// Enregistrement d'une instance dans un fichier .csv
         /// </summary>
         /// <param name="nomFichier">Le fichier de sauvegarde</param>
-        public void EnregistrerDansFichierCSV(string nomFichier)
+        public void SaveInFileCSV(string nomFichier)
         {
             List<T> liste = this.ToList();
             StreamWriter sw = new StreamWriter(nomFichier);
