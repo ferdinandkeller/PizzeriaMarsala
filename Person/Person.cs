@@ -8,7 +8,6 @@ using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
-    
     /// <summary>
     /// Cette classe est abstraite, l'objet Personne n'étant pas utilisé dans l'exercice
     /// On implémente l'interface IEquatable afin de vérifier si deux personnes sont les même

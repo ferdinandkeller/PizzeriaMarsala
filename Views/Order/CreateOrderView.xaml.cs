@@ -67,6 +67,7 @@ namespace PizzeriaMarsala
                 main_window.create_order_view = null;
             }
             main_window.isEditingOrder = true;
+            main_window.statistics_view.UpdateUI();
             main_window.SwitchToCommandView();
         }
     }

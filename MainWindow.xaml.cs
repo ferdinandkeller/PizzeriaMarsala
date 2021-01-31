@@ -28,6 +28,7 @@ namespace PizzeriaMarsala
         private CustomerView customer_view;
         private WorkerView worker_view;
         private DelivererView deliverer_view;
+        public StatisticsView statistics_view;
 
         private SelectWorkerView select_worker_view;
         private SelectCustomerView select_customer_view;
@@ -54,6 +55,7 @@ namespace PizzeriaMarsala
             customer_view = new CustomerView(this);
             worker_view = new WorkerView(this);
             deliverer_view = new DelivererView(this);
+            statistics_view = new StatisticsView(this);
 
             select_worker_view = new SelectWorkerView(this);
             select_customer_view = new SelectCustomerView(this);
@@ -68,6 +70,7 @@ namespace PizzeriaMarsala
         public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
         public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
         public void SwitchToDelivererView() { ViewFrame.Content = deliverer_view; }
+        public void SwitchToStatisticsView() { ViewFrame.Content = statistics_view; }
 
         public void SwitchToCreateCustomerView() { ViewFrame.Content = new CreateCustomerView(this); }
         public void SwitchToEditCustomerView(Customer customer) { ViewFrame.Content = new EditCustomerView(this, customer); }

@@ -9,7 +9,8 @@ using System.ComponentModel;
 namespace PizzeriaMarsala
 {
     /// <summary>
-    /// Classe boisson, une boisson est un produit
+    /// Définition de la classe boisson
+    /// (une boisson est un produit)
     /// </summary>
     /// <attributs>
     /// Type: type de boisson (cf enum BeverageType)
@@ -62,7 +63,6 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
-
         /// <summary>
         /// ToString()
         /// </summary>

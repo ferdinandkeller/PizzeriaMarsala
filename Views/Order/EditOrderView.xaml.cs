@@ -69,13 +69,13 @@ namespace PizzeriaMarsala
 
         private void ChangeState(object sender, RoutedEventArgs e)
         {
-            if (order.State == OrderState.enpreparation) { order.State = OrderState.enlivraison; }
-            else if (order.State == OrderState.enlivraison) {
-                order.State = OrderState.fermee;
+            if (order.CurrentOrderState == OrderState.enpreparation) { order.CurrentOrderState = OrderState.enlivraison; }
+            else if (order.CurrentOrderState == OrderState.enlivraison) {
+                order.CurrentOrderState = OrderState.fermee;
                 order.CommandDeliverer.ManagedDeliveryNumber++;
             }
-            else if (order.State == OrderState.fermee) {
-                order.State = OrderState.enpreparation;
+            else if (order.CurrentOrderState == OrderState.fermee) {
+                order.CurrentOrderState = OrderState.enpreparation;
                 order.CommandDeliverer.ManagedDeliveryNumber--;
             }
 
@@ -100,16 +100,21 @@ namespace PizzeriaMarsala
         private void DeleteOrder(object sender, RoutedEventArgs e)
         {
             main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
-            if (main_window.SelectedOrder.State == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber--; }
+            if (main_window.SelectedOrder.CurrentOrderState == OrderState.fermee) { order.CommandDeliverer.ManagedDeliveryNumber--; }
             if (main_window.SelectedOrder.Balance == BalanceState.ok) { order.CommandCustomer.OrdersTotalValue -= order.Price(); }
             Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
+            main_window.statistics_view.UpdateUI();
             main_window.SwitchToCommandView();
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
-            order.UpdatePrice();
-            main_window.SwitchToCommandView();
+            if (order.PizzaList.Count > 0)
+            {
+                order.UpdatePrice();
+                main_window.statistics_view.UpdateUI();
+                main_window.SwitchToCommandView();
+            }
         }
     }
 }

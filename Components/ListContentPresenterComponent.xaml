@@ -32,8 +32,9 @@
                     <Label Content="{Binding OrderID}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding CommandCustomer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding CommandWorker.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CommandDeliverer.LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding OrderPrice}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CurrentOrderState}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding Balance}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
             </Border>
@@ -85,7 +86,7 @@
                     <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding PhoneNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CurrentWorkerState}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding HiringDate}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding ManagedCommandNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>
@@ -112,7 +113,7 @@
                     <Label Content="{Binding LastName}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding PhoneNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <Label Content="{Binding State}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <Label Content="{Binding CurrentDelivererState}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding ManagedDeliveryNumber}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <Label Content="{Binding TransportType}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 </StackPanel>

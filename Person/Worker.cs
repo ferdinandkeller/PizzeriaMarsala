@@ -19,13 +19,13 @@ namespace PizzeriaMarsala
     public class Worker : Person
     {
         #region Attributs
-        private WorkerState _State;
-        public WorkerState State
+        private WorkerState _CurrentWorkerState;
+        public WorkerState CurrentWorkerState
         {
-            get => _State;
+            get => _CurrentWorkerState;
             set
             {
-                _State = value;
+                _CurrentWorkerState = value;
                 NotifyPropertyChanged("State");
             }
         }
@@ -51,7 +51,7 @@ namespace PizzeriaMarsala
         public Worker(string last_name, string first_name, string address, long phone_number, WorkerState state, DateTime hiring_date)
             : base(last_name, first_name, address, phone_number)
         {
-            this.State = state;
+            this.CurrentWorkerState = state;
             HiringDate = hiring_date;
             ManagedCommandNumber = 0; // Le commis vient d'être embauché
         }
@@ -67,7 +67,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToString()
         {
-            return base.ToString() + $"\nPresence : {nameof(State)} | Date d'embauche : {HiringDate.ToShortDateString()}";
+            return base.ToString() + $"\nPresence : {nameof(CurrentWorkerState)} | Date d'embauche : {HiringDate.ToShortDateString()}";
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToCSV()
         {
-            return base.ToCSV() + $";{State};{HiringDate.ToShortDateString()}";
+            return base.ToCSV() + $";{CurrentWorkerState};{HiringDate.ToShortDateString()}";
         }
 
         /// <summary>

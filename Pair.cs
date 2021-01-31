@@ -25,37 +25,25 @@ namespace PizzeriaMarsala
     public class Pair<T, U> : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private T _Key;
-        private U _Value;
 
-        /// <summary>
-        /// La clé
-        /// </summary>
+        private T _Key;
         public T Key
         {
             get => _Key;
             set
             {
                 _Key = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Key"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Key"));
             }
         }
-        /// <summary>
-        /// La valeur
-        /// </summary>
+        private U _Value;
         public U Value
         {
             get => _Value;
             set
             {
                 _Value = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Value"));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Value"));
             }
         }
 
@@ -66,8 +54,8 @@ namespace PizzeriaMarsala
         /// <param name="value">La valeur de la paire</param>
         public Pair(T key, U value)
         {
-            _Key = key;
-            _Value = value;
+            Key = key;
+            Value = value;
         }
     }
 

@@ -111,7 +111,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="{Binding order.State}" />
+                <Label Grid.Column="0" Content="{Binding order.CurrentOrderState}" />
                 <Label Grid.Column="1" Content="{Binding order.Balance}" />
                 <Button Grid.Column="2" Content="Changer l'état" Click="ChangeState" />
                 <Button Grid.Column="3" Content="Changer le solde" Click="ChangeBalance" />

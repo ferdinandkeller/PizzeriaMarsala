@@ -19,13 +19,13 @@ namespace PizzeriaMarsala
     public class Deliverer : Person
     {
         #region Attributs
-        private DelivererState _State;
-        public DelivererState State
+        private DelivererState _CurrentDelivererState;
+        public DelivererState CurrentDelivererState
         {
-            get => _State;
+            get => _CurrentDelivererState;
             set
             {
-                _State = value;
+                _CurrentDelivererState = value;
                 NotifyPropertyChanged("State");
             }
         }
@@ -61,7 +61,7 @@ namespace PizzeriaMarsala
         public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type)
             : base(last_name, first_name, address, phone_number)
         {
-            State = state;
+            CurrentDelivererState = state;
             TransportType = Transport_type;
             ManagedDeliveryNumber = 0; //Le livreur vient d'être embauché, il n'a encore livré aucune commande
         }
@@ -75,7 +75,7 @@ namespace PizzeriaMarsala
         public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type, int managed_delivery_number)
             : base(last_name, first_name, address, phone_number)
         {
-            State = state;
+            CurrentDelivererState = state;
             TransportType = Transport_type;
             ManagedDeliveryNumber = managed_delivery_number;
         }
@@ -92,7 +92,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToString()
         {
-            return base.ToString() + $"\nEtat du livreur : {State} | Type de véhicule : {TransportType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
+            return base.ToString() + $"\nEtat du livreur : {CurrentDelivererState} | Type de véhicule : {TransportType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override String ToCSV()
         {
-            return base.ToCSV() + $";{State};{TransportType}";
+            return base.ToCSV() + $";{CurrentDelivererState};{TransportType}";
         }
 
         /// <summary>

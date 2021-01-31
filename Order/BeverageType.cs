@@ -15,7 +15,7 @@ namespace PizzeriaMarsala
     {
         Coca = 120,
         JusOrange = 250,
-        JusDePomme = 200,
+        JusPomme = 200,
         EauPlate = 10,
         Perrier = 63,
         Schwepps = 185

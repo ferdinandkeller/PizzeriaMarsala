@@ -35,6 +35,7 @@
             <Label Content="CLIENTS" MouseLeftButtonUp="SwitchToClientPanel" />
             <Label Content="COMMIS" MouseLeftButtonUp="SwitchToWorkerPanel" />
             <Label Content="LIVREURS" MouseLeftButtonUp="SwitchToDelivererPanel" />
+            <Label Content="STATS" MouseLeftButtonUp="SwitchToStatisticsPanel" />
         </StackPanel>
     </Grid>
 </Page>

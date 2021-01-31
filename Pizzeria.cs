@@ -569,11 +569,11 @@ namespace PizzeriaMarsala
             List<Deliverer> ll = DeliverersList.ToList();
             if (lc!=null && lc.Count!=0)
             {
-                lc.ForEach(x => s += x.LastName + ";" + x.State.ToString() + "\n");
+                lc.ForEach(x => s += x.LastName + ";" + x.CurrentWorkerState.ToString() + "\n");
             }
             if (ll != null && ll.Count != 0)
             {
-                ll.ForEach(x => s += x.LastName + ";" + x.State.ToString() + "\n");
+                ll.ForEach(x => s += x.LastName + ";" + x.CurrentDelivererState.ToString() + "\n");
             }
             return s;
         }
