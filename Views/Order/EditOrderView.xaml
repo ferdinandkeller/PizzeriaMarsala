@@ -14,10 +14,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- section menu -->
+        <!-- section titre -->
         <Frame Name="AppTitle" Grid.Row="0" />
 
-        <!-- section création client -->
+        <!-- section édition commande -->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -127,8 +127,8 @@
 
                 <Button Grid.Column="0" Content="Ajouter une pizza" Click="CreatePizza" />
                 <Button Grid.Column="1" Content="Ajouter une boisson" Click="CreateBeverage" />
-                <Button Grid.Column="2" Content="Supprimer la commande" Click="DeleteOrder" />
-                <Button Grid.Column="3" Content="Finir" Click="Exit" />
+                <Button Grid.Column="2" Content="Supprimer la commande" Click="DeleteElement" />
+                <Button Grid.Column="3" Content="Finir" Click="EndEdition" />
             </Grid>
         </Grid>
     </Grid>

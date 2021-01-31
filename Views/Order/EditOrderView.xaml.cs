@@ -16,25 +16,45 @@ using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette vue permet d'éditer des commandes
+    /// </summary>
     public partial class EditOrderView : Page, INotifyPropertyChanged
     {
+        #region Attributs
         public event PropertyChangedEventHandler PropertyChanged;
 
         private MainWindow main_window;
         public Order order { get; set; }
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="main_window">Une référence à la fenêtre principale</param>
+        /// <param name="order">La commande à modifier</param>
         public EditOrderView(MainWindow main_window, Order order)
         {
+            // On initialise les composants
             InitializeComponent();
 
-            this.DataContext = this;
+            // On définit le contexte
+            DataContext = order;
 
+            // On crééer le titre
+            AppTitle.Content = new AppTitleComponent();
+
+            // On sauvegarde la fenêtre principale et le client
             this.main_window = main_window;
             this.order = order;
-
-            AppTitle.Content = new AppTitleComponent();
         }
+        #endregion
 
+        #region Méthodes
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut créér une pizza
+        /// </summary>
         private void CreatePizza(object sender, RoutedEventArgs e)
         {
             if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
@@ -43,6 +63,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut modifier une pizza
+        /// </summary>
         private void EditPizza(object sender, MouseButtonEventArgs e)
         {
             if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
@@ -51,6 +74,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut créér une boisson
+        /// </summary>
         private void CreateBeverage(object sender, RoutedEventArgs e)
         {
             if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
@@ -59,6 +85,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut modifier une boisson
+        /// </summary>
         private void EditBeverage(object sender, MouseButtonEventArgs e)
         {
             if (order.Balance != BalanceState.OK && order.CurrentOrderState == OrderState.EnPreparation)
@@ -67,6 +96,9 @@ namespace PizzeriaMarsala
             }
         }
 
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut modifier l'état de la commande
+        /// </summary>
         private void ChangeState(object sender, RoutedEventArgs e)
         {
             if (order.CurrentOrderState == OrderState.EnPreparation)
@@ -80,6 +112,9 @@ namespace PizzeriaMarsala
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
         }
 
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur veut modifier le solde
+        /// </summary>
         private void ChangeBalance(object sender, RoutedEventArgs e)
         {
             if (order.Balance == BalanceState.EnAttente) 
@@ -100,7 +135,22 @@ namespace PizzeriaMarsala
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs("order")); }
         }
 
-        private void DeleteOrder(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Méthode executée lorsque l'utilisateur a terminé de modifier la commande
+        /// </summary>
+        private void EndEdition(object sender, RoutedEventArgs e)
+        {
+            if (order.PizzaList.Count > 0)
+            {
+                order.UpdatePrice();
+                main_window.SwitchToOrderView();
+            }
+        }
+
+        /// <summary>
+        /// Méthode exécutée lorsque l'utilisateur veut supprimer la commande
+        /// </summary>
+        private void DeleteElement(object sender, RoutedEventArgs e)
         {
             main_window.SelectedOrder.CommandWorker.ManagedCommandNumber--;
             if (main_window.SelectedOrder.CurrentOrderState == OrderState.Fermee)
@@ -114,14 +164,6 @@ namespace PizzeriaMarsala
             Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
             main_window.SwitchToOrderView();
         }
-
-        private void Exit(object sender, RoutedEventArgs e)
-        {
-            if (order.PizzaList.Count > 0)
-            {
-                order.UpdatePrice();
-                main_window.SwitchToOrderView();
-            }
-        }
+        #endregion
     }
 }

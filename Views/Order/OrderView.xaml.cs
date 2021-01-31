@@ -15,10 +15,20 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette vue permet d'afficher des commandes
+    /// </summary>
     public partial class OrderView : Page
     {
+        #region Attributs
         MainWindow main_window;
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="main_window">Référence à la fenêtre principale</param>
         public OrderView(MainWindow main_window)
         {
             // on initialise les composants
@@ -42,5 +52,6 @@ namespace PizzeriaMarsala
             ListContentPresenter.Content = presenter;
             presenter.ItemsControlList.DataContext = Pizzeria.OrdersList;
         }
+        #endregion
     }
 }

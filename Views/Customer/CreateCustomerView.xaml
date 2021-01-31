@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateCustomerView">
     <Grid>
-        <!-- on créer deux sections : une pour le menu et une pour les clients -->
+        <!-- on créer deux sections : une pour le menu et une pour le client -->
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
