@@ -10,8 +10,7 @@ namespace PizzeriaMarsala
 {
     /// <summary>
     /// Cette classe est abstraite, l'objet Personne n'étant pas utilisé dans l'exercice
-    /// On implémente l'interface IEquatable afin de vérifier si deux personnes sont les même
-    /// On implémente l'interface IComparable afin de pouvoir trier un tableau de personne par ordre alphabétique
+    /// On implémente l'interface IToCSV car on peut convertir une personne en CSV
     /// </summary>
     /// <attributs>
     /// LastName : nom de famille
@@ -66,6 +65,13 @@ namespace PizzeriaMarsala
         #endregion
 
         # region Constructeur
+        /// <summary>
+        /// Constructeur principal
+        /// </summary>
+        /// <param name="last_name">Le nom de la personne</param>
+        /// <param name="fist_name">Le prénom de la personne</param>
+        /// <param name="address">L'adresse de la personne</param>
+        /// <param name="phone_number">Le numéro de téléphone de la personne</param>
         public Person(string last_name, string fist_name, string address, long phone_number)
         {
             LastName = last_name;
@@ -76,6 +82,10 @@ namespace PizzeriaMarsala
         #endregion
 
         #region Méthodes
+        /// <summary>
+        /// Cette fonction permet aux classes filles d'utiliser l'interface INotifyPropertyChanged
+        /// </summary>
+        /// <param name="propertyName">Le nom de la propriété</param>
         public void NotifyPropertyChanged(String propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -92,35 +102,38 @@ namespace PizzeriaMarsala
             return $"{LastName} {FirstName} [{PhoneNumber}] : {Address}";
         }
 
+        #region Méthode CSV
         /// <summary>
         /// Méthode ToCSV() pour une personne
         /// </summary>
         /// <returns>
-        /// NomDeFamille;Prénom;Adresse;NuméroDeTéléphone
+        /// La personne au format CSV
         /// </returns>
         public virtual string ToCSV()
         {
             return $"{LastName};{FirstName};{Address};{PhoneNumber}";
         }
+        #endregion
 
+        #region Méthodes de comparaison
         /// <summary>
         /// Comparaison de deux personnes
         /// Par nom croisant puis prénom si les noms sont égaux
         /// On utilise la méthode CompareTo() sur les string
         /// </summary>
-        /// <param name="p1">Première personne</param>
-        /// <param name="p2">Deuxième personne</param>
+        /// <param name="person1">Première personne</param>
+        /// <param name="person2">Deuxième personne</param>
         /// <returns>
         /// -1 si la personne 1 doit être rangée avant la personne 2
         /// 0 si les deux personnes ont le même nom et le même prénom
         /// 1 si la personne 1 doit être rangée après la personne 2
         /// </returns>
-        public static int CompareName(Person p1, Person p2)
+        public static int CompareName(Person person1, Person person2)
         {
-            int comparison = p1.LastName.CompareTo(p2.LastName);
+            int comparison = person1.LastName.CompareTo(person2.LastName);
             if (comparison == 0)
             {
-                comparison = p1.FirstName.CompareTo(p2.FirstName);
+                comparison = person1.FirstName.CompareTo(person2.FirstName);
             }
             return comparison;
         }
@@ -131,18 +144,17 @@ namespace PizzeriaMarsala
         /// Si la ville est la même, on compare le nom de la rue
         /// Si le nom est le même, on compare le numéro
         /// </summary>
-        /// <param name="p1">Première personne</param>
-        /// <param name="p2">Deuxième personne</param>
+        /// <param name="person1">Première personne</param>
+        /// <param name="person2">Deuxième personne</param>
         /// <returns>
         /// -1 si la personne 1 doit être rangée avant la personne 2
         /// 0 si les deux personnes ont le même nom et le même prénom
         /// 1 si la personne 1 doit être rangée après la personne 2
         /// </returns>
-
-        public static int CompareTown(Person p1, Person p2)
+        public static int CompareTown(Person person1, Person person2)
         {
-            string[] a1 = p1.Address.Split(' ');
-            string[] a2 = p2.Address.Split(' ');
+            string[] a1 = person1.Address.Split(' ');
+            string[] a2 = person2.Address.Split(' ');
             int comparison = a1[a1.Length - 1].CompareTo(a2[a2.Length - 1]);
             if (comparison == 0)
             {
@@ -154,6 +166,7 @@ namespace PizzeriaMarsala
             }
             return comparison;
         }
+        #endregion
         #endregion
     }
 }

@@ -12,8 +12,8 @@ namespace PizzeriaMarsala
     /// Elle hérite de Personne car tout livreur est une personne
     /// </summary>
     /// <attributs>
-    /// State : l'état du livreur (surplace, enconges, enlivraison)
-    /// VehiculeType: le type de véhicule utilisé par le livreur
+    /// CurrentDelivererState : l'état du livreur (surplace, enconges, enlivraison)
+    /// TransportType: le type de véhicule utilisé par le livreur
     /// ManagedDeliveryNumber: le nombre de commandes effectuées
     /// </attributs>
     public class Deliverer : Person
@@ -53,15 +53,23 @@ namespace PizzeriaMarsala
 
         #region Constructeurs
         /// <summary>
+        /// </summary>
+        /// <param name="current_deliverer_state">Etat de présence du livreur</param>
+        /// <param name="transport_type">Type de véhicule du livreur</param>
+        /// <summary>
         /// Constructeur permettant à un commis de créer un nouveau livreur
         /// </summary>
-        /// <param name="state">Etat de présence du livreur</param>
-        /// <param name="Transport_type">Type de véhicule du livreur</param>
-        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState state, string Transport_type)
+        /// <param name="last_name">Nom</param>
+        /// <param name="first_name">Prénom</param>
+        /// <param name="address">Adresse</param>
+        /// <param name="phone_number">Numéro de téléphone</param>
+        /// <param name="current_deliverer_state">L'état du livreur</param>
+        /// <param name="transport_type">Le moyen de transport utilisé par le livreur</param>
+        public Deliverer(string last_name, string first_name, string address, long phone_number, DelivererState current_deliverer_state, string transport_type)
             : base(last_name, first_name, address, phone_number)
         {
-            CurrentDelivererState = state;
-            TransportType = Transport_type;
+            CurrentDelivererState = current_deliverer_state;
+            TransportType = transport_type;
             ManagedDeliveryNumber = 0; //Le livreur vient d'être embauché, il n'a encore livré aucune commande
         }
         #endregion
@@ -79,6 +87,7 @@ namespace PizzeriaMarsala
             return base.ToString() + $"\nEtat du livreur : {CurrentDelivererState} | Type de véhicule : {TransportType} | Nombre de livraisons effectuées : {ManagedDeliveryNumber}";
         }
 
+        #region Méthodes CSV
         /// <summary>
         /// ToCSV() de la classe fille en utilisant celle de la classe mère
         /// </summary>
@@ -100,21 +109,24 @@ namespace PizzeriaMarsala
             String[] infos = deliverer.Split(';');
             return new Deliverer(infos[0], infos[1], infos[2], long.Parse(infos[3]), (DelivererState)Enum.Parse(typeof(DelivererState), infos[4]), infos[5]);
         }
+        #endregion
 
+        #region Méthode de tri
         /// <summary>
         /// Comparaison de deux livreurs en fonction du nombre de commandes gérées
         /// </summary>
-        /// <param name="d1">Livreur 1</param>
-        /// <param name="d2">Livreur 2</param>
+        /// <param name="deliverer1">Livreur 1</param>
+        /// <param name="deliverer2">Livreur 2</param>
         /// <returns>
         /// -1 si le livreur 1 a géré moins de commandes que le 2
         /// 0 s'ils ont géré le même nombre de commandes
         /// 1 sinon
         /// </returns>
-        public static int CompareManagedDeliveryNumber(Deliverer d1, Deliverer d2)
+        public static int CompareManagedDeliveryNumber(Deliverer deliverer1, Deliverer deliverer2)
         {
-            return d2.ManagedDeliveryNumber.CompareTo(d1.ManagedDeliveryNumber);
+            return deliverer2.ManagedDeliveryNumber.CompareTo(deliverer1.ManagedDeliveryNumber);
         }
+        #endregion
         #endregion
     }
 }

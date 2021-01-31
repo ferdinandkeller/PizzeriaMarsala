@@ -53,7 +53,7 @@ namespace PizzeriaMarsala
         }
 
         /// <summary>
-        /// Crééer un client depuis un fichier existant
+        /// Utilisée pour crééer un client depuis un fichier existant
         /// </summary>
         /// <param name="customer_id">Identifiant (on suppose qu'aucun client du fichier client ne possède le même identifiant)</param>
         /// <param name="last_name">Nom</param>
@@ -61,7 +61,6 @@ namespace PizzeriaMarsala
         /// <param name="address">Adresse</param>
         /// <param name="phone_number">Numéro de téléphone</param>
         /// <param name="first_command_date">Date de première commande</param>
-        /// <param name="total_value_Orders">Montant cumulé des commandes honorées</param>
         public Customer(long customer_id, string last_name, string first_name, string address, long phone_number, DateTime first_command_date)
             : base(last_name, first_name, address, phone_number)
         {
@@ -85,11 +84,12 @@ namespace PizzeriaMarsala
             return base.ToString() + $"\nPremière commande : {FirstOrderDate.ToShortDateString()} | Cumul des commandes : {OrdersTotalValue}";
         }
 
+        #region Méthodes CSV
         /// <summary>
         /// Méthode ToCSV() de Customer héritant de celle de la classe Personne
         /// </summary>
         /// <returns>
-        /// Identifiant;NomDeFamille;Prénom;Adresse;NuméroDeTéléphone;DatePremiereCommande;CumulCommandes
+        /// Un client au format CSV
         /// </returns>
         public override string ToCSV()
         {
@@ -109,22 +109,24 @@ namespace PizzeriaMarsala
             String[] infos = client.Split(';');
             return new Customer(long.Parse(infos[0]), infos[1], infos[2], infos[3], long.Parse(infos[4]), DateTime.Parse(infos[5]));
         }
+        #endregion
 
+        #region Méthode de comparaison
         /// <summary>
         /// Comparaison de deux clients par le montant cumulé de leurs commandes
         /// </summary>
-        /// <param name="c1">Client 1</param>
-        /// <param name="c2">Client 2</param>
+        /// <param name="customer1">Client 1</param>
+        /// <param name="customer2">Client 2</param>
         /// <returns>
         /// -1 si le cumul du client 1 est inférieur à celui du client 2
         /// 0 s'ils sont égaux
         /// 1 sinon
         /// </returns>
-        public static int CompareTotalOrders(Customer c1, Customer c2)
+        public static int CompareTotalOrders(Customer customer1, Customer customer2)
         {
-            return c2.OrdersTotalValue.CompareTo(c1.OrdersTotalValue);
+            return customer2.OrdersTotalValue.CompareTo(customer1.OrdersTotalValue);
         }
         #endregion
-
+        #endregion
     }
 }
