@@ -101,7 +101,7 @@ namespace PizzeriaMarsala
         /// <returns>
         /// NomDeFamille;Prénom;Adresse;NuméroDeTéléphone;Etat;TypeVehicule
         /// </returns>
-        public override String ToCSV()
+        public override string ToCSV()
         {
             return base.ToCSV() + $";{CurrentDelivererState};{TransportType}";
         }
