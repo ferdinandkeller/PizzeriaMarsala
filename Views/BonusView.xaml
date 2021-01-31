@@ -22,9 +22,10 @@
             <StackPanel Grid.Row="2" >
                 <TextBox Text="{Binding BillOrderId}" />
                 <Button Content="Facture" Click="CreateBill" />
-                <Button Content="Sauvegarder clients" Click="SaveClients" />
-                <Button Content="Sauvegarder commis" Click="SaveWorkers" />
-                <Button Content="Sauvegarder livreurs" Click="SaveDeliverers" />
+                <Button Content="Exporter les clients au format CSV" Click="SaveCustomers" />
+                <Button Content="Exporter les commis au format CSV" Click="SaveWorkers" />
+                <Button Content="Exporter les livreurs au format CSV" Click="SaveDeliverers" />
+                <Button Content="Exporter les commandes au format CSV" Click="SaveOrders" />
             </StackPanel>
         </Grid>
 

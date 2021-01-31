@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="30" d:DesignWidth="800"
       Title="ViewSwitcherComponent">
-
     <Grid>
+        <!-- Cette class affiche le menu permettant de changer de vue -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0 0 10 0">
             <StackPanel.Resources>
                 <Style TargetType="Label">
@@ -31,8 +31,9 @@
                 </Style>
             </StackPanel.Resources>
             
-            <Label Content="COMMANDES" MouseLeftButtonUp="SwitchToCommandPanel" />
-            <Label Content="CLIENTS" MouseLeftButtonUp="SwitchToClientPanel" />
+            <!-- On définit les boutons (en précisant quelles fonctions elles appellent) -->
+            <Label Content="COMMANDES" MouseLeftButtonUp="SwitchToOrderPanel" />
+            <Label Content="CLIENTS" MouseLeftButtonUp="SwitchToCustomerPanel" />
             <Label Content="COMMIS" MouseLeftButtonUp="SwitchToWorkerPanel" />
             <Label Content="LIVREURS" MouseLeftButtonUp="SwitchToDelivererPanel" />
             <Label Content="STATS" MouseLeftButtonUp="SwitchToStatisticsPanel" />

@@ -18,10 +18,10 @@ using Microsoft.Win32;
 
 namespace PizzeriaMarsala
 {
-
-    /*
-     * Le DataTemplateSelector permet de choisir le bon template en fonction de ce que l'on essaye d'afficher
-     */
+    /// <summary>
+    /// Le DataTemplateSelector permet de choisir le bon template en fonction de ce que l'on essaye d'afficher
+    /// (cf fichier xaml pour plus d'informations)
+    /// </summary>
     public class TemplateSelector : DataTemplateSelector
     {
         String Template;
@@ -38,12 +38,13 @@ namespace PizzeriaMarsala
         }
     }
 
-    /*
-     * Classe représentation le content presenter
-     */ 
+    /// <summary>
+    /// Classe représentation le content presenter
+    /// Elle permet d'afficher dans l'interface différents types de contenu
+    /// </summary>
     public partial class ListContentPresenterComponent : Page
     {
-
+        #region Attributs
         public delegate void Action();
         public delegate void OpenFileAction(String file_url);
         public delegate void ObjectClicked(object el);
@@ -58,7 +59,22 @@ namespace PizzeriaMarsala
         public string NameSortMenu1 { get; set; }
         public string NameSortMenu2 { get; set; }
         public string NameSortMenu3 { get; set; }
+        #endregion
 
+        #region Constructeur
+        /// <summary>
+        /// Crééer un content presenter
+        /// </summary>
+        /// <param name="sort_method_1">La première méthode de sort</param>
+        /// <param name="sort_method_2">La seconde méthode de sort</param>
+        /// <param name="sort_method_3">La troisième méthode de sort</param>
+        /// <param name="new_element">La fonction appelée lorsqu'on clique sur le bouton crééer un élément</param>
+        /// <param name="open_file">La fonction appelée lorsqu'on clique sur le bouton ouvrir un fichier</param>
+        /// <param name="data_template">Le nom du data template à utiliser</param>
+        /// <param name="name_sort_menu_1">Le nom affiché dans le premier menu de sort</param>
+        /// <param name="name_sort_menu_2">Le nom affiché dans le second menu de sort</param>
+        /// <param name="name_sort_menu_3">Le npm affiché dans le troisième menu de sort</param>
+        /// <param name="object_clicked_function">La fonction appelée lorsqu'on clique sur une carte dans l'interface</param>
         public ListContentPresenterComponent(
             Action sort_method_1, Action sort_method_2, Action sort_method_3,
             Action new_element, OpenFileAction open_file,
@@ -73,7 +89,7 @@ namespace PizzeriaMarsala
             // on définit le contexte
             this.DataContext = this;
 
-            // on définit la fonction appelée lorsqu'on clique sur un élément
+            // on définit la fonction appelée lorsqu'on clique sur un élément dans l'interface
             ObjectClickedFunc = object_clicked_function;
 
             // on sauvegarde les paramêtres de la fênetre
@@ -84,12 +100,9 @@ namespace PizzeriaMarsala
             OpenFile = open_file;
 
             // Lorsque la liste des éléments affichés change, on met à jour l'interface
-            ((INotifyCollectionChanged)ItemsControlList.Items).CollectionChanged += (s, e) =>
-            {
-                ResizeWrapPanelElements();
-            };
+            ((INotifyCollectionChanged)ItemsControlList.Items).CollectionChanged += (s, e) => { ResizeWrapPanelElements(); };
 
-            // save menu's names
+            // on enregistre le nom des menus
             NameSortMenu1 = name_sort_menu_1;
             NameSortMenu2 = name_sort_menu_2;
             NameSortMenu3 = name_sort_menu_3;
@@ -103,15 +116,16 @@ namespace PizzeriaMarsala
             // on charge le bon data template
             ItemsControlList.ItemTemplateSelector = new TemplateSelector(data_template);
         }
+        #endregion
 
-        /*
-         * Ces deux fonctions font en sorte que le WrapPanel change
-         * de taille en même temps que la fenêtre
-         */
+        #region Méthodes
+        #region Ces deux fonctions font en sorte que le WrapPanel change de taille en même temps que la fenêtre
         // variable qui contient le WrapPanel contenant les commandes
         private WrapPanel CommandWrapPanel = null;
 
-        // fonction qui s'execute lorsque le wrappanel a finit de charger
+        /// <summary>
+        /// Fonction qui s'auto-execute lorsque le wrappanel a finit de charger
+        /// </summary>
         private void WrapPanelLoaded(object sender, RoutedEventArgs evnt)
         {
             if (sender.GetType() == typeof(WrapPanel))
@@ -121,7 +135,9 @@ namespace PizzeriaMarsala
             ResizeWrapPanelElements();
         }
 
-        // fonction qui est exécutée à chaque fois qu'on veut changer la taille des éléments du wrap panel
+        /// <summary>
+        /// fonction qui est exécutée à chaque fois qu'on veut changer la taille des éléments du wrap panel
+        /// </summary>
         public void ResizeWrapPanelElements()
         {
             if (CommandWrapPanel != null)
@@ -138,10 +154,9 @@ namespace PizzeriaMarsala
                 }
             }
         }
+        #endregion
 
-        /*
-         * Les fonctions suivantes vont être executés lorsque l'utilisateur va clicker sur les boutons de l'interface
-         */
+        #region Les fonctions suivantes vont être executés lorsque l'utilisateur va clicker sur les boutons de l'interface
         private void Tri1Click(object sender, MouseButtonEventArgs e) { SortMethod1(); }
         private void Tri2Click(object sender, MouseButtonEventArgs e) { SortMethod2(); }
         private void Tri3Click(object sender, MouseButtonEventArgs e) {  SortMethod3(); }
@@ -160,5 +175,7 @@ namespace PizzeriaMarsala
         {
             ObjectClickedFunc(((Border)sender).Tag);
         }
+        #endregion
+        #endregion
     }
 }

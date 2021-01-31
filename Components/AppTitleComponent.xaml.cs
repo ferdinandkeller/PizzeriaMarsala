@@ -15,10 +15,14 @@ using System.Windows.Shapes;
 
 namespace PizzeriaMarsala
 {
+    /// <summary>
+    /// Cette classe affiche un titre sur la fenêtre
+    /// </summary>
     public partial class AppTitleComponent : Page
     {
         public AppTitleComponent()
         {
+            // on initialise les composants
             InitializeComponent();
         }
     }

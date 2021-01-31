@@ -78,7 +78,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToCSV()
         {
-            return base.ToCSV() + $";{CurrentWorkerState};{HiringDate.ToShortDateString()}";
+            return $"{base.ToCSV()};{CurrentWorkerState};{HiringDate.ToShortDateString()}";
         }
 
         /// <summary>

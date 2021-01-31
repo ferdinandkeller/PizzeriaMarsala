@@ -9,8 +9,8 @@
       Title="ListContentPresenterComponent">
 
     <!-- DEFINITION DES DATA TEMPLATES -->
-    <!-- Un data template différente doit être utilisé pour chaque type de contenu qu'on affiche
-            (il faut un data template pour les commandes, un pour les clients, etc...               -->
+    <!-- Un data template différent doit être utilisé pour chaque type de contenu qu'on affiche
+         (il faut un data template pour les commandes, un pour les clients, etc...)               -->
     <Page.Resources>
         <!-- Data template des commandes -->
         <DataTemplate x:Key="OrderDataTemplate">
@@ -123,7 +123,7 @@
 
     <!-- DEFINITION DU PRESENTEUR DE LISTE -->
     <Grid>
-        <!-- on créer deux sections : une pour le menu et une pour les commandes -->
+        <!-- on créer deux sections : une pour le titre et une pour l'affichage -->
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="30" />
@@ -131,7 +131,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- section menu -->
+        <!-- section titre -->
         <Frame Name="AppTitle" Grid.Row="0" />
 
         <!-- section edition -->
@@ -166,13 +166,13 @@
             </StackPanel>
         </Grid>
 
-        <!-- section commandes : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
+        <!-- section affichage : elle est constituée d'un scroll viewer afin de pouvoir scroll lorsqu'il y en a trop -->
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled">
-            <!-- Items control permet de charger dynamiquement notre liste de commandes -->
+            <!-- Items control permet de charger dynamiquement notre liste de contenu -->
             <ItemsControl Name="ItemsControlList" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <!-- Les éléments seronts affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->
+                        <!-- Les éléments seront affichés dans un WrapPanel afin qu'ils aillent d'eux même à la ligne -->
                         <WrapPanel Loaded="WrapPanelLoaded" Margin="5 0 5 5" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>

@@ -93,7 +93,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public override string ToCSV()
         {
-            return $"{CustomerID};" + base.ToCSV() + $";{FirstOrderDate.ToShortDateString()};{OrdersTotalValue}";
+            return $"{CustomerID};{base.ToCSV()};{FirstOrderDate}";
         }
 
         /// <summary>

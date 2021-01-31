@@ -40,10 +40,6 @@ namespace PizzeriaMarsala
          * On veut pouvoir appeler toutes les méthodes pour interagir facilement avec l'interface graphique
          */
 
-        /// <summary>
-        /// Implémentent la méthode Sort sur les différents attributs
-        /// Utilisent différentes méthodes de comparaison en fonction du critère de tri
-        /// </summary>
         #region Méthodes de tri
         /*
          * Sur la liste de commandes (par identifiant, prix, urgence)
@@ -72,6 +68,55 @@ namespace PizzeriaMarsala
         public static void SortDelivererByName() { DeliverersList.Sort(Deliverer.CompareName); }
         public static void SortDelivererByTown() { DeliverersList.Sort(Deliverer.CompareTown); }
         public static void SortDelivererByManagedDeliveryNumber() { DeliverersList.Sort(Deliverer.CompareManagedDeliveryNumber); }
+        #endregion
+
+        #region Méthodes permettant de trouver une personne ou une commande
+        /// <summary>
+        /// Trouver un client par son nom et prénom
+        /// </summary>
+        /// <param name="lastname">Nom</param>
+        /// <param name="firstname">Prénom</param>
+        /// <returns>Le client cherché</returns>
+        public static Customer FindCustomer(String lastname, String firstname)
+        {
+            return CustomersList.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
+        }
+        /// <summary>
+        /// Trouver un client par son numéro de téléphone
+        /// </summary>
+        /// <param name="phone_numer">Le numéro</param>
+        /// <returns>Le client cherché</returns>
+        public static Customer FindCustomer(long phone_numer)
+        {
+            return CustomersList.Find(customer => customer.PhoneNumber == phone_numer);
+        }
+        /// <summary>
+        /// Trouver un commis avec son nom
+        /// </summary>
+        /// <param name="lastname">Nom de famille</param>
+        /// <returns>Le commis cherché</returns>
+        public static Worker FindWorker(String lastname)
+        {
+            return WorkersList.Find(worker => worker.LastName == lastname);
+        }
+        /// <summary>
+        /// Trouver un livreur avec son nom
+        /// </summary>
+        /// <param name="lastname">Nom de famille</param>
+        /// <returns>Le livreur cherché</returns>
+        public static Deliverer FindDeliverer(String lastname)
+        {
+            return DeliverersList.Find(deliverer => deliverer.LastName == lastname);
+        }
+        /// <summary>
+        /// Trouver une commande avec son identifiant
+        /// </summary>
+        /// <param name="id">L'identifiant de la commande</param>
+        /// <returns>La commande cherchée</returns>
+        public static Order FindOrder(long id)
+        {
+            return OrdersList.Find(x => x.OrderID == id);
+        }
         #endregion
 
         #region Méthodes statistiques
@@ -143,7 +188,7 @@ namespace PizzeriaMarsala
             return s;
         }
         #endregion
-
+        
         #region Ouverture de fichiers et ajout aux listes automatique
         /// <summary>
         /// Cette fonction permet d'ajouter une liste de commandes depuis un fichier CSV
@@ -222,114 +267,57 @@ namespace PizzeriaMarsala
         }
         #endregion
 
-        /* bordel
+        #region bonus : sauvegarde des listes au format csv
         /// <summary>
-        /// Méthode permettant de créer ou modifier un fichier à partir d'une liste
-        /// Permet nottamment de trier un fichier existant:
-        ///     On créé la liste à partir du fichier
-        ///     On trie cette liste avec le critère choisi
-        ///     On remet la liste dans le fichier
+        /// Cette fonction exporte la liste des clients au format CSV
         /// </summary>
-        /// <param name="nomFichier">Le fichier à modifier</param>
-        /// <param name="l">le critère de tri</param>
-        public static void ModificationFichierDepuisListe(string nomFichier, object l)
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void SaveCustomers(string file_name)
         {
-            StreamWriter sw = new StreamWriter(nomFichier);
-            if (l is List<string>)
+            using (StreamWriter file = new StreamWriter(file_name))
             {
-                List<string> m = (List<string>)l;
-                if (m != null && m.Count != 0)
-                {
-                    m.ForEach(x => sw.WriteLine(x.ToString()));
-                }
+                foreach (Customer customer in CustomersList)
+                file.Write($"{customer.ToCSV()}\n");
             }
-            if (l is List<Person>)
+        }
+
+        /// <summary>
+        /// Cette fonction exporte la liste des commis au format CSV
+        /// </summary>
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void SaveWorkers(string file_name)
+        {
+            using (StreamWriter file = new StreamWriter(file_name))
             {
-                List<Person> m = (List<Person>)l;
-                if (m != null && m.Count != 0)
-                {
-                    m.ForEach(x => sw.WriteLine(x.ToString()));
-                }
+                foreach (Worker worker in WorkersList)
+                file.Write($"{worker.ToCSV()}\n");
             }
-            sw.Close();
         }
 
         /// <summary>
-        /// Méthode permettant d'ajouter un élément en fin de fichier
+        /// Cette fonction exporte la liste des livreurs au format CSV
         /// </summary>
-        /// <param name="nomFichier">Le fichier en question</param>
-        /// <param name="obj">L'élément à ajouter</param>
-
-        public static void AjoutFichier(string nomFichier, object obj)
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void SaveDeliverers(string file_name)
         {
-            StreamWriter sw = new StreamWriter(nomFichier);
-            sw.WriteLine(obj.ToString());
-            sw.Close();
+            using (StreamWriter file = new StreamWriter(file_name))
+            {
+                foreach (Deliverer deliverer in DeliverersList)
+                file.Write($"{deliverer.ToCSV()}\n");
+            }
         }
 
-
         /// <summary>
-        /// Méthode permettant de modifier une ligne du fichier
+        /// Cette fonction exporte la liste des commandes au format CSV
         /// </summary>
-        /// <param name="nomFichier">Le fichier</param>
-        /// <param name="index">L'index de la ligne à changer</param>
-        /// <param name="obj">L'élément de remplacement</param>
-        public static void ModificationLigneFichier(string nomFichier, int index, object obj)
+        /// <param name="file_name">Le nom du fichier</param>
+        public static void SaveOrders(string file_name)
         {
-            List<string> l = ListFromFile(nomFichier);
-            l.Insert(index, obj.ToString());
-            StreamWriter sw = new StreamWriter(nomFichier);
-            ModificationFichierDepuisListe(nomFichier, l);
-            sw.Close();
-        }
-        */
-
-        #region Méthodes permettant de trouver une personne ou une commande
-        /// <summary>
-        /// Trouver un client par son nom et prénom
-        /// </summary>
-        /// <param name="lastname">Nom</param>
-        /// <param name="firstname">Prénom</param>
-        /// <returns>Le client cherché</returns>
-        public static Customer FindCustomer(String lastname, String firstname)
-        {
-            return CustomersList.Find(customer => customer.LastName == lastname && customer.FirstName == firstname);
-        }
-        /// <summary>
-        /// Trouver un client par son numéro de téléphone
-        /// </summary>
-        /// <param name="phone_numer">Le numéro</param>
-        /// <returns>Le client cherché</returns>
-        public static Customer FindCustomer(long phone_numer)
-        {
-            return CustomersList.Find(customer => customer.PhoneNumber == phone_numer);
-        }
-        /// <summary>
-        /// Trouver un commis avec son nom
-        /// </summary>
-        /// <param name="lastname">Nom de famille</param>
-        /// <returns>Le commis cherché</returns>
-        public static Worker FindWorker(String lastname)
-        {
-            return WorkersList.Find(worker => worker.LastName == lastname);
-        }
-        /// <summary>
-        /// Trouver un livreur avec son nom
-        /// </summary>
-        /// <param name="lastname">Nom de famille</param>
-        /// <returns>Le livreur cherché</returns>
-        public static Deliverer FindDeliverer(String lastname)
-        {
-            return DeliverersList.Find(deliverer => deliverer.LastName == lastname);
-        }
-        /// <summary>
-        /// Trouver une commande avec son identifiant
-        /// </summary>
-        /// <param name="id">L'identifiant de la commande</param>
-        /// <returns>La commande cherchée</returns>
-        public static Order FindOrder(long id)
-        {
-            return OrdersList.Find(x => x.OrderID == id);
+            using (StreamWriter file = new StreamWriter(file_name))
+            {
+                foreach (Order order in OrdersList)
+                    file.Write($"{order.ToCSV()}\n");
+            }
         }
         #endregion
 

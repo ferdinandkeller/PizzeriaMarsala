@@ -112,7 +112,7 @@ namespace PizzeriaMarsala
                 order.CommandCustomer.OrdersTotalValue -= order.Price();
             }
             Pizzeria.OrdersList.Remove(main_window.SelectedOrder);
-            main_window.SwitchToCommandView();
+            main_window.SwitchToOrderView();
         }
 
         private void Exit(object sender, RoutedEventArgs e)
@@ -120,7 +120,7 @@ namespace PizzeriaMarsala
             if (order.PizzaList.Count > 0)
             {
                 order.UpdatePrice();
-                main_window.SwitchToCommandView();
+                main_window.SwitchToOrderView();
             }
         }
     }

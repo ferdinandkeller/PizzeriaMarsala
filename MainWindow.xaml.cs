@@ -68,7 +68,7 @@ namespace PizzeriaMarsala
         }
 
         // switch view functions
-        public void SwitchToCommandView() { ViewFrame.Content = command_view; }
+        public void SwitchToOrderView() { ViewFrame.Content = command_view; }
         public void SwitchToCustomerView() { ViewFrame.Content = customer_view; }
         public void SwitchToWorkerView() { ViewFrame.Content = worker_view; }
         public void SwitchToDelivererView() { ViewFrame.Content = deliverer_view; }

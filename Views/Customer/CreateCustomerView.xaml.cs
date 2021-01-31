@@ -21,7 +21,7 @@ namespace PizzeriaMarsala
 
         public string FirstName { get; set; } = "Prénom";
         public string LastName { get; set; } = "Nom";
-        public string Address { get; set; } = "42 allée des tilleuls Paris";
+        public string Address { get; set; } = "42 allee des tilleuls Paris";
         public string PhoneNumber { get; set; } = "0600000000";
 
         public CreateCustomerView(MainWindow main_window)

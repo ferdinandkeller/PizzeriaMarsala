@@ -227,7 +227,24 @@ namespace PizzeriaMarsala
         /// </returns>
         public string ToCSV()
         {
-            return $"{OrderID};{Date.Hour}H;{Date.ToShortDateString()};{CommandCustomer.PhoneNumber};{CommandWorker.LastName};{CommandDeliverer.LastName};{CurrentOrderState};{Balance}";
+            string s = $"{OrderID};{Date};{CommandCustomer.PhoneNumber};{CommandWorker.LastName};{CommandDeliverer.LastName};{CurrentOrderState};{Balance};";
+
+            // on enregistrer le nombre de pizzas
+            s += $"{PizzaList.Count};";
+
+            // on enregistre les pizzas
+            foreach (Pair<Pizza, int> pair in PizzaList)
+            {
+                s += $"{pair.Key.Type};{pair.Key.Size};{pair.Value};";
+            }
+
+            // on enregistre les boissons
+            foreach (Pair<Beverage, int> pair in BeverageList)
+            {
+                s += $"{pair.Key.Type};{pair.Key.Volume};{pair.Value};";
+            }
+
+            return s.Substring(0, s.Length-1);
         }
 
         /// <summary>

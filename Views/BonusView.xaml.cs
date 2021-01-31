@@ -55,19 +55,40 @@ namespace PizzeriaMarsala
             }
         }
 
-        private void SaveClients(object sender, RoutedEventArgs e)
+        private void SaveCustomers(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Sauvegarder clients");
+            SaveFileDialog file_dialog = new SaveFileDialog();
+            if (file_dialog.ShowDialog() == true)
+            {
+                Pizzeria.SaveCustomers(file_dialog.FileName);
+            }
         }
 
         private void SaveWorkers(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Sauvegarder commis");
+            SaveFileDialog file_dialog = new SaveFileDialog();
+            if (file_dialog.ShowDialog() == true)
+            {
+                Pizzeria.SaveWorkers(file_dialog.FileName);
+            }
         }
 
         private void SaveDeliverers(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Sauvegarder livreur");
+            SaveFileDialog file_dialog = new SaveFileDialog();
+            if (file_dialog.ShowDialog() == true)
+            {
+                Pizzeria.SaveDeliverers(file_dialog.FileName);
+            }
+        }
+
+        private void SaveOrders(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog file_dialog = new SaveFileDialog();
+            if (file_dialog.ShowDialog() == true)
+            {
+                Pizzeria.SaveOrders(file_dialog.FileName);
+            }
         }
     }
 }

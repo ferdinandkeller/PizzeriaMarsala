@@ -7,19 +7,18 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AppTitleComponent">
-
     <Grid>
+        <!-- On crééer une grille afin d'afficher le nom de la pizzeria -->
         <Grid HorizontalAlignment="Left" Margin="20 0 0 0" VerticalAlignment="Center" Height="90">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="5*" />
             </Grid.RowDefinitions>
 
-            <!-- bouton revenir en arrière
-            <Label Grid.Row="0" Content="🠜  revenir" Margin="0 0 0 -16" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="15" Foreground="Black"/>
-             -->
+            <!-- nom des créateurs -->
+            <Label Grid.Row="0" Content="keller · hombreux-wang" Margin="0 0 0 -16" VerticalAlignment="Center" FontFamily="Open Sans" FontSize="13" Foreground="Black"/>
             <!-- nom de la pizzeria -->
-            <Label Grid.Row="1" Content="PIZZERIA MARSALA" Margin="0 -16 0 0" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="45" Foreground="#C37F5A" />
+            <Label Grid.Row="1" Content="PIZZERIA MARSALA 🍕" Margin="0 -16 0 0" VerticalAlignment="Center" FontFamily="Open Sans ExtraBold" FontSize="45" Foreground="#C37F5A" />
         </Grid>
     </Grid>
 </Page>
