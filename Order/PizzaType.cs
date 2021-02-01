@@ -16,7 +16,7 @@ namespace PizzeriaMarsala
         Reine = 1000,
         Vegetarienne = 1250,
         Chorizo = 1150, 
-        Haiwaienne = 1500,
+        Hawaienne = 1500,
         QuatreFromages = 1300,
         Regina = 1500,
         Napolitaine = 1100
