@@ -46,7 +46,17 @@ namespace PizzeriaMarsala
                 main_window.SwitchToSelectWorkerView, Pizzeria.AddFileToOrderList,
                 "OrderDataTemplate",
                 "PAR ID", "PAR PRIX", "PAR PRIORITE", (o) => { main_window.SwitchToEditOrderView((Order)o); },
-                (o) => { }
+                (o) => {
+                    long id;
+                    if (long.TryParse((string)o, out id))
+                    {
+                        Order order = Pizzeria.FindOrder(id);
+                        if (order != null)
+                        {
+                            main_window.SwitchToEditOrderView(order);
+                        }
+                    }
+                }
             );
 
             // on affiche le content presenter dans l'interface

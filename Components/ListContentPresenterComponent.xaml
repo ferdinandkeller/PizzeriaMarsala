@@ -190,8 +190,8 @@
                 </Style>
             </Grid.Resources>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="5 0 0 0">
-                <TextBox Text="{Binding SelectorValue}" Width="150" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
-                <Label Content="Sélectionner" MouseLeftButtonUp="UseSelection" />
+                <TextBox Text="{Binding SelectorValue, UpdateSourceTrigger=PropertyChanged}" Width="150" HorizontalContentAlignment="Center" VerticalAlignment="Center" />
+                <Label Content="SELECTIONNER" MouseLeftButtonUp="UseSelection" />
             </StackPanel>
         </Grid>
         

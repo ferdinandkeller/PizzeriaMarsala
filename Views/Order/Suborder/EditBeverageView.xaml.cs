@@ -37,7 +37,7 @@ namespace PizzeriaMarsala
             InitializeComponent();
 
             // on définit le contexte
-            this.DataContext = this;
+            this.DataContext = beverage_pair;
 
             // on sauvegarde la référence
             this.main_window = main_window;
