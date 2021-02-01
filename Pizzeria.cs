@@ -123,9 +123,9 @@ namespace PizzeriaMarsala
         /// <param name="d1">Borne inférieure de la période (moment initial)</param>
         /// <param name="d2">Borne supérieure (moment final)</param>
         /// <returns>La SortableObservableCollection<Order> des commandes recherchées </returns>
-        public static SortableObservableCollection<Order> CommandesInTimeSpan(DateTime d1,DateTime d2)
+        public static List<Order> CommandesInTimeSpan(DateTime d1,DateTime d2)
         {
-            SortableObservableCollection<Order> c = new SortableObservableCollection<Order>();
+            List<Order> c = new List<Order>();
             foreach(Order commande in OrdersList)
             {
                 if (commande.MadeDuringTimeSpan(d1, d2))

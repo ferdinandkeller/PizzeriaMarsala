@@ -24,6 +24,10 @@
                 <Label Content="{Binding NumberOfOrdersForWorker}" />
                 <Label Content="{Binding AverageOrdersForWorker}" />
                 <Label Content="{Binding AverageOrderPrice}" />
+                <TextBox Text="{Binding Date1}" />
+                <TextBox Text="{Binding Date2}" />
+                <Button Content="Afficher les commandes dans l'interval" Click="UpdateRangeDisplay" />
+                <Label Content="{Binding OrdersInRange}" />
                 <Label Content="{Binding TroopsState}" />
             </StackPanel>
         </Grid>

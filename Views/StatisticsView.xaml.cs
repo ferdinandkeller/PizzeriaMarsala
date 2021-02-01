@@ -61,6 +61,19 @@ namespace PizzeriaMarsala
         {
             get => "Etat des effectifs :\n" + Pizzeria.TroopsState();
         }
+        public DateTime Date1 { get; set; } = DateTime.Now;
+        public DateTime Date2 { get; set; } = DateTime.Now; 
+        public string OrdersInRange
+        {
+            get {
+                string s = "Commandes dans l'interval:\n";
+                foreach (Order order in Pizzeria.CommandesInTimeSpan(Date1, Date2))
+                {
+                    s += order.OrderID.ToString() + ", ";
+                }
+                return s;
+            }
+        }
         #endregion
 
         #region Constructeur
@@ -94,6 +107,14 @@ namespace PizzeriaMarsala
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AverageOrdersForWorker"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AverageOrderPrice"));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TroopsState"));
+        }
+
+        /// <summary>
+        /// Méthode exécutée lorsqu'il est nécessaire de changer la liste des commandes selectionnées
+        /// </summary>
+        private void UpdateRangeDisplay(object sender, RoutedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("OrdersInRange"));
         }
         #endregion
     }

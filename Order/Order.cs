@@ -284,7 +284,7 @@ namespace PizzeriaMarsala
         /// </returns>
         public static int ComparePrices(Order command_1, Order command_2)
         {
-            return command_1.Price().CompareTo(command_2.Price());
+            return command_2.Price().CompareTo(command_1.Price());
         }
         #endregion
 
