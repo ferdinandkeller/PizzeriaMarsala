@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SelectDelivererView">
     <Grid>
-        <!-- on affiche une liste des commis -->
+        <!-- on affiche une liste de livreurs -->
         <Frame Name="ListContentPresenter" />
     </Grid>
 </Page>

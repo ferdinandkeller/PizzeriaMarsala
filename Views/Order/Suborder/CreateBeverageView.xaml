@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateBeverageView">
     <Grid>
-        <!-- on créer deux sections : une pour le menu et une pour la pizza -->
+        <!-- on créer deux sections : une pour le menu et une pour créer la boisson -->
         <Grid.RowDefinitions>
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
@@ -17,7 +17,7 @@
         <!-- section menu -->
         <Frame Name="AppTitle" Grid.Row="0" />
 
-        <!-- section création pizza -->
+        <!-- section création boisson -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBox Text="{Binding Type}" />
             <TextBox Text="{Binding Volume}" />

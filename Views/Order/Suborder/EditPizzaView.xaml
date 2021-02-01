@@ -17,7 +17,7 @@
         <!-- section menu -->
         <Frame Name="AppTitle" Grid.Row="0" />
 
-        <!-- section création client -->
+        <!-- section édition pizza -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBox Text="{Binding Key.Type}" />
             <TextBox Text="{Binding Key.Size}" />
