@@ -45,6 +45,15 @@ namespace PizzeriaMarsala
                 "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (worker) => {
                     main_window.SelectedWorker = (Worker)worker;
                     main_window.SwitchToSelectCustomerView();
+                },
+                (o) => {
+                    string name = (string)o;
+                    Worker worker = Pizzeria.FindWorker(name);
+                    if (worker != null)
+                    {
+                        main_window.SelectedWorker = worker;
+                        main_window.SwitchToSelectCustomerView();
+                    }
                 }
             );
 

@@ -45,7 +45,18 @@ namespace PizzeriaMarsala
                 Pizzeria.SortCustomersByName, Pizzeria.SortCustomersByTown, Pizzeria.SortCustomersByTotalOrders,
                 main_window.SwitchToCreateCustomerView, Pizzeria.AddFileToCustomerList,
                 "CustomerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (o) => { main_window.SwitchToEditCustomerView((Customer)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (o) => { main_window.SwitchToEditCustomerView((Customer)o); },
+                (o) => {
+                    long phone_number;
+                    if (long.TryParse((string)o, out phone_number))
+                    {
+                        Customer customer = Pizzeria.FindCustomer(phone_number);
+                        if (customer != null)
+                        {
+                            main_window.SwitchToEditCustomerView(customer);
+                        }
+                    }
+                }
             );
 
             // on affiche le content presenter dans l'interface

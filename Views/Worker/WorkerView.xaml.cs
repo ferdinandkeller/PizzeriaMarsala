@@ -45,7 +45,15 @@ namespace PizzeriaMarsala
                 Pizzeria.SortWorkerByName, Pizzeria.SortWorkerByTown, Pizzeria.SortWorkerByManagedOrderNumber,
                 main_window.SwitchToCreateWorkerView, Pizzeria.AddFileToWorkerList,
                 "WorkerDataTemplate",
-                "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (o) => { main_window.SwitchToEditWorkerView((Worker)o); }
+                "PAR NOM", "PAR VILLE", "PAR CMD GEREES", (o) => { main_window.SwitchToEditWorkerView((Worker)o); },
+                (o) => {
+                    string name = (string)o;
+                    Worker worker = Pizzeria.FindWorker(name);
+                    if (worker != null)
+                    {
+                        main_window.SwitchToEditWorkerView(worker);
+                    }
+                }
             );
 
             // on affiche le content presenter dans l'interface

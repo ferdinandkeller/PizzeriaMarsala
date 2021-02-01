@@ -26,7 +26,7 @@
                 <Label Content="{Binding AverageOrderPrice}" />
                 <TextBox Text="{Binding Date1}" />
                 <TextBox Text="{Binding Date2}" />
-                <Button Content="Afficher les commandes dans l'interval" Click="UpdateRangeDisplay" />
+                <Button Content="Afficher les commandes dans l'intervalle" Click="UpdateRangeDisplay" />
                 <Label Content="{Binding OrdersInRange}" />
                 <Label Content="{Binding TroopsState}" />
             </StackPanel>

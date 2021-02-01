@@ -45,6 +45,15 @@ namespace PizzeriaMarsala
                 "PAR NOM", "PAR VILLE", "PAR LIVRAISONS", (deliverer) => {
                     main_window.SelectedDeliverer = (Deliverer)deliverer;
                     main_window.SwitchToCreateOrderView();
+                },
+                (o) => {
+                    string name = (string)o;
+                    Deliverer deliverer = Pizzeria.FindDeliverer(name);
+                    if (deliverer != null)
+                    {
+                        main_window.SelectedDeliverer = deliverer;
+                        main_window.SwitchToCreateOrderView();
+                    }
                 }
             );
 

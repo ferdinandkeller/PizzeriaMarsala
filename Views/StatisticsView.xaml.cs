@@ -33,7 +33,7 @@ namespace PizzeriaMarsala
                 {
                     total += worker.ManagedCommandNumber;
                 }
-                return "nombre de commandes totales effectuées : " + total;
+                return "Nombre de commandes totales effectuées : " + total;
             }
         }
         public string AverageOrdersForWorker
@@ -50,7 +50,7 @@ namespace PizzeriaMarsala
                 {
                     count = 1;
                 }
-                return "nombre moyen de commande effectué par commis : " + ((double)total / count);
+                return "Nombre moyen de commande effectué par commis : " + ((double)total / count);
             }
         }
         public string AverageOrderPrice
@@ -66,7 +66,7 @@ namespace PizzeriaMarsala
         public string OrdersInRange
         {
             get {
-                string s = "Commandes dans l'interval:\n";
+                string s = "Commandes dans l'intervalle:\n";
                 foreach (Order order in Pizzeria.CommandesInTimeSpan(Date1, Date2))
                 {
                     s += order.OrderID.ToString() + ", ";

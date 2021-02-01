@@ -45,6 +45,18 @@ namespace PizzeriaMarsala
                 "PAR NOM", "PAR VILLE", "PAR CMD TOTALES", (customer) => {
                     main_window.SelectedCustomer = (Customer)customer;
                     main_window.SwitchToSelectDelivererView();
+                },
+                (o) => {
+                    long phone_number;
+                    if (long.TryParse((string)o, out phone_number))
+                    {
+                        Customer customer = Pizzeria.FindCustomer(phone_number);
+                        if (customer != null)
+                        {
+                            main_window.SelectedCustomer = customer;
+                            main_window.SwitchToSelectDelivererView();
+                        }
+                    }
                 }
             );
 

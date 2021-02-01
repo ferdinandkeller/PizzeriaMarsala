@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Specialized;
 using Microsoft.Win32;
+using System.ComponentModel;
 
 namespace PizzeriaMarsala
 {
@@ -42,9 +43,11 @@ namespace PizzeriaMarsala
     /// Classe représentation le content presenter
     /// Elle permet d'afficher dans l'interface différents types de contenu
     /// </summary>
-    public partial class ListContentPresenterComponent : Page
+    public partial class ListContentPresenterComponent : Page, INotifyPropertyChanged
     {
         #region Attributs
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public delegate void Action();
         public delegate void OpenFileAction(String file_url);
         public delegate void ObjectClicked(object el);
@@ -59,6 +62,18 @@ namespace PizzeriaMarsala
         public string NameSortMenu1 { get; set; }
         public string NameSortMenu2 { get; set; }
         public string NameSortMenu3 { get; set; }
+
+        public ObjectClicked SelectionFunction;
+        private string _SelectorValue;
+        public string SelectorValue
+        {
+            get => _SelectorValue;
+            set
+            {
+                _SelectorValue = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectorValue"));
+            }
+        }
         #endregion
 
         #region Constructeur
@@ -80,7 +95,7 @@ namespace PizzeriaMarsala
             Action new_element, OpenFileAction open_file,
             string data_template,
             string name_sort_menu_1, string name_sort_menu_2, string name_sort_menu_3,
-            ObjectClicked object_clicked_function
+            ObjectClicked object_clicked_function, ObjectClicked selection_function
         )
         {
             // on initialise les composants
@@ -115,6 +130,9 @@ namespace PizzeriaMarsala
 
             // on charge le bon data template
             ItemsControlList.ItemTemplateSelector = new TemplateSelector(data_template);
+
+            // on sauvegarde la fonction
+            SelectionFunction = selection_function;
         }
         #endregion
 
@@ -175,7 +193,13 @@ namespace PizzeriaMarsala
         {
             ObjectClickedFunc(((Border)sender).Tag);
         }
+
+        private void UseSelection(object sender, MouseButtonEventArgs e)
+        {
+            SelectionFunction(SelectorValue);
+        }
         #endregion
+
         #endregion
     }
 }
