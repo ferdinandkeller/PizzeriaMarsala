@@ -21,6 +21,7 @@
 
             <!-- section bonus -->
             <StackPanel Grid.Row="2" >
+                <Label Content="Identifiant de la commande dont on veut générer la facture :" />
                 <TextBox Text="{Binding BillOrderId}" />
                 <Button Content="Facture" Click="CreateBill" />
                 <Button Content="Exporter les clients au format CSV" Click="SaveCustomers" />
